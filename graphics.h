@@ -1,6 +1,25 @@
 #pragma once
 
 
+
+
+// Describes a 3 Dimensional Vector
+struct TE3D_Vector3f{
+	float x;
+	float y;
+	float z;
+};
+
+struct TE3D_Pixel{
+	int r;
+	int g;
+	int b;
+
+};
+
+
+
+
 // Describes a color with red, green and blue components.
 struct TE3D_Color
 {
