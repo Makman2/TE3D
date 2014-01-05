@@ -9,12 +9,12 @@
 // Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
 // plane: A normal vector, that defines the plane to project on.
 // worldsup: A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is).
-TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f plane, TE3D_Vector3f worldsup)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-    TE3D_Matrix4x4f result;
+    struct TE3D_Matrix4x4f result;
     // The ortho-normal span-vectors of the plane.
-    TE3D_Vector3f xvec, yvec;
+    struct TE3D_Vector3f xvec, yvec;
 
     // Normalize plane vector.
     TE3D_Vector3f_normalize(&plane);
@@ -45,12 +45,12 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f plane
 	
     return result;
 }
-TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(TE3D_Vector3f plane, TE3D_Vector3f worldsup)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-    TE3D_Matrix3x3f result;
+    struct TE3D_Matrix3x3f result;
     // The ortho-normal span-vectors of the plane.
-    TE3D_Vector3f xvec, yvec;
+    struct TE3D_Vector3f xvec, yvec;
 
     // Normalize plane vector.
     TE3D_Vector3f_normalize(&plane);
@@ -79,9 +79,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(TE3D_Vector3f plane
 // shiftX: The shift of the x-component.
 // shiftY: The shift of the y-component.
 // shiftZ: The shift of the z-component.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float shiftY, float shiftZ)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float shiftY, float shiftZ)
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -103,9 +103,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float shiftY, 
 // Creates a matrix that describes a translation in 2D.
 // shiftX: The shift of the x-component.
 // shiftY: The shift of the y-component.
-TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float shiftY)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float shiftY)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -123,9 +123,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float shiftY)
 // scaleX: The scale of the x-component.
 // scaleY: The scale of the y-component.
 // scaleZ: The scale of the z-component.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY, float scaleZ)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY, float scaleZ)
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = scaleX;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -144,9 +144,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY, float 
 	result.m44 = 1;
 	return result;
 }
-TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY, float scaleZ)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY, float scaleZ)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = scaleX;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -160,9 +160,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY, float 
 }
 
 // Creates the identity matrix.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -181,9 +181,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
 	result.m44 = 1;
 	return result;
 }
-TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -195,9 +195,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
 	result.m33 = 1;
 	return result;
 }
-TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
+struct TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
 {
-	TE3D_Matrix2x2f result;
+	struct TE3D_Matrix2x2f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m21 = 0;
@@ -206,11 +206,11 @@ TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
 }
 
 // Creates a rotation matrix for any axis.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(TE3D_Vector3f axis, TE3D_Vector3f offset, double angle)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(struct TE3D_Vector3f axis, struct TE3D_Vector3f offset, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 	
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -231,11 +231,11 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(TE3D_Vector3f axis, TE3D_Vector3f
 }
 
 // Create a rotation matrix for any axis through the origin.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f axis, double angle)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(struct TE3D_Vector3f axis, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -256,9 +256,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f axis, double 
 }
 
 // Creates a rotation matrix (for x-axis rotation).
-TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -279,9 +279,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
 }
 
 // Creates a rotation matrix (for y-axis rotation).
-TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = (float)sin(angle);
@@ -302,9 +302,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
 }
 
 // Creates a rotation matrix (for z-axis rotation).
-TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
 {
-	TE3D_Matrix4x4f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m13 = 0;
@@ -325,9 +325,9 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
 }
 
 // Creates a rotation matrix (for x-axis rotation).
-TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -340,9 +340,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
 	return result;
 }
 // Creates a rotation matrix (for y-axis rotation).
-TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = (float)sin(angle);
@@ -355,9 +355,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
 	return result;
 }
 // Creates a rotation matrix (for z-axis rotation).
-TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m13 = 0;
@@ -370,11 +370,11 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
 	return result;	
 }
 // Creates a rotation matrix (for z-axis rotation).
-TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(TE3D_Vector3f axis, double angle)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(struct TE3D_Vector3f axis, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 	
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -388,9 +388,9 @@ TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(TE3D_Vector3f axis, double 
 }
 
 // Creates a rotation matrix in 2D-space for any axis through the origin.
-TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
+struct TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 {	
-	TE3D_Matrix2x2f result;
+	struct TE3D_Matrix2x2f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m21 = (float)sin(angle);
@@ -400,7 +400,7 @@ TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 // Creates a rotation matrix in 2D-space for any axis.
 // offset: The offset of the rotation axis.
 // angle: The angle.
-TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(TE3D_Vector3f offset, double angle)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offset, double angle)
 {
 	TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
