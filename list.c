@@ -79,7 +79,7 @@ void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
 }
 
 // Creates and sets up a new list.
-struct List List_New(unsigned int typesize)
+struct List List_New(size_t typesize)
 {
 	struct List thislist;
 		
@@ -96,6 +96,10 @@ struct List List_New(unsigned int typesize)
 // Safely releases the list.
 void List_Release(struct List* list)
 {
+	// Only release if we have something to release.
+	if (list->count == 0)
+		return;
+	
 	// Release all allocated memory blocks.
 	// Iterate over each block and obtain it's address. Create a dynamic array and after iteration free all blocks.
 	struct ListMemoryBlockHeader** ptrs = malloc(list->count * sizeof(struct ListMemoryBlockHeader*));
@@ -107,7 +111,7 @@ void List_Release(struct List* list)
 		next = next->next;
 	}
 	// Obtain the last address.
-	ptrs[i + 1] = next;
+	ptrs[i] = next;
 	
 	// Now release.
 	for(i = 0; i < list->count; i++)
@@ -330,7 +334,7 @@ void List_Clear(struct List* list)
 	list->last = NULL;
 	list->count = 0;
 	list->found = NULL;
-	list->foundindex = 0;
+	list->foundindex = -1;
 	
 	return;
 }

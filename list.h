@@ -20,7 +20,7 @@ struct ListMemoryBlockHeader
 struct List
 {
 	// The size of the type. Needed for memory allocation.
-	unsigned int typesize;
+	size_t typesize;
 	// Start and end pointers to the next / previous memory block.
 	struct ListMemoryBlockHeader* first;
 	struct ListMemoryBlockHeader* last;
@@ -36,7 +36,7 @@ struct List
 
 
 // Creates and sets up a new list.
-struct List List_New(unsigned int typesize);
+struct List List_New(size_t typesize);
 
 // Safely releases the list.
 void List_Release(struct List* list);
