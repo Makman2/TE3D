@@ -1,5 +1,13 @@
 #pragma once
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#ifndef WIN32
+	#include <stdbool.h>
+#endif
+
 struct ListMemoryBlockHeader
 {
 	// Pointer to the next memory block.
@@ -18,7 +26,7 @@ struct List
 	struct ListMemoryBlockHeader* last;
 	
 	// Number of items in this list.
-	unsigned int count;
+	int count;
 	
 	// The last found item. Do not use this value.
 	struct ListMemoryBlockHeader* found;
@@ -28,24 +36,24 @@ struct List
 
 
 // Creates and sets up a new list.
-List List_New(unsigned int typesize);
+struct List List_New(unsigned int typesize);
 
 // Safely releases the list.
-void List_Release(List list);
+void List_Release(struct List* list);
 
 // Clears all items from the stack.
-void List_Clear(List list);
+void List_Clear(struct List* list);
 
 // Adds an item at the end of the list.
 // Returns a pointer to added item in the list.
-void* List_Add(List list, void* item);
+void* List_Add(struct List*, void* item);
 // Inserts an item at the specified index.
 // item: A pointer to the item to insert.
 // index: The index where to insert. (Inserts before element with given index)
-bool List_Insert(struct List* list, void* item, int index)
+void* List_Insert(struct List* list, void* item, int index);
 // Removes the first item found.
 // item: A pointer to the item to remove.
 bool List_Remove(struct List* list, void* item);
 // Removes an item at the specified index.
 // index: The index of the element to remove.
-bool List_RemoveAt(List list, int index);
+bool List_RemoveAt(struct List*, int index);

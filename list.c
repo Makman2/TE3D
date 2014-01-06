@@ -1,7 +1,12 @@
 #include "list.h"
 
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#ifndef WIN32
+	#include <stdbool.h>
+#endif
 
 #define ABS(x) (x < 0 ? -x : x)
 
@@ -24,7 +29,7 @@ void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
 	list->count++;
 
 	// Return the memory block header for further manipulation.
-	header = block;
+	*header = block;
 
 	return;
 }
@@ -74,7 +79,7 @@ void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
 }
 
 // Creates and sets up a new list.
-List List_New(unsigned int typesize)
+struct List List_New(unsigned int typesize)
 {
 	struct List thislist;
 		
@@ -93,9 +98,9 @@ void List_Release(struct List* list)
 {
 	// Release all allocated memory blocks.
 	// Iterate over each block and obtain it's address. Create a dynamic array and after iteration free all blocks.
-	struct ListMemoryBlockHeader (*ptrs)[] = malloc(list->count * sizeof(struct ListMemoryBlockHeader*));
+	struct ListMemoryBlockHeader** ptrs = malloc(list->count * sizeof(struct ListMemoryBlockHeader*));
 	struct ListMemoryBlockHeader* next = list->first;
-	unsigned int i;
+	int i;
 	for(i = 0; next != list->last; i++)
 	{
 		ptrs[i] = next;
@@ -118,11 +123,11 @@ void List_Release(struct List* list)
 // Returns a pointer to added item in the list.
 void* List_Add(struct List* list, void* item)
 {
-	ListMemoryBlockHeader* header;
-	Allocator(&list, &header);
+	struct ListMemoryBlockHeader* header;
+	Allocator(list, &header);
 	
 	// Copy to the newly created memory block after the header.
-	memcpy(header + 1, *item, list->typesize);
+	memcpy(header + 1, item, list->typesize);
 	
 	// Link the pointers.
 	list->last->next = header;
@@ -141,11 +146,11 @@ void* List_Insert(struct List* list, void* item, int index)
 	if (index > list->count)
 		return NULL;
 	
-	ListMemoryBlockHeader* header;
-	Allocator(&list, &header);
+	struct ListMemoryBlockHeader* header;
+	Allocator(list, &header);
 	
 	// Copy to the newly created memory memory block after the header.
-	memcpy(header + 1, *item, list->typesize);
+	memcpy(header + 1, item, list->typesize);
 	
 	// Find the element at and before the specified index.
 	struct ListMemoryBlockHeader* element;
@@ -169,7 +174,7 @@ void* List_Insert(struct List* list, void* item, int index)
 		{
 			// The index is near the beginning.
 			element = list->first;
-			for (unsigned int i = 0; i != index; i++)
+			for (int i = 0; i != index; i++)
 			{
 				element = element->next;
 			}
@@ -179,7 +184,7 @@ void* List_Insert(struct List* list, void* item, int index)
 		{
 			// The index is near the end.
 			element = list->last;
-			for (unsigned int i = list->count - 1; i != index; i--)
+			for (int i = list->count - 1; i != index; i--)
 			{
 				element = element->prev;
 			}
@@ -194,7 +199,7 @@ void* List_Insert(struct List* list, void* item, int index)
 			if (index > list->foundindex)
 			{
 				// Iterate forward.
-				for (unsigned int i = list->foundindex; i != index; i++)
+				for (int i = list->foundindex; i != index; i++)
 				{
 					element = element->next;
 				}
@@ -202,16 +207,17 @@ void* List_Insert(struct List* list, void* item, int index)
 			else if(index < list->foundindex)
 			{
 				// Iterate backward.
-				for (unsigned int i = list->foundindex; i != index; i--)
+				for ( int i = list->foundindex; i != index; i--)
 				{
 					element = element->prev;
 				}
 			}
 		}
 	}
+	
 	// Now adjust pointers (element contains item behind insertion).
 	element->prev->next = header;
-	header->prev = = element->prev;
+	header->prev = element->prev;
 	element->prev = header;
 	header->next = element;
 	
@@ -219,10 +225,11 @@ void* List_Insert(struct List* list, void* item, int index)
 	if (index <= list->foundindex)
 		list->foundindex++;
 	
+	return header + 1;
 }
 
 // Removes an item at the specified index.
-bool List_RemoveAt(struct List* list, unsigned int index);
+bool List_RemoveAt(struct List* list, int index)
 {
 	// If index is out of bounds, return.
 	if (index >= list->count)
@@ -235,7 +242,7 @@ bool List_RemoveAt(struct List* list, unsigned int index);
 	{
 		// The index is near the beginning.
 		element = list->first;
-		for (unsigned int i = 0; i != index; i++)
+		for (int i = 0; i != index; i++)
 		{
 			element = element->next;
 		}
@@ -245,7 +252,7 @@ bool List_RemoveAt(struct List* list, unsigned int index);
 	{
 		// The index is near the end.
 		element = list->last;
-		for (unsigned int i = list->count - 1; i != index; i--)
+		for (int i = list->count - 1; i != index; i--)
 		{
 			element = element->prev;
 		}
@@ -260,7 +267,7 @@ bool List_RemoveAt(struct List* list, unsigned int index);
 		if (index > list->foundindex)
 		{
 			// Iterate forward.
-			for (unsigned int i = list->foundindex; i != index; i++)
+			for (int i = list->foundindex; i != index; i++)
 			{
 				element = element->next;
 			}
@@ -268,7 +275,7 @@ bool List_RemoveAt(struct List* list, unsigned int index);
 		else if(index < list->foundindex)
 		{
 			// Iterate backward.
-			for (unsigned int i = list->foundindex; i != index; i--)
+			for (int i = list->foundindex; i != index; i--)
 			{
 				element = element->prev;
 			}
@@ -291,7 +298,7 @@ bool List_Remove(struct List* list, void* item)
 	struct ListMemoryBlockHeader* element;
 	element = list->first;
 	
-	for(unsigned int i = 0; i < list->count; i++)
+	for(int i = 0; i < list->count; i++)
 	{
 		// If the compare indicates the memory blocks are equal, we found our searched item.
 		if (!memcmp(item, element + 1, list->typesize))
