@@ -39,12 +39,7 @@ struct TE3D_Matrix4x4f
 	float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
 }
 
-struct TE3D_Pixel{
-	int r;
-	int g;
-	int b;
 
-};
 
 // Some vector functions.
 
@@ -481,3 +476,38 @@ struct TE3D_Surface
 	// The stride of the surface.
 	int Stride;
 }
+
+
+
+//Describes a colored Pixel
+struct TE3D_Pixel{
+	int r;
+	int g;
+	int b;
+
+};
+
+//Describes the DrawBuffer for Drawingfunctions
+struct TE3D_DrawBuffer{
+	int width;
+	int legth;
+	TE3D_Pixel **data;
+};
+
+
+struct TE3D_Polygon{
+	int count;
+	TE3D_Vector3f *data;
+
+};
+
+
+extern TE3D_Pixel getPixel(TE3D_DrawBuffer *buffer, int x, inty);
+
+
+//Drawing Functions
+//Draws the Object on the DrawBuffer
+
+extern void TE3D_Draw_Line(TE3D_DrawBuffer *buffer, struct TE3D_Vector3f pos1, struct TE3D_Vector3f pos2);
+extern void TE3D_Draw_Rectangle(TE3D_DrawBuffer *buffer, struct TE3D_Vector3f pos1, struct TE3D_Vector3f pos2);
+extern void TE3D_Draw_Triangle(TE3D_DrawBuffer *buffer, TE3D_Vector3f pos1, TE3D_Vector3f pos2, TE3D_Vector3f pos3);
