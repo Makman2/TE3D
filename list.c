@@ -66,7 +66,7 @@ void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
 		list->foundindex = -1;
 	}
 	
-	// If the list is empty, set the first and last parameters to Null.
+	// If the list is empty, set the first and last parameters to NULL.
 	if(list->count == 0)
 	{
 		list->first = NULL;
@@ -97,27 +97,15 @@ void List_Release(struct List* list)
 	if (list->count == 0)
 		return;
 	
-	// Release all allocated memory blocks.
-	// Iterate over each block and obtain it's address. Create a dynamic array and after iteration free all blocks.
-	struct ListMemoryBlockHeader** ptrs = malloc(list->count * sizeof(struct ListMemoryBlockHeader*));
+	struct ListMemoryBlockHeader* before;
 	struct ListMemoryBlockHeader* next = list->first;
-	int i;
-	for(i = 0; next != list->last; i++)
+	for(int i = 0; i < list->count; i++)
 	{
-		ptrs[i] = next;
+		before = next;
 		next = next->next;
+		free(before);
 	}
-	// Obtain the last address.
-	ptrs[i] = next;
-	
-	// Now release.
-	for(i = 0; i < list->count; i++)
-	{
-		free(ptrs[i]);
-	}
-	
-	// And free the pointer array.
-	free(ptrs);
+
 }
 
 // Adds an item at the end of the list.
@@ -252,7 +240,7 @@ void* List_Insert(struct List* list, void* item, int index)
 bool List_RemoveAt(struct List* list, int index)
 {
 	// If index is out of bounds, return.
-	if (index >= list->count)
+	if (index >= list->count || index < 0)
 		return false;
 	
 	struct ListMemoryBlockHeader* element;
@@ -324,7 +312,7 @@ bool List_Remove(struct List* list, void* item)
 		if (!memcmp(item, element + 1, list->typesize))
 		{
 			Releasor(list, element);
-			// Adjust last found index, if removed index was smaller.
+			// Adjust last found index.
 			if (i < list->foundindex)
 				list->foundindex--;
 			
@@ -338,6 +326,193 @@ bool List_Remove(struct List* list, void* item)
 	return false;
 }
 
+// Removes the given number of elements in the list at the specified index.
+bool List_RemoveRangeAt(struct List* list, int index, int count)
+{
+	// If index with count is out of bounds, return.
+	if (index < 0 || count < 1 || index + count > list->count)
+		return false;
+		
+	// If range is the entire list, just call List_Clear().
+	if (index == 0 && index + count == list->count)
+	{
+		List_Clear(list);
+		return true;
+	}
+	
+	struct ListMemoryBlockHeader* element;
+		
+	// Check whether the index is near the end, the beginning or the last found item of the list.
+	if (index < list->count - index - 1 && index < ABS(index - list->foundindex))
+	{
+		// The index is near the beginning.
+
+		element = list->first;
+		for (int i = 0; i != index; i++)
+		{
+			element = element->next;
+		}
+		
+	}
+	else if (index >= list->count - index - 1 && list->count - index - 1 < ABS(index - list->foundindex))
+	{
+		// The index is near the end.
+		element = list->last;
+		for (int i = list->count - 1; i != index; i--)
+		{
+			element = element->prev;
+		}
+		
+	}
+	else
+	{
+		// The index is near the last found element.
+		element = list->found;
+	
+		// Determine iteration direction.
+		if (index > list->foundindex)
+		{
+			// Iterate forward.
+			for (int i = list->foundindex; i != index; i++)
+			{
+				element = element->next;
+			}
+		}
+		else if(index < list->foundindex)
+		{
+			// Iterate backward.
+			for (int i = list->foundindex; i != index; i--)
+			{
+				element = element->prev;
+			}
+		}
+	}
+	
+
+	struct ListMemoryBlockHeader* rangestart = element->prev;
+
+	// If the last item gets deleted, link the 'last'-pointer to the element before our current found, because everythin after it gets removed.
+	if (index + count == list->count)
+		list->last = rangestart;
+
+	// free() elements.
+	struct ListMemoryBlockHeader* before;
+	for(int i = 0; i < count; i++)
+	{
+		before = element;
+		element = element->next;
+		free(before);
+	}
+	
+	// If the first item gets deleted, link the 'first'-pointer to the range end.	
+	if (index == 0)
+		list->first = element;
+			
+	// Relink pointers.
+	rangestart->next = element;
+	element->prev = rangestart;
+	
+		
+	// Adjust last found index, if removed index was smaller or the last found element was inside removing-range.
+	if (list->foundindex >= index && list->foundindex < index + count)
+	{
+		list->foundindex = -1;
+		list->found = NULL;	
+	}	
+	else if (index < list->foundindex)
+		list->foundindex -= count;
+	
+	// At least decrement pointer by count.
+	list->count -= count;
+	
+	return true;
+}
+
+// Returns the item at the specified index.
+void* List_At(struct List* list, int index)
+{
+	// If index is out of bounds, return.
+	if (index >= list->count || index < 0)
+		return NULL;
+	
+	struct ListMemoryBlockHeader* element;
+		
+	// Check whether the index is near the end, the beginning or the last found item of the list.
+	if (index < list->count - index - 1 && index < ABS(index - list->foundindex))
+	{
+		// The index is near the beginning.
+		element = list->first;
+		for (int i = 0; i != index; i++)
+		{
+			element = element->next;
+		}
+		
+	}
+	else if (index >= list->count - index - 1 && list->count - index - 1 < ABS(index - list->foundindex))
+	{
+		// The index is near the end.
+		element = list->last;
+		for (int i = list->count - 1; i != index; i--)
+		{
+			element = element->prev;
+		}
+		
+	}
+	else
+	{
+		// The index is near the last found element.
+		element = list->found;
+	
+		// Determine iteration direction.
+		if (index > list->foundindex)
+		{
+			// Iterate forward.
+			for (int i = list->foundindex; i != index; i++)
+			{
+				element = element->next;
+			}
+		}
+		else if(index < list->foundindex)
+		{
+			// Iterate backward.
+			for (int i = list->foundindex; i != index; i--)
+			{
+				element = element->prev;
+			}
+		}
+	}
+	
+	// Set new last found index and pointer.
+	list->foundindex = index;
+	list->found = element;
+	
+	return element + 1;
+}
+
+// Returns the index of the first specified item found.
+int List_Find(struct List* list, void* item)
+{
+	struct ListMemoryBlockHeader* element;
+	element = list->first;
+	
+	for(int i = 0; i < list->count; i++)
+	{
+		// If the compare indicates the memory blocks are equal, we found our searched item.
+		if (!memcmp(item, element + 1, list->typesize))
+		{
+			// Adjust last found index, if removed index was smaller.
+			list->foundindex = i;
+			list->found = element;
+						
+			return i;
+		}
+		
+		element = element->next;
+	}
+	
+	// Not found.
+	return -1;
+}
 
 // Clears all items from the list.
 void List_Clear(struct List* list)
