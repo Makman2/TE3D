@@ -24,9 +24,6 @@ void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
 		list->first = block;
 		list->last = block;
 	}
-	
-	// Increase count.
-	list->count++;
 
 	// Return the memory block header for further manipulation.
 	*header = block;
@@ -140,6 +137,9 @@ void* List_Add(struct List* list, void* item)
 	header->next = list->first;
 	list->last = header;
 	
+	// Increase count.
+	list->count++;
+	
 	return header + 1;
 }
 
@@ -156,11 +156,23 @@ void* List_Insert(struct List* list, void* item, int index)
 	// Copy to the newly created memory memory block after the header.
 	memcpy(header + 1, item, list->typesize);
 	
-	// Find the element at and before the specified index.
+	// Find the element at the specified index.
 	struct ListMemoryBlockHeader* element;
 	
 	// Handling for special cases like 0 and list->count:
-	if (index == 0)
+	if (index == 0 && list->count == 0)
+	{
+		header->next = header;
+		header->prev = header;
+		list->first = header;
+		list->last = header;
+		
+		// Increase count.
+		list->count++;
+		
+		return header + 1;
+	}
+	else if (index == 0)
 	{
 		element = list->first;
 		list->first = header;
@@ -228,6 +240,10 @@ void* List_Insert(struct List* list, void* item, int index)
 	// And adjust (if neccessary) the last found index.
 	if (index <= list->foundindex)
 		list->foundindex++;
+	
+	
+	// Increase count.
+	list->count++;
 	
 	return header + 1;
 }
