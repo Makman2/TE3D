@@ -1,3 +1,19 @@
+/* Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "list.h"
 
 #include <stdio.h>
@@ -11,6 +27,7 @@
 #define ABS(x) (x < 0 ? -x : x)
 
 // The allocator routine.
+// header: Returns a reference to the header of the newly created memory block.
 void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
 {
 	struct ListMemoryBlockHeader* block;
@@ -32,6 +49,7 @@ void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
 }
 
 // The release routine.
+// addr: The address of the memory block to release.
 void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
 {
 	// Set new pointers.
@@ -109,7 +127,6 @@ void List_Release(struct List* list)
 }
 
 // Adds an item at the end of the list.
-// Returns a pointer to added item in the list.
 void* List_Add(struct List* list, void* item)
 {
 	struct ListMemoryBlockHeader* header;
