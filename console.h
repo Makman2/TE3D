@@ -2,6 +2,9 @@
 *  Console.h
 *  Enthält alle Funktionen welche zur Darstellung der Daten in der Konsole nötig sind
 *  Unterscheidung zwischen Linux(Steuerzeichen) und Windows (WinAPI)
+
+ujh
+ikjh
 *
 * */
 
