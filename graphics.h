@@ -6,9 +6,9 @@
 
 
 */
-
-
 #pragma once
+
+#include "transformation.h"
 
 #include <math.h>
 
@@ -21,7 +21,7 @@ struct TE3D_Vector4f
 	float x, y, z, w;
 };
 
-// Describes a 3 Dimensional Vector
+// Describes a 3-dimensional Vector
 struct TE3D_Vector3f{
 	float x;
 	float y;
@@ -52,7 +52,29 @@ struct TE3D_Matrix4x4f
 	float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
 };
 
+// Describes a line with two indices to vectors.
+struct TE3D_VectorIndex2
+{
+	int i1, i2;
+};
 
+// Describes a triangle with three indices to vectors.
+struct TE3D_VectorIndex3
+{
+	int i1, i2, i3;
+};
+
+// Available vector formats.
+enum TE3D_VectorFormat
+{
+	Points = 0;
+	Lines = 1;
+	Triangles = 2;
+}
+
+#define TE3D_VECTORFORMAT_POINTS (TE3D_VectorFormat)0
+#define TE3D_VECTORFORMAT_LINES (TE3D_VectorFormat)1
+#define TE3D_VECTORFORMAT_TRIANGLES (TE3D_VectorFormat)2
 
 
 
@@ -80,7 +102,7 @@ struct TE3D_ColorChar
 struct TE3D_Surface
 {
 	// The colorized chars of the surface.
-	TE3D_Color *Pixels;
+	TE3D_ColorChar Pixels[];
 	// The width and height of the surface.
 	int Width;
 	int Height;
