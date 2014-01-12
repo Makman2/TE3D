@@ -2,77 +2,248 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #ifndef WIN32
 		#include <stdbool.h>
 #endif
 
-// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
-// plane: A normal vector, that defines the plane to project on.
-// worldsup: A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is).
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup)
+#define PI 3.1415926535897932384626433832795
+#define ABS(x) (x < 0 ? -x : x)
+
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane)
 {
 	// The transformation matrix.
-    struct TE3D_Matrix4x4f result;
-    // The ortho-normal span-vectors of the plane.
-    struct TE3D_Vector3f xvec, yvec;
-
-    // Normalize plane vector.
-    TE3D_Vector3f_normalize(&plane);
-
-    // Gram-Schmidting the worldsup-vector to get the first span-vector.
-    xvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, plane));
-    yvec = TE3D_Vector3f_cross(plane, xvec);
-
-    double normx = TE3D_Vector3f_mul(xvec * xvec);
-    double normy = TE3D_Vector3f_mul(yvec * yvec);
-
-    result.m11 = xvec.x / normx;
-    result.m12 = xvec.y / normx;
-    result.m13 = xvec.z / normx;
-    result.m14 = 0;
-	result.m21 = yvec.x / normy;
-    result.m22 = yvec.y / normy;
-    result.m23 = yvec.z / normy;
+	struct TE3D_Matrix4x4f result;
+	
+	result.m11 = 1.0f / tan(fieldOfView * 0.5f * (float)PI / 180);
+	result.m12 = 0;
+	result.m13 = 0;
+	result.m14 = 0;
+	result.m21 = 0;
+	result.m22 = 1.0f / tan(fieldOfView * 0.5f * (float)PI / 180);
+	result.m23 = 0;
 	result.m24 = 0;
 	result.m31 = 0;
 	result.m32 = 0;
-	result.m33 = 0;
+	result.m33 = farPlane / (farPlane - nearPlane);
+	result.m34 = -1;
+	result.m41 = 0;
+	result.m42 = 0;
+	result.m43 = farPlane * nearPlane / (farPlane - nearPlane);
+	result.m44 = 0;
+	
+	return result;
+}
+
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f worldsup)
+{
+	// The transformation matrix.
+	struct TE3D_Matrix4x4f result;
+	
+	// Translate back the vectors and rotate the camera (Z-axis: worldsup, X-Y-axis: direction).
+		
+	// Project on x-z and y-z plane to get angles.
+	struct TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
+	struct TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
+	struct TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
+	
+	TE3D_Vector3f_normalize(&direction);
+	struct TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
+	TE3D_Vector3f_normalize(&xzproj);
+	double angleY = ABS(acos((double)TE3D_Vector3f_mul(unitZ, xzproj)));
+	double angleXZ = ABS(acos((double)TE3D_Vector3f_mul(unitY, direction))); //X-Z is an axis anywhere in the X-Z plane. It's the cross-product of Y and the direction.
+	angleXZ = PI / 2 - angleXZ;
+	struct TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
+	
+	if (direction.x < 0)
+		angleY *= -1;
+	if (direction.y > 0)
+		angleXZ *= -1;
+	
+	// Project worldsup on the X-Y plane.
+	worldsup.z = 0;
+	TE3D_Vector3f_normalize(&worldsup);
+	double angleZ = ABS(acos(TE3D_Vector3f_mul(unitY, worldsup)));
+	if (worldsup.x < 0)
+		angleZ *= -1;
+	
+	result.m11 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x  * XZaxis.x) - sin(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) - sin(angleZ) * (cos(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) - sin(angleY) * (-sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m12 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (-sin(angleZ) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) + cos(angleZ) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z));
+	result.m13 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) + cos(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) - sin(angleZ) * (sin(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) + cos(angleY) * (-sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m14 = 0;
+	result.m21 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (sin(angleZ) * (cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) - sin(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) + cos(angleZ) * (cos(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) - sin(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m22 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) + sin(angleZ) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z));
+	result.m23 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (sin(angleZ) * (sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) + cos(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) + cos(angleZ) * (sin(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) + cos(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m24 = 0;
+	result.m31 = 1 / (farPlane - nearPlane) * (cos(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) - sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane;
+	result.m32 = ((sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * farPlane) / (farPlane - nearPlane);
+	result.m33 = 1 / (farPlane - nearPlane) * (sin(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) + cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane;
+	result.m34 =  - 1;
+	result.m41 = 1 / (farPlane - nearPlane) * (cos(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) - sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane * nearPlane;
+	result.m42 = ((sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * farPlane * nearPlane) / (farPlane - nearPlane);
+	result.m43 = 1 / (farPlane - nearPlane) * (sin(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) + cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane * nearPlane;
+	result.m44 = 0;
+	
+	return result;
+}
+
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup)
+{
+	// The transformation matrix.
+	struct TE3D_Matrix4x4f result;
+	
+	// Translate back the vectors and rotate the camera (Z-axis: worldsup, X-Y-axis: direction).
+		
+	// Project on x-z and y-z plane to get angles.
+	struct TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
+	struct TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
+	struct TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
+	
+	TE3D_Vector3f_normalize(&direction);
+	struct TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
+	TE3D_Vector3f_normalize(&xzproj);
+	double angleY = ABS(acos((double)TE3D_Vector3f_mul(unitZ, xzproj)));
+	double angleXZ = ABS(acos((double)TE3D_Vector3f_mul(unitY, direction))); //X-Z is an axis anywhere in the X-Z plane. It's the cross-product of Y and the direction.
+	angleXZ = PI / 2 - angleXZ;
+	struct TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
+	if (direction.x < 0)
+		angleY *= -1;
+	if (direction.y > 0)
+		angleXZ *= -1;
+	
+	// Project worldsup on the X-Y plane.
+	worldsup.z = 0;
+	TE3D_Vector3f_normalize(&worldsup);
+	double angleZ = ABS(acos(TE3D_Vector3f_mul(unitY, worldsup)));
+	if (worldsup.x < 0)
+		angleZ *= -1;
+	
+	result.m11 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) - sin(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) - sin(angleZ) * (cos(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) - sin(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m12 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * ( - sin(angleZ) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) + cos(angleZ) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z));
+	result.m13 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) + cos(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) - sin(angleZ) * (sin(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) + cos(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m14 = -1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * ( - ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z) * offset.y + (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)) - sin(angleZ) * ( - (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) * offset.y + ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)));
+	result.m21 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (sin(angleZ) * (cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) - sin(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) + cos(angleZ) * (cos(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) - sin(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m22 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (cos(angleZ) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) + sin(angleZ) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z));
+	result.m23 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (sin(angleZ) * (sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) + cos(angleY) * (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z)) + cos(angleZ) * (sin(angleY) * ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) + cos(angleY) * ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z)));
+	result.m24 = 1 / tan(fieldOfView * 0.5f * (float)PI / 180) * (sin(angleZ) * ( - ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y - sin(angleXZ) * XZaxis.z) * offset.y + (sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.x) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)) + cos(angleZ) * ( - (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.y) * offset.y + ( - sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + ((1 - cos(angleXZ)) * XZaxis.x * XZaxis.y + sin(angleXZ) * XZaxis.z) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)));
+	result.m31 = 1 / (farPlane - nearPlane) * (cos(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) - sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane;
+	result.m32 = ((sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * farPlane) / (farPlane - nearPlane);
+	result.m33 = 1 / (farPlane - nearPlane) * (sin(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) + cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane;
+	result.m34 = -1 + 1 / (farPlane - nearPlane) * ( - (sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * offset.y + (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)) * farPlane;
+	result.m41 = 1 / (farPlane - nearPlane) * (cos(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) - sin(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane * nearPlane;
+	result.m42 = ((sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * farPlane * nearPlane) / (farPlane - nearPlane);
+	result.m43 = 1 / (farPlane - nearPlane) * (sin(angleY) * ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) + cos(angleY) * (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z)) * farPlane * nearPlane;
+	result.m44 = 1 / (farPlane - nearPlane) * ( - (sin(angleXZ) * XZaxis.x + (1 - cos(angleXZ)) * XZaxis.y * XZaxis.z) * offset.y + (cos(angleXZ) + (1 - cos(angleXZ)) * XZaxis.z * XZaxis.z) * (sin(angleY) * offset.x - cos(angleY) * offset.z) + ( - sin(angleXZ) * XZaxis.y + (1 - cos(angleXZ)) * XZaxis.x * XZaxis.z) * ( - cos(angleY) * offset.x - sin(angleY) * offset.z)) * farPlane * nearPlane;
+	
+	return result;
+}
+
+// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional direction.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(struct TE3D_Vector3f direction, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup)
+{
+	// The transformation matrix.
+	struct TE3D_Matrix4x4f result;
+	// The ortho-normal span-vectors of the direction.
+	struct TE3D_Vector3f xvec, yvec;
+
+	// Normalize direction vector.
+	TE3D_Vector3f_normalize(&direction);
+
+	// Gram-Schmidting the worldsup-vector to get the first span-vector.
+	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
+	xvec = TE3D_Vector3f_cross(direction, xvec);
+
+	TE3D_Vector3f_normalize(&yvec);
+	TE3D_Vector3f_normalize(&xvec);
+
+	result.m11 = xvec.x;
+	result.m12 = xvec.y;
+	result.m13 = xvec.z;
+	result.m14 = - offset.x * xvec.x - offset.y * xvec.y - offset.z * xvec.z;
+	result.m21 = yvec.x;
+	result.m22 = yvec.y;
+	result.m23 = yvec.z;
+	result.m24 = - offset.x * yvec.x - offset.y * yvec.y - offset.z * yvec.z;
+	result.m31 = direction.x;	// Distance to direction.
+	result.m32 = direction.y;
+	result.m33 = direction.z;
+	result.m34 = - direction.x * offset.x - direction.y * offset.y - direction.z * offset.z;
+	result.m41 = 0;
+	result.m42 = 0;
+	result.m43 = 0;
+	result.m44 = 1;
+	
+	return result;
+}
+
+// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
+{
+	// The transformation matrix.
+	struct TE3D_Matrix4x4f result;
+	// The ortho-normal span-vectors of the direction.
+	struct TE3D_Vector3f xvec, yvec;
+
+	// Normalize direction vector.
+	TE3D_Vector3f_normalize(&direction);
+
+	// Gram-Schmidting the worldsup-vector to get the first span-vector.
+	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
+	xvec = TE3D_Vector3f_cross(direction, xvec);
+
+	TE3D_Vector3f_normalize(&yvec);
+	TE3D_Vector3f_normalize(&xvec);
+
+	result.m11 = xvec.x;
+	result.m12 = xvec.y;
+	result.m13 = xvec.z;
+	result.m14 = 0;
+	result.m21 = yvec.x;
+	result.m22 = yvec.y;
+	result.m23 = yvec.z;
+	result.m24 = 0;
+	result.m31 = direction.x;	// Distance to direction.
+	result.m32 = direction.y;
+	result.m33 = direction.z;
 	result.m34 = 0;
 	result.m41 = 0;
 	result.m42 = 0;
 	result.m43 = 0;
 	result.m44 = 1;
 	
-    return result;
+	return result;
 }
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup)
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-    struct TE3D_Matrix3x3f result;
-    // The ortho-normal span-vectors of the plane.
-    struct TE3D_Vector3f xvec, yvec;
+	struct TE3D_Matrix3x3f result;
+	// The ortho-normal span-vectors of the direction.
+	struct TE3D_Vector3f xvec, yvec;
 
-    // Normalize plane vector.
-    TE3D_Vector3f_normalize(&plane);
+	// Normalize direction vector.
+	TE3D_Vector3f_normalize(&direction);
 
-    // Gram-Schmidting the worldsup-vector to get the first span-vector.
-    xvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, plane));
-    yvec = TE3D_Vector3f_cross(plane, xvec);
+	// Gram-Schmidting the worldsup-vector to get the first span-vector.
+	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
+	xvec = TE3D_Vector3f_cross(direction, xvec);
 
-    double normx = TE3D_Vector3f_mul(xvec * xvec);
-    double normy = TE3D_Vector3f_mul(yvec * yvec);
+	TE3D_Vector3f_normalize(&yvec);
+	TE3D_Vector3f_normalize(&xvec);
 
-    result.m11 = xvec.x / normx;
-    result.m12 = xvec.y / normx;
-    result.m13 = xvec.z / normx;
-	result.m21 = yvec.x / normy;
-    result.m22 = yvec.y / normy;
-    result.m23 = yvec.z / normy;
-	result.m31 = 0;
-	result.m32 = 0;
-	result.m33 = 0;
+	result.m11 = xvec.x;
+	result.m12 = xvec.y;
+	result.m13 = xvec.z;
+	result.m21 = yvec.x;
+	result.m22 = yvec.y;
+	result.m23 = yvec.z;
+	result.m31 = direction.x;			// Distance to direction.
+	result.m32 = direction.y;
+	result.m33 = direction.z;
 	
-    return result;
+	return result;
 }
 
 // Creates a matrix that describes a translation.
@@ -286,8 +457,8 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
 	result.m12 = 0;
 	result.m13 = (float)sin(angle);
 	result.m14 = 0;
-	result.m21 = 1;
-	result.m22 = 0;
+	result.m21 = 0;
+	result.m22 = 1;
 	result.m23 = 0;
 	result.m24 = 0;
 	result.m31 = -(float)sin(angle);
@@ -424,15 +595,16 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offse
 struct TE3D_Surface* TE3D_CreateSurface(int width, int height)
 {
 	// Allocate memory for "char-pixels" and surface and zero-initialize it.
-	char* addr = calloc(sizeof(struct TE3D_Surface) + sizeof(struct TE3D_ColorChar) * width * height);
+	struct TE3D_Surface* addr = (struct TE3D_Surface*)malloc(sizeof(struct TE3D_Surface) + sizeof(struct TE3D_ColorChar) * width * height);
+	memset(addr + 1, 0, sizeof(struct TE3D_ColorChar) * width * height);
 	
 	// Initialize surface.
 	TE3D_Surface* surface = addr;
-	(*surface).Width = width;
-	(*surface).Height = height;
-	(*surface).Stride = sizeof(struct TE3D_ColorChar) * width;
-	// Point to the area after the structure.
-	(*surface).Pixels = addr + sizeof(surface);
+	surface->Width = width;
+	surface->Height = height;
+	surface->Stride = sizeof(struct TE3D_ColorChar) * width;
+	// Points to the area after the structure.
+	surface->Pixels = (struct TE3D_ColorChar*)addr + 1;
 	
 	return surface;	
 }
@@ -444,8 +616,8 @@ void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 	free(surface);
 	
 	// Reset struct values.
-	(*surface).Width = 0;
-	(*surface).Height = 0;
-	(*surface).Stride = 0;
-	(*surface).Pixels = NULL;
+	surface->Width = 0;
+	surface->Height = 0;
+	surface->Stride = 0;
+	surface->Pixels = NULL;
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <math.h>
 #include "graphics.h"
 
+#include <math.h>
 
 // Some vector functions.
 
@@ -75,7 +75,7 @@ inline struct TE3D_Vector3f TE3D_Vector3f_cross(struct TE3D_Vector3f v1, struct 
 // Normalizes the given vector.
 inline void TE3D_Vector3f_normalize(TE3D_Vector3f *vector)
 {
-	float norm = sqrt(TE3D_Vector3f_mul(vector, vector));
+	float norm = sqrt(TE3D_Vector3f_mul((*vector), (*vector)));
 	vector->x /= norm;
 	vector->y /= norm;
 	vector->z /= norm;
@@ -142,7 +142,7 @@ inline struct TE3D_Vector2f TE3D_Vector2f_sub(struct TE3D_Vector2f v1, struct TE
 // Normalizes the given vector.
 inline void TE3D_Vector2f_normalize(TE3D_Vector2f* vector)
 {
-	float norm = sqrt(TE3D_Vector2f_mul(vector, vector));
+	float norm = sqrt(TE3D_Vector2f_mul((*vector), (*vector)));
 	vector->x /= norm;
 	vector->y /= norm;
 }
@@ -197,7 +197,7 @@ inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_mul(struct TE3D_Matrix2x2f matrixA
 // Multiplicates a 3x3 matrix with a 3x3 matrix.
 inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(struct TE3D_Matrix3x3f matrixA, struct TE3D_Matrix3x3f matrixB)
 {
-	struct TE3D_Matrix2x2f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = matrixA.m11 * matrixB.m11 + matrixA.m12 * matrixB.m21 + matrixA.m13 * matrixB.m31;
 	result.m12 = matrixA.m11 * matrixB.m12 + matrixA.m12 * matrixB.m22 + matrixA.m13 * matrixB.m32;
 	result.m13 = matrixA.m11 * matrixB.m13 + matrixA.m12 * matrixB.m23 + matrixA.m13 * matrixB.m33;
@@ -213,7 +213,7 @@ inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(struct TE3D_Matrix3x3f matrixA
 // Multiplicates a 3x3 matrix with a 4x4 matrix.
 inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA, struct TE3D_Matrix4x4f matrixB)
 {
-	struct TE3D_Matrix2x2f result;
+	struct TE3D_Matrix4x4f result;
 	result.m11 = matrixA.m11 * matrixB.m11 + matrixA.m12 * matrixB.m21 + matrixA.m13 * matrixB.m31 + matrixA.m14 * matrixB.m41;
 	result.m12 = matrixA.m11 * matrixB.m12 + matrixA.m12 * matrixB.m22 + matrixA.m13 * matrixB.m32 + matrixA.m14 * matrixB.m42;
 	result.m13 = matrixA.m11 * matrixB.m13 + matrixA.m12 * matrixB.m23 + matrixA.m13 * matrixB.m33 + matrixA.m14 * matrixB.m43;
@@ -341,10 +341,31 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13,
 }
 
 // Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
-// plane: A normal vector, that defines the plane to project on.
+// direction: A normal vector, that defines the plane to project on.
 // worldsup: A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is).
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup);
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f plane, struct TE3D_Vector3f worldsup);
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup);
+struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup);
+
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+// fieldOfView: The view-angle.
+// nearPlane: The distance to the near clipping plane.
+// farPlane: The distance to the far clipping plane.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane);
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+// direction: The direction of the projection.
+// fieldOfView: The view-angle.
+// nearPlane: The distance to the near clipping plane.
+// farPlane: The distance to the far clipping plane.
+// worldsup: The worlds up of the projection.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f worldsup);
+// Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
+// direction: The direction of the projection.
+// fieldOfView: The view-angle.
+// nearPlane: The distance to the near clipping plane.
+// farPlane: The distance to the far clipping plane.
+// offset: The position of the projection plane.
+// worldsup: The worlds up of the projection.
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup);
 
 // Creates a matrix that describes a translation.
 // shiftX: The shift of the x-component.
