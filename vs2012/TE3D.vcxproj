@@ -56,6 +56,7 @@
     <ClInclude Include="..\arraylist.h" />
     <ClInclude Include="..\ascii_converter.h" />
     <ClInclude Include="..\console.h" />
+    <ClInclude Include="..\core.h" />
     <ClInclude Include="..\graphics.h" />
     <ClInclude Include="..\interface.h" />
     <ClInclude Include="..\list.h" />
