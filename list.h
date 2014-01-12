@@ -61,7 +61,7 @@ struct List List_New(size_t typesize);
 // Safely releases the list.
 void List_Release(struct List* list);
 
-// Clears all items from the stack.
+// Clears all items from the list.
 void List_Clear(struct List* list);
 
 // Adds an item at the end of the list.
