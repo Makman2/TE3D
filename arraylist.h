@@ -36,7 +36,7 @@ struct ArrayList
 	
 	// A pointer to the items of the list.
 	void* items;
-
+	
 };
 
 
@@ -70,7 +70,7 @@ void* ArrayList_Insert(struct ArrayList* list, void* item, int index);
 // items: A pointer to the items array to insert.
 // itemscount: The number of items of the array to insert.
 // index: The index where to insert.
-void* ArrayList_InsertRange(struct ArrayList* list, void* items, int itemscount, int index)
+void* ArrayList_InsertRange(struct ArrayList* list, void* items, int itemscount, int index);
 
 // Removes the first item found.
 // Returns 'true' on success, 'false' on fail.

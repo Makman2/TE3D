@@ -39,9 +39,32 @@ struct TE3D_Model4f
 	bool isActive;
 	
 	// The vector format of this model.
-	struct TE3D_VectorFormat format;
+	enum TE3D_VectorFormat format;
 };
 
 // Creates a new model.
 // format: The format of the model.
-struct TE3D_Model4f TE3D_Model4f_New(struct TE3D_VectorFormat format);
+struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format);
+// Transforms the elements in the model.
+// matrix: The matrix to transform with.
+void TE3D_Model4f_Transform(struct TE3D_Model4f* model, struct TE3D_Matrix4x4f matrix);
+// Translates the model.
+// move: The translation vector.
+void TE3D_Model4f_Translate(struct TE3D_Model4f* model, struct TE3D_Vector3f move);
+// Scales the model.
+// factor: The factor to scale with.
+void TE3D_Model4f_Scale(struct TE3D_Model4f* model, float factor);
+// Rotates the model.
+// axis: The rotation axis.
+// offset: The offset of the rotation axis.
+// angle: The angle of the rotation to perform.
+void TE3D_Model4f_Rotate(struct TE3D_Model4f* model, struct TE3D_Vector3f axis, struct TE3D_Vector3f offset, double angle);
+// Rotates the model over the x-axis.
+// angle: The angle of the rotation to perform.
+void TE3D_Model4f_RotateX(struct TE3D_Model4f* model, double angle);
+// Rotates the model over the y-axis.
+// angle: The angle of the rotation to perform.
+void TE3D_Model4f_RotateY(struct TE3D_Model4f* model, double angle);
+// Rotates the model over the z-axis.
+// angle: The angle of the rotation to perform.
+void TE3D_Model4f_RotateZ(struct TE3D_Model4f* model, double angle);

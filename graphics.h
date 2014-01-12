@@ -1,14 +1,6 @@
-/*
-	graphics.h
-	Enthält alle Funktionen welche öffentlich (von außerhalb der Biblliothek) zugreifbar sein sollen
-	sowie alle zentral verwendeten gemeinsamen Struckturen (Farben,Vektoren,...)
-
-
-
-*/
 #pragma once
 
-#include "transformation.h"
+#include "tranformation.h"
 
 #include <math.h>
 
@@ -67,10 +59,10 @@ struct TE3D_VectorIndex3
 // Available vector formats.
 enum TE3D_VectorFormat
 {
-	Points = 0;
-	Lines = 1;
-	Triangles = 2;
-}
+	Points = 0,
+	Lines = 1,
+	Triangles = 2
+};
 
 #define TE3D_VECTORFORMAT_POINTS (TE3D_VectorFormat)0
 #define TE3D_VECTORFORMAT_LINES (TE3D_VectorFormat)1
@@ -101,8 +93,8 @@ struct TE3D_ColorChar
 // Describes a surface of colorized chars.
 struct TE3D_Surface
 {
-	// The colorized chars of the surface.
-	TE3D_ColorChar Pixels[];
+	// A pointer to the array of colorized chars.
+	TE3D_ColorChar* Pixels;
 	// The width and height of the surface.
 	int Width;
 	int Height;

@@ -32,17 +32,17 @@ void ArrayList_Clear(struct ArrayList* list)
 }
 
 // Adds an item at the end of the list.
-void* ArrayList_Add(struct ArrayList*, void* item)
+void* ArrayList_Add(struct ArrayList* list, void* item)
 {
 	// Realloc and copy.
 	list->count++;
 	list->items = realloc(list->items, list->count * list->typesize);
 	memcpy((char*)list->items + list->typesize * (list->count - 1), item, list->typesize);
-	return (char*)list->items + list->typesize * (list->count - 1)
+	return (char*)list->items + list->typesize * (list->count - 1);
 }
 
 // Adds a range of items at the end of the list.
-void* ArrayList_AddRange(struct ArrayList*, void* items, int itemscount)
+void* ArrayList_AddRange(struct ArrayList* list, void* items, int itemscount)
 {
 	if (itemscount <= 0)
 		return NULL;
@@ -92,7 +92,7 @@ bool ArrayList_Remove(struct ArrayList* list, void* item)
 		if(memcmp(item, (char*)list->items + list->typesize * i, list->typesize))
 		{
 			// Found.
-			memmove((char*)list->items + list->typesize * index, (char*)list->items + list->typesize * (index + 1), list->typesize * (list->count - index - 1));
+			memmove((char*)list->items + list->typesize * i, (char*)list->items + list->typesize * (i + 1), list->typesize * (list->count - i - 1));
 			list->count--;
 			if (list->count == 0)
 				list->items = realloc(list->items, list->typesize);
@@ -107,7 +107,7 @@ bool ArrayList_Remove(struct ArrayList* list, void* item)
 }
 
 // Removes an item at the specified index.
-bool ArrayList_RemoveAt(struct ArrayList*, int index)
+bool ArrayList_RemoveAt(struct ArrayList* list, int index)
 {
 	// If index out of range, exit.
 	if (index < 0 || index >= list->count)
@@ -168,7 +168,7 @@ int ArrayList_FindRange(struct ArrayList* list, void* items, int itemscount)
 {
 	for (int i = 0; i < list->count; i++)
 	{
-		if (memcmp((char*)list->items + list->typesize * i, item, list->typesize * itemscount))
+		if (memcmp((char*)list->items + list->typesize * i, items, list->typesize * itemscount))
 		{
 			// Found.
 			return i;			

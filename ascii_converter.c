@@ -6,7 +6,7 @@
 
 
 // Converts vectors to an ASCII-art-representation and writes them to the target TE3D_Surface.
-bool TE3D_ASCII_Convert(TE3D_Vector4f vectors[], TE3D_Surface* target, void* indices[], TE3D_VectorFormat format, float* zBuffer, char* colormap);
+bool TE3D_ASCII_Convert(TE3D_Vector4f vectors[], TE3D_Surface* target, void* indices[], TE3D_VectorFormat format, float* zBuffer, char* colormap)
 {
 	// If z-Buffer is NULL, create own one.
 	if (!zBuffer)
