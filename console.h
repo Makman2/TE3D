@@ -19,7 +19,7 @@ Momentaner Stand:
 	- Schreiben eines Textes in den Buffer noch nicht implementiert
 	- Layer werden angenommen, jedoch noch nicht verglichen, der Text wird immer überschrieben
 
-
+Verbindung mit dem Rest der Bibliothek über console_abstraction.h
 
 
 Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdio.h>
-#include "graphics.h"
+//#include "graphics.h"
 
 #ifdef WIN32
 	#include <windows.h>
