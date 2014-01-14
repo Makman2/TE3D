@@ -1,9 +1,46 @@
 #pragma once
 
 #include "tranformation.h"
+#include "models.h"
 
 #include <math.h>
 
+#ifndef WIN32
+	#include <stdbool.h>
+#endif
+
+
+// Describes a color with red, green and blue components.
+struct TE3D_Color
+{
+	// The red portion of the color.
+	char R;
+	// The green portion of the color.
+	char G;
+	// The blue portion of the color.
+	char B;
+};
+
+// Describes a colorized char.
+struct TE3D_ColorChar
+{
+	// The char.
+	char Char;
+	// The color of the char.
+	TE3D_Color Color;
+};
+
+// Describes a surface of colorized chars.
+struct TE3D_Surface
+{
+	// A pointer to the array of colorized chars.
+	TE3D_ColorChar* Pixels;
+	// The width and height of the surface.
+	int Width;
+	int Height;
+	// The stride of the surface.
+	int Stride;
+};
 
 
 
@@ -11,6 +48,7 @@
 struct TE3D_Vector4f
 {
 	float x, y, z, w;
+	struct TE3D_Color color;
 };
 
 // Describes a 3-dimensional Vector
@@ -18,12 +56,14 @@ struct TE3D_Vector3f{
 	float x;
 	float y;
 	float z;
+	struct TE3D_Color color;
 };
 
 // Describes a 2-dimensional vector.
 struct TE3D_Vector2f
 {
 	float x, y;
+	struct TE3D_Color color;
 };
 
 // Describes a 2x2 matrix.
@@ -70,37 +110,7 @@ enum TE3D_VectorFormat
 
 
 
-// Describes a color with red, green and blue components.
-struct TE3D_Color
-{
-	// The red portion of the color.
-	char R;
-	// The green portion of the color.
-	char G;
-	// The blue portion of the color.
-	char B;
-};
 
-// Describes a colorized char.
-struct TE3D_ColorChar
-{
-	// The char.
-	char Char;
-	// The color of the char.
-	TE3D_Color Color;
-};
-
-// Describes a surface of colorized chars.
-struct TE3D_Surface
-{
-	// A pointer to the array of colorized chars.
-	TE3D_ColorChar* Pixels;
-	// The width and height of the surface.
-	int Width;
-	int Height;
-	// The stride of the surface.
-	int Stride;
-};
 
 
 
