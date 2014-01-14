@@ -6,6 +6,95 @@
 
 // Some vector functions.
 
+// Returns a new 4-dimensional vector with predefined values.
+inline struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
+{
+	struct TE3D_Vector4f result;
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	result.w = w;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
+	return result;
+}
+
+// Returns the scalar-product of two vectors.
+inline float TE3D_Vector4f_mul(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
+}
+
+// Multiplicates a vector with a scalar.
+inline struct TE3D_Vector4f TE3D_Vector4f_muls(struct TE3D_Vector4f vector, float scalar)
+{
+	struct TE3D_Vector4f result;
+	result.x = vector.x * scalar;
+	result.y = vector.y * scalar;
+	result.z = vector.z * scalar;
+	result.w = vector.w * scalar;
+	result.color = vector.color;
+	return result;
+}
+
+// Divides a vector with a scalar.
+inline struct TE3D_Vector4f TE3D_Vector4f_div(struct TE3D_Vector4f vector, float scalar)
+{
+	struct TE3D_Vector4f result;
+	result.x = vector.x / scalar;
+	result.y = vector.y / scalar;
+	result.z = vector.z / scalar;
+	result.w = vector.w / scalar;
+	result.color = vector.color;
+	return result;
+}
+
+// Add two vectors.
+inline struct TE3D_Vector4f TE3D_Vector4f_add(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+{
+	struct TE3D_Vector4f result;
+	result.x = v1.x / v2.x;
+	result.y = v1.y / v2.y;
+	result.z = v1.z / v2.z;
+	result.w = v1.w / v2.w;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
+	return result;
+}
+
+// Subtract two vectors.
+inline struct TE3D_Vector4f TE3D_Vector4f_sub(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+{
+	struct TE3D_Vector4f result;
+	result.x = v1.x - v2.x;
+	result.y = v1.y - v2.y;
+	result.z = v1.z - v2.z;
+	result.w = v1.w - v2.w;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
+	return result;
+}
+
+// Normalizes the given vector.
+inline struct TE3D_Vector4f TE3D_Vector4f_normalize(struct TE3D_Vector4f* vector)
+{
+	float norm = sqrt(TE3D_Vector4f_mul((*vector), (*vector)));
+	vector->x /= norm;
+	vector->y /= norm;
+	vector->z /= norm;
+	vector->w /= norm;
+}
+
+// Returns the projection of a vector on another vector.
+inline struct TE3D_Vector4f TE3D_Vector4f_project(struct TE3D_Vector4f vector, struct TE3D_Vector4f projectOn)
+{
+	return TE3D_Vector4f_muls(projectOn, (TE3D_Vector4f_mul(vector, projectOn) / TE3D_Vector4f_mul(projectOn, projectOn)));
+}
+
+
 // Returns a new 3-dimensional vector with predefined values.
 inline struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
 {
@@ -13,11 +102,14 @@ inline struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
 	result.x = x;
 	result.y = y;
 	result.z = z;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
 // Returns scalar-product of two vectors.
-inline double TE3D_Vector3f_mul(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
+inline float TE3D_Vector3f_mul(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
@@ -29,6 +121,7 @@ inline struct TE3D_Vector3f TE3D_Vector3f_muls(struct TE3D_Vector3f vector, floa
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
 	result.z = vector.z * scalar;
+	result.color = vector.color;
 	return result;
 }
 
@@ -39,6 +132,7 @@ inline struct TE3D_Vector3f TE3D_Vector3f_div(struct TE3D_Vector3f vector, float
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
 	result.z = vector.z / scalar;
+	result.color = vector.color;
 	return result;
 }
 
@@ -49,6 +143,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_add(struct TE3D_Vector3f v1, struct TE
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
 	result.z = v1.z + v2.z;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
@@ -59,6 +156,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_sub(struct TE3D_Vector3f v1, struct TE
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
 	result.z = v1.z - v2.z;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
@@ -69,6 +169,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_cross(struct TE3D_Vector3f v1, struct 
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;
 	result.z = v1.x * v2.y - v1.y * v2.x;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
@@ -94,11 +197,14 @@ inline struct TE3D_Vector2f TE3D_Vector2f_N(float x, float y)
 	struct TE3D_Vector2f result;
 	result.x = x;
 	result.y = y;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
 // Returns scalar-product of two vectors.
-inline double TE3D_Vector2f_mul(struct TE3D_Vector2f v1, struct TE3D_Vector2f v2)
+inline float TE3D_Vector2f_mul(struct TE3D_Vector2f v1, struct TE3D_Vector2f v2)
 {
 	return v1.x * v2.x + v1.y * v2.y;
 }
@@ -109,6 +215,7 @@ inline struct TE3D_Vector2f TE3D_Vector2f_muls(struct TE3D_Vector2f vector, floa
 	struct TE3D_Vector2f result;
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
+	result.color = vector.color;
 	return result;
 }
 
@@ -118,6 +225,7 @@ inline struct TE3D_Vector2f TE3D_Vector2f_div(struct TE3D_Vector2f vector, float
 	struct TE3D_Vector2f result;
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
+	result.color = vector.color;
 	return result;
 }
 
@@ -127,6 +235,9 @@ inline struct TE3D_Vector2f TE3D_Vector2f_add(struct TE3D_Vector2f v1, struct TE
 	struct TE3D_Vector2f result;
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
@@ -136,6 +247,9 @@ inline struct TE3D_Vector2f TE3D_Vector2f_sub(struct TE3D_Vector2f v1, struct TE
 	struct TE3D_Vector2f result;
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
+	result.color.R = 0;
+	result.color.G = 0;
+	result.color.B = 0;
 	return result;
 }
 
@@ -152,6 +266,7 @@ inline struct TE3D_Vector2f TE3D_Vector2f_project(struct TE3D_Vector2f vector, s
 {
 	return TE3D_Vector2f_muls(projectOn, (TE3D_Vector2f_mul(vector, projectOn) / TE3D_Vector2f_mul(projectOn, projectOn)));
 }
+
 
 // Multiplicates a 2x2 matrix with a 2-dimensional vector.
 inline struct TE3D_Vector2f TE3D_Matrix2x2f_mul2(struct TE3D_Matrix2x2f matrix, struct TE3D_Vector2f vector)
@@ -233,6 +348,18 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA
 	return result;
 }
 
+
+// Expands a 2-dimensional vector to a 4-dimensional one.
+inline struct TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
+{
+	struct TE3D_Vector4f result;
+	result.x = vector.x;
+	result.y = vector.y;
+	result.z = 0;
+	result.w = 1;
+	return result;
+}
+
 // Expands a 3-dimensional vector to a 4-dimensional one.
 inline struct TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
 {
@@ -241,6 +368,30 @@ inline struct TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
 	result.y = vector.y;
 	result.z = vector.z;
 	result.w = 1;
+	return result;
+}
+
+
+// Expands a 2x2 matrix to a 4x4 matrix.
+inline struct TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(struct TE3D_Matrix2x2f matrix)
+{
+	struct TE3D_Matrix4x4f result;
+	result.m11 = matrix.m11;
+	result.m12 = matrix.m12;
+	result.m13 = 0;
+	result.m14 = 0;
+	result.m21 = matrix.m21;
+	result.m22 = matrix.m22;
+	result.m23 = 0;
+	result.m24 = 0;
+	result.m31 = 0;
+	result.m32 = 0;
+	result.m33 = 1;
+	result.m34 = 0;
+	result.m41 = 0;
+	result.m42 = 0;
+	result.m43 = 0;
+	result.m44 = 1;
 	return result;
 }
 
@@ -267,28 +418,6 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix3x3f_ExpandTo4x4(struct TE3D_Matrix3x3f
 	return result;
 }
 
-// Expands a 2x2 matrix to a 4x4 matrix.
-inline struct TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(struct TE3D_Matrix2x2f matrix)
-{
-	struct TE3D_Matrix4x4f result;
-	result.m11 = matrix.m11;
-	result.m12 = matrix.m12;
-	result.m13 = 0;
-	result.m14 = 0;
-	result.m21 = matrix.m21;
-	result.m22 = matrix.m22;
-	result.m23 = 0;
-	result.m24 = 0;
-	result.m31 = 0;
-	result.m32 = 0;
-	result.m33 = 1;
-	result.m34 = 0;
-	result.m41 = 0;
-	result.m42 = 0;
-	result.m43 = 0;
-	result.m44 = 1;
-	return result;
-}
 
 // Returns a new 2x2 matrix with predefined values.
 inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_N(float m11, float m12, float m21, float m22)
@@ -339,6 +468,7 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13,
 	result.m44 = m44;
 	return result;
 }
+
 
 // Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
 // direction: A normal vector, that defines the plane to project on.
