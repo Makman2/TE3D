@@ -12,7 +12,15 @@ Enthält alle Funktionen welche zur Darstellung der Daten in der Konsole nötig 
 Hinweise:
 Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHintergrundfarbe übernommen.
 
+
+Noch zu tun:
+    - implementierung der Verwendung der Cursorposition (Win+Unix)
+    - Farbige Ausgabe Linux
+    - Layer ermöglichen
+
+
 Momentaner Stand:
+    - Texteffekte entfernt, da nicht wirklich nötig
 	- Farbige Ausgabe unter Windows möglich
 	- unter anderen Betriebssystemen ist die Ausgabe noch nicht implementiert, es ist jedoch eine Schwarzweiß Ausgabe schon möglich
 	- Texteffekte des Linuxterminals werden noch nicht unterstützt
@@ -58,7 +66,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CON_DEFAULT_SIZE_Y_LINUX    0
 
 
+#define CON_DRAWMODE_FULL
+#define CON_DRAWMODE_SELECT
+
+
 enum ConsoleColor{
+
 	//Für alle Systeme verfügbar
 	Black,
 	White,
@@ -85,26 +98,21 @@ enum ConsoleColor{
 	DarkRed,
 
 };
-enum ConsoleEffect{
 
-
-	//Nur unter Linux verfügbar, bei Windows wird wahrscheinlich nur der Wert ignoriert
-	normal,
-	bold,
-	italic,
-	underlined,
-	flash,
-	reverse,
-};
 
 struct ConsoleCharacterInformation{
 	char Char;
 	int bgColor;
 	int fgColor;
-	int effect;
 	int layer;
 };
 
+struct ConsoleDrawOperation{
+    int x;
+    int y;
+    struct ConsoleCharacterInformation data;
+    struct ConsoleDrawOperation *next;
+};
 
 
 
@@ -114,10 +122,15 @@ struct ConsoleCharacterInformation{
 
 //Public functions
 
-//Writes a char in the ConsoleBuffer
-extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg,enum ConsoleEffect effect);
+
 //Writes a string in the ConsoleBuffer
-extern int CON_writeText(char *text, int posX, int posY, enum ConsoleColor color,int wrap);
+extern int CON_writeText(char *text, int posX, int posY,int wrap);
+
+//Writes a char in the ConsoleBuffer (deprecated)
+#define CON_writeChar CON_setCharacter
+extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
+
+
 
 //Clears the Console
 extern int CON_clearScreen();
@@ -136,7 +149,8 @@ extern int CON_flushBuffer();
 //Private Functions
 //
 
-static int      COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg,enum ConsoleEffect effect);
+static int      COI_setPosition(int x,int y);
+static int      COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg);
 static int      COI_getElementNumber(int x,int y);
 
 
@@ -148,6 +162,7 @@ static int      hight, width;
 
 #ifdef WIN32
 	static HANDLE   hConsole;
+	static COORD    ConsoleCoords;
 	static int      ConsoleColorTableWin[] = { 0x00, 0x0F, 0x09, 0x0A, 0x0C, 0x0E, 0x0B, 0x0D, 0x05, 0x08, 0x06 };
 
 #endif

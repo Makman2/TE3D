@@ -37,7 +37,7 @@ int CON_clearBuffer(){
         ConsoleBuffer[i].fgColor = White;
         ConsoleBuffer[i].layer = 0;
         ConsoleBuffer[i].Char = ' ';
-        ConsoleBuffer[i].effect = normal;
+
 
     }
     return 1;
@@ -52,23 +52,19 @@ int CON_flushBuffer(){
     int z = width * hight;
 
     for(int i = 0;i<z;i++){
-             COI_setColor(ConsoleBuffer[i].fgColor,ConsoleBuffer[i].bgColor,ConsoleBuffer[i].effect);
+        COI_setColor(ConsoleBuffer[i].fgColor,ConsoleBuffer[i].bgColor);
         putchar(ConsoleBuffer[i].Char);
 
         if(((i+1) % width == 0) && (i!= 0)){
-            //
-            //COI_setColor(White,Black,normal);
-
             putchar('\n');
         }
     }
 }
 
-extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg,enum ConsoleEffect effect){
+extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
     int pos = COI_getElementNumber(posX,posY);
     ConsoleBuffer[pos].bgColor = bg;
-    ConsoleBuffer[pos].fgColor = fg;
-    ConsoleBuffer[pos].effect = effect;
+    ConsoleBuffer[pos].fgColor = fg;;
     ConsoleBuffer[pos].Char = data;
     ConsoleBuffer[pos].layer = layer;
 
@@ -76,11 +72,23 @@ extern int CON_setCharacter(char data,int posX, int posY, int layer, enum Consol
 
 
 
+int COI_setPosition(int x,int y){
+    #ifdef WIN32
+        ConsoleCoords.X = x;
+        ConsoleCoords.Y = y;
+        SetConsoleCursorPosition(hConsole,ConsoleCoords);
+    #endif // WIN32
 
-int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg,enum ConsoleEffect effect){
+}
 
-	#ifdef WIN32
+
+int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
+
+	#ifdef WIN32 //Operationssystem is Windows32
         SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg],ConsoleColorTableWin[bg]));
+
+	#endif
+	#ifdef LINUX //Operationsystem is LINUX/UNIX
 
 	#endif
 
@@ -130,18 +138,14 @@ int con_init(int width, int high){
 		return 0;
 	}
 	//ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
-	
-	
-}
-int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
-	//Zum �ndern der Farbe
-	SetConsoleTextAttribute(hConsole, 0x02);
+
+
 }
 
 
 
  int COI_clearScreen(){
-	
+
 	#ifdef WIN32
 		system("CLS");
 	#endif
