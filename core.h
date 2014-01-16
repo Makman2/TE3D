@@ -27,6 +27,8 @@ struct TE3D_Pipeline
 	size_t vectorOutSize;
 	// The vector output buffer.
 	struct TE3D_Vector4f* vectorOut;
+	// The number of vectors in the vectorOut buffer.
+	int vectorOutCount;
 	// The vector index output buffer.
 	int* vectorIndexOut;
 

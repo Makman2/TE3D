@@ -36,19 +36,31 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 	newsurface.Height = height;
 	newsurface.Stride = width * sizeof(struct TE3D_ColorChar);
 	newsurface.Pixels = (struct TE3D_ColorChar*)malloc(newsurface.Stride * newsurface.Height);
-
 	pipe.asciiOut = newsurface;
 
 	pipe.zBuffer = (float*)malloc(newsurface.Width * newsurface.Height * sizeof(float));
 	
 	pipe.vectorOutSize = STANDARD_VECTOR_OUTPUTBUFFER_SIZE;
 	pipe.vectorOut = (struct TE3D_Vector4f*)malloc(STANDARD_VECTOR_OUTPUTBUFFER_SIZE);
-
 	pipe.vectorIndexOut = (int*)malloc(sizeof(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE));
-
+	pipe.vectorOutCount = 0;
 	pipe.vectorFormat = TE3D_VECTORFORMAT_TRIANGLES;
 
+	// Initialize terminal.
+	CON_init(width, height);
+		
 	return pipe;
+}
+
+// Releases the pipeline and all it's associated objects.
+void TE3D_ReleasePipeline(struct TE3D_Pipeline* pipe)
+{
+	List_Release(&pipe->models3D);
+	free(pipe->asciiOut.Pixels);
+	free(pipe->zBuffer);
+	free(pipe->vectorOut);
+	free(pipe->vectorIndexOut);	
+	CON_close();
 }
 
 // Resizes the output ASCII buffer of the pipeline.
@@ -125,6 +137,8 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 		pipe->vectorOut[i].z /= pipe->vectorOut[i].w;
 	}
 
+	pipe->vectorOutCount = vectorscount;
+
 	// Do 2D work here.
 
 
@@ -133,13 +147,20 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 // Converts the vector to ASCII-Art.
 void TE3D_Pipeline_RenderASCII(struct TE3D_Pipeline* pipe)
 {
-	TE3D_ASCII_Convert(pipe->vectorOut, &pipe->asciiOut, pipe->vectorIndexOut, pipe->vectorFormat, pipe->zBuffer);
+	TE3D_ASCII_Convert(pipe->vectorOut, pipe->vectorOutCount, &pipe->asciiOut, pipe->vectorIndexOut, pipe->vectorFormat, pipe->zBuffer);
 }
 
 // Flushes the current surface to the console.
 void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 {
-			
+	// Workaround for console. Redefine new global accessible buffer or buffer in struct. Squeezes out performance.
+	for (int x = 0; x < pipe->asciiOut.Width; x++)
+		for (int y = 0; y < pipe->asciiOut.Height; x++)
+		{
+			CON_setCharacter(pipe->asciiOut.Pixels[x + y * pipe->asciiOut.Stride].Char, x, y, 0, CONSOLECOLOR_WHITE, CONSOLECOLOR_WHITE);
+		}
+
+	CON_flushBuffer();
 }
 
 // Applies complete rendering and flushes the console.
