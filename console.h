@@ -14,13 +14,13 @@ Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHinte
 
 
 Noch zu tun:
-    - implementierung der Verwendung der Cursorposition (Win+Unix)
-    - Farbige Ausgabe Linux
-    - Layer ermöglichen
+	- implementierung der Verwendung der Cursorposition (Win+Unix)
+	- Farbige Ausgabe Linux
+	- Layer ermöglichen
 
 
 Momentaner Stand:
-    - Texteffekte entfernt, da nicht wirklich nötig
+	- Texteffekte entfernt, da nicht wirklich nötig
 	- Farbige Ausgabe unter Windows möglich
 	- unter anderen Betriebssystemen ist die Ausgabe noch nicht implementiert, es ist jedoch eine Schwarzweiß Ausgabe schon möglich
 	- Texteffekte des Linuxterminals werden noch nicht unterstützt
@@ -73,31 +73,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum ConsoleColor{
 
 	//Für alle Systeme verfügbar
-	Black,
-	White,
-	Blue,
-	Green,
-	Red,
-	Yellow,
-	Cyan,
-	Magenta,
-	Purple,
-	DarkGray,
-	Brown,
-	//Spziell unter Linux verfügbar:
-	LightBlue,
-	LightGreen,
-	LightCyan,
-	LightRed,
-	LightPurple,
+	Black = 0,
+	White = 1,
+	Blue = 2,
+	Green = 3,
+	Red = 4,
+	Yellow = 5,
+	Cyan = 6,
+	Magenta = 7,
+	Purple = 8,
+	DarkGray = 9,
+	Brown = 10,
+	
+#ifdef LINUX
+	//Speziell unter Linux verfügbar:
+	LightBlue = 11,
+	LightGreen = 12,
+	LightCyan = 13,
+	LightRed = 14,
+	LightPurple = 15,
+#endif
 
+#ifdef WIN32
 	//Windows:
-	DarkBlue,
-	DarkGreen,
-	BlueGreen,
-	DarkRed,
+	DarkBlue = 11,
+	DarkGreen = 12,
+	BlueGreen = 13,
+	DarkRed = 14
+#endif
 
 };
+
+#define CONSOLECOLOR_BLACK (ConsoleColor)0
+#define CONSOLECOLOR_WHITE (ConsoleColor)1
+#define CONSOLECOLOR_BLUE (ConsoleColor)2
+#define CONSOLECOLOR_GREEN (ConsoleColor)3 
+#define CONSOLECOLOR_RED (ConsoleColor)4
+#define CONSOLECOLOR_YELLOW (ConsoleColor)5
+#define CONSOLECOLOR_CYAN (ConsoleColor)6
+#define CONSOLECOLOR_MAGENTA (ConsoleColor)7
+#define CONSOLECOLOR_PURPLE (ConsoleColor)8
+#define CONSOLECOLOR_DARKGRAY (ConsoleColor)9
+#define CONSOLECOLOR_BROWN (ConsoleColor)10
+#ifdef LINUX
+	#define CONSOLECOLOR_LIGHTBLUE (ConsoleColor)11
+	#define CONSOLECOLOR_LIGHTGREEN (ConsoleColor)12
+	#define CONSOLECOLOR_LIGHTCYAN (ConsoleColor)13
+	#define CONSOLECOLOR_LIGHTRED (ConsoleColor)14
+	#define CONSOLECOLOR_LIGHTPURPLE (ConsoleColor)15
+#endif
+#ifdef WIN32
+	#define CONSOLECOLOR_DARKBLUE (ConsoleColor)11
+	#define CONSOLECOLOR_DARKGREEN (ConsoleColor)12
+	#define CONSOLECOLOR_BLUEGREEN (ConsoleColor)13
+	#define CONSOLECOLOR_DARKRED (ConsoleColor)14
+#endif
 
 
 struct ConsoleCharacterInformation{
@@ -108,10 +138,10 @@ struct ConsoleCharacterInformation{
 };
 
 struct ConsoleDrawOperation{
-    int x;
-    int y;
-    struct ConsoleCharacterInformation data;
-    struct ConsoleDrawOperation *next;
+	int x;
+	int y;
+	struct ConsoleCharacterInformation data;
+	struct ConsoleDrawOperation *next;
 };
 
 
@@ -167,8 +197,8 @@ static int      hight, width;
 
 #endif
 #ifdef LINUX
-    static char     ConsoleColorTableLinuxFore[][4] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
-    static char     ConsoleColorTableLinuxBack[][4] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
+	static char     ConsoleColorTableLinuxFore[][4] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
+	static char     ConsoleColorTableLinuxBack[][4] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
 
 #endif
 
