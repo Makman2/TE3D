@@ -1,7 +1,5 @@
 #include "console.h"
 
-#include "console.h"
-
 #pragma once
 
 int CON_init(int w, int h){

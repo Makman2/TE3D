@@ -17,4 +17,4 @@
 //		   when specifying TE3D_VECTORFORMAT_TRIANGLES the pointer type is an array of TE3D_VectorIndex3.
 // zBuffer: The pointer for the Z-buffer. You can set it to NULL if you don't want to get the Z-buffer, but it's recommended for performance
 //			reasons at least to create one. The function automatically creates a buffer if no one specified, but that causes a performance penalty.
-bool TE3D_ASCII_Convert(TE3D_Vector4f vectors[], int count, TE3D_Surface* target, void* indices, TE3D_VectorFormat format, float* zBuffer);
+bool TE3D_ASCII_Convert(struct TE3D_Vector4f vectors[], int count, struct TE3D_Surface* target, void* indices, enum TE3D_VectorFormat format, float* zBuffer);

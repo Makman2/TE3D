@@ -3,6 +3,10 @@
 #include "graphics.h"
 #include "list.h"
 #include "arraylist.h"
+#include "ascii_converter.h"
+#include "console.h"
+
+#include <stdlib.h>
 
 #define STANDARD_VECTOR_OUTPUTBUFFER_SIZE (256 * sizeof(struct TE3D_Vector4f))
 #define STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE (128 * sizeof(struct TE3D_VectorIndex2))

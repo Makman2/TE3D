@@ -1,9 +1,6 @@
 #include "core.h"
 
-#include "ascii_converter.h"
-#include "console.h"
 
-#include <stdlib.h>
 
 // Adds to each field in memory the given value.
 // dst: The destination address.

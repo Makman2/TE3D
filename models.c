@@ -1,14 +1,11 @@
 #include "models.h"
 
-#include "arraylist.h"
-
-#include <string.h>
 
 // Creates a new model.
 struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 {
 	struct TE3D_Model4f result;
-	result.vectors = ArrayList_New(sizeof(TE3D_Vector4f));
+	result.vectors = ArrayList_New(sizeof(struct TE3D_Vector4f));
 	
 	switch (format)
 	{
@@ -19,11 +16,11 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 			break;
 		
 		case TE3D_VECTORFORMAT_LINES:
-			result.vectors = ArrayList_New(sizeof(TE3D_VectorIndex2));
+			result.vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
 			break;
 			
 		case TE3D_VECTORFORMAT_TRIANGLES:
-			result.vectors = ArrayList_New(sizeof(TE3D_VectorIndex3));
+			result.vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
 			break;
 	}
 	

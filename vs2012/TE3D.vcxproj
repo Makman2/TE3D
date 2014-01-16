@@ -61,7 +61,7 @@
     <ClInclude Include="..\interface.h" />
     <ClInclude Include="..\list.h" />
     <ClInclude Include="..\models.h" />
-    <ClInclude Include="..\tranformation.h" />
+    <ClInclude Include="..\transformation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,51 @@
 #pragma once
 
-#include "graphics.h"
-
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#ifndef WIN32
+		#include <stdbool.h>
+#endif
+
+
+
+// Describes a 4-dimensional vector.
+struct TE3D_Vector4f
+{
+	float x, y, z, w;
+};
+
+// Describes a 3-dimensional Vector
+struct TE3D_Vector3f{
+	float x;
+	float y;
+	float z;
+};
+
+// Describes a 2-dimensional vector.
+struct TE3D_Vector2f
+{
+	float x, y;
+};
+
+// Describes a 2x2 matrix.
+struct TE3D_Matrix2x2f
+{
+	float m11, m12, m21, m22;
+};
+
+// Describes a 3x3 matrix.
+struct TE3D_Matrix3x3f
+{
+	float m11, m12, m13, m21, m22, m23, m31, m32, m33;
+};
+
+// Describes a 4x4 matrix.
+struct TE3D_Matrix4x4f
+{
+	float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
+};
+
 
 // Some vector functions.
 
@@ -14,9 +57,6 @@ inline struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
 	result.y = y;
 	result.z = z;
 	result.w = w;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -34,7 +74,6 @@ inline struct TE3D_Vector4f TE3D_Vector4f_muls(struct TE3D_Vector4f vector, floa
 	result.y = vector.y * scalar;
 	result.z = vector.z * scalar;
 	result.w = vector.w * scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -46,7 +85,6 @@ inline struct TE3D_Vector4f TE3D_Vector4f_div(struct TE3D_Vector4f vector, float
 	result.y = vector.y / scalar;
 	result.z = vector.z / scalar;
 	result.w = vector.w / scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -58,9 +96,6 @@ inline struct TE3D_Vector4f TE3D_Vector4f_add(struct TE3D_Vector4f v1, struct TE
 	result.y = v1.y / v2.y;
 	result.z = v1.z / v2.z;
 	result.w = v1.w / v2.w;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -72,9 +107,6 @@ inline struct TE3D_Vector4f TE3D_Vector4f_sub(struct TE3D_Vector4f v1, struct TE
 	result.y = v1.y - v2.y;
 	result.z = v1.z - v2.z;
 	result.w = v1.w - v2.w;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -102,9 +134,6 @@ inline struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
 	result.x = x;
 	result.y = y;
 	result.z = z;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -121,7 +150,6 @@ inline struct TE3D_Vector3f TE3D_Vector3f_muls(struct TE3D_Vector3f vector, floa
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
 	result.z = vector.z * scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -132,7 +160,6 @@ inline struct TE3D_Vector3f TE3D_Vector3f_div(struct TE3D_Vector3f vector, float
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
 	result.z = vector.z / scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -143,9 +170,6 @@ inline struct TE3D_Vector3f TE3D_Vector3f_add(struct TE3D_Vector3f v1, struct TE
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
 	result.z = v1.z + v2.z;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -156,9 +180,6 @@ inline struct TE3D_Vector3f TE3D_Vector3f_sub(struct TE3D_Vector3f v1, struct TE
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
 	result.z = v1.z - v2.z;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -169,14 +190,11 @@ inline struct TE3D_Vector3f TE3D_Vector3f_cross(struct TE3D_Vector3f v1, struct 
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;
 	result.z = v1.x * v2.y - v1.y * v2.x;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
 // Normalizes the given vector.
-inline void TE3D_Vector3f_normalize(TE3D_Vector3f *vector)
+inline void TE3D_Vector3f_normalize(struct TE3D_Vector3f *vector)
 {
 	float norm = sqrt(TE3D_Vector3f_mul((*vector), (*vector)));
 	vector->x /= norm;
@@ -197,9 +215,6 @@ inline struct TE3D_Vector2f TE3D_Vector2f_N(float x, float y)
 	struct TE3D_Vector2f result;
 	result.x = x;
 	result.y = y;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -215,7 +230,6 @@ inline struct TE3D_Vector2f TE3D_Vector2f_muls(struct TE3D_Vector2f vector, floa
 	struct TE3D_Vector2f result;
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -225,7 +239,6 @@ inline struct TE3D_Vector2f TE3D_Vector2f_div(struct TE3D_Vector2f vector, float
 	struct TE3D_Vector2f result;
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
-	result.color = vector.color;
 	return result;
 }
 
@@ -235,9 +248,6 @@ inline struct TE3D_Vector2f TE3D_Vector2f_add(struct TE3D_Vector2f v1, struct TE
 	struct TE3D_Vector2f result;
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
@@ -247,14 +257,11 @@ inline struct TE3D_Vector2f TE3D_Vector2f_sub(struct TE3D_Vector2f v1, struct TE
 	struct TE3D_Vector2f result;
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
-	result.color.R = 0;
-	result.color.G = 0;
-	result.color.B = 0;
 	return result;
 }
 
 // Normalizes the given vector.
-inline void TE3D_Vector2f_normalize(TE3D_Vector2f* vector)
+inline void TE3D_Vector2f_normalize(struct TE3D_Vector2f* vector)
 {
 	float norm = sqrt(TE3D_Vector2f_mul((*vector), (*vector)));
 	vector->x /= norm;

@@ -59,10 +59,10 @@
     <ClInclude Include="..\models.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\tranformation.h">
+    <ClInclude Include="..\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\core.h">
+    <ClInclude Include="..\transformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "models.h"
-
 #include "arraylist.h"
-#include "graphics.h"
+#include "transformation.h"
+
+#include <string.h>
 
 #ifndef WIN32
 	#include <stdbool.h>
@@ -21,6 +21,18 @@ struct TE3D_VectorIndex3
 	// The indices of the vectors to connect.
 	int i1, i2, i3;
 };
+
+// Available vector formats.
+enum TE3D_VectorFormat
+{
+	Points = 0,
+	Lines = 1,
+	Triangles = 2
+};
+
+#define TE3D_VECTORFORMAT_POINTS (enum TE3D_VectorFormat)0
+#define TE3D_VECTORFORMAT_LINES (enum TE3D_VectorFormat)1
+#define TE3D_VECTORFORMAT_TRIANGLES (enum TE3D_VectorFormat)2
 
 // Describes a model build up from vectors.
 struct TE3D_Model4f

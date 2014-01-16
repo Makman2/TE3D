@@ -46,9 +46,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#define WIN32
-
 #pragma once
 
 #include <stdio.h>
@@ -104,29 +101,29 @@ enum ConsoleColor{
 
 };
 
-#define CONSOLECOLOR_BLACK (ConsoleColor)0
-#define CONSOLECOLOR_WHITE (ConsoleColor)1
-#define CONSOLECOLOR_BLUE (ConsoleColor)2
-#define CONSOLECOLOR_GREEN (ConsoleColor)3 
-#define CONSOLECOLOR_RED (ConsoleColor)4
-#define CONSOLECOLOR_YELLOW (ConsoleColor)5
-#define CONSOLECOLOR_CYAN (ConsoleColor)6
-#define CONSOLECOLOR_MAGENTA (ConsoleColor)7
-#define CONSOLECOLOR_PURPLE (ConsoleColor)8
-#define CONSOLECOLOR_DARKGRAY (ConsoleColor)9
-#define CONSOLECOLOR_BROWN (ConsoleColor)10
+#define CONSOLECOLOR_BLACK (enum ConsoleColor)0
+#define CONSOLECOLOR_WHITE (enum ConsoleColor)1
+#define CONSOLECOLOR_BLUE (enum ConsoleColor)2
+#define CONSOLECOLOR_GREEN (enum ConsoleColor)3 
+#define CONSOLECOLOR_RED (enum ConsoleColor)4
+#define CONSOLECOLOR_YELLOW (enum ConsoleColor)5
+#define CONSOLECOLOR_CYAN (enum ConsoleColor)6
+#define CONSOLECOLOR_MAGENTA (enum ConsoleColor)7
+#define CONSOLECOLOR_PURPLE (enum ConsoleColor)8
+#define CONSOLECOLOR_DARKGRAY (enum ConsoleColor)9
+#define CONSOLECOLOR_BROWN (enum ConsoleColor)10
 #ifdef LINUX
-	#define CONSOLECOLOR_LIGHTBLUE (ConsoleColor)11
-	#define CONSOLECOLOR_LIGHTGREEN (ConsoleColor)12
-	#define CONSOLECOLOR_LIGHTCYAN (ConsoleColor)13
-	#define CONSOLECOLOR_LIGHTRED (ConsoleColor)14
-	#define CONSOLECOLOR_LIGHTPURPLE (ConsoleColor)15
+	#define CONSOLECOLOR_LIGHTBLUE (enum ConsoleColor)11
+	#define CONSOLECOLOR_LIGHTGREEN (enum ConsoleColor)12
+	#define CONSOLECOLOR_LIGHTCYAN (enum ConsoleColor)13
+	#define CONSOLECOLOR_LIGHTRED (enum ConsoleColor)14
+	#define CONSOLECOLOR_LIGHTPURPLE (enum ConsoleColor)15
 #endif
 #ifdef WIN32
-	#define CONSOLECOLOR_DARKBLUE (ConsoleColor)11
-	#define CONSOLECOLOR_DARKGREEN (ConsoleColor)12
-	#define CONSOLECOLOR_BLUEGREEN (ConsoleColor)13
-	#define CONSOLECOLOR_DARKRED (ConsoleColor)14
+	#define CONSOLECOLOR_DARKBLUE (enum ConsoleColor)11
+	#define CONSOLECOLOR_DARKGREEN (enum ConsoleColor)12
+	#define CONSOLECOLOR_BLUEGREEN (enum ConsoleColor)13
+	#define CONSOLECOLOR_DARKRED (enum ConsoleColor)14
 #endif
 
 

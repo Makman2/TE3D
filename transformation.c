@@ -1,11 +1,4 @@
-#include "graphics.h"
-
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#ifndef WIN32
-		#include <stdbool.h>
-#endif
+#include "transformation.h"
 
 #define PI 3.1415926535897932384626433832795
 #define ABS(x) (x < 0 ? -x : x)
@@ -573,7 +566,7 @@ struct TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 // angle: The angle.
 struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offset, double angle)
 {
-	TE3D_Matrix3x3f result;
+	struct TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = offset.x * (-(float)cos(angle) * offset.x + (float)sin(angle) * offset.y);
@@ -589,35 +582,3 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offse
 
 
 
-// Creates a char surface.
-// Width: The width of the surface.
-// Returns the newly created surface.
-struct TE3D_Surface* TE3D_CreateSurface(int width, int height)
-{
-	// Allocate memory for "char-pixels" and surface and zero-initialize it.
-	struct TE3D_Surface* addr = (struct TE3D_Surface*)malloc(sizeof(struct TE3D_Surface) + sizeof(struct TE3D_ColorChar) * width * height);
-	memset(addr + 1, 0, sizeof(struct TE3D_ColorChar) * width * height);
-	
-	// Initialize surface.
-	TE3D_Surface* surface = addr;
-	surface->Width = width;
-	surface->Height = height;
-	surface->Stride = sizeof(struct TE3D_ColorChar) * width;
-	// Points to the area after the structure.
-	surface->Pixels = (struct TE3D_ColorChar*)addr + 1;
-	
-	return surface;	
-}
-
-// Releases a char surface.
-// surface: The surface to release.
-void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
-{
-	free(surface);
-	
-	// Reset struct values.
-	surface->Width = 0;
-	surface->Height = 0;
-	surface->Stride = 0;
-	surface->Pixels = NULL;
-}

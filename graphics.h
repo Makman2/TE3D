@@ -1,9 +1,7 @@
 #pragma once
 
-#include "tranformation.h"
 #include "models.h"
-
-#include <math.h>
+#include "transformation.h"
 
 #ifndef WIN32
 	#include <stdbool.h>
@@ -27,14 +25,14 @@ struct TE3D_ColorChar
 	// The char.
 	char Char;
 	// The color of the char.
-	TE3D_Color Color;
+	struct TE3D_Color Color;
 };
 
 // Describes a surface of colorized chars.
 struct TE3D_Surface
 {
 	// A pointer to the array of colorized chars.
-	TE3D_ColorChar* Pixels;
+	struct TE3D_ColorChar* Pixels;
 	// The width and height of the surface.
 	int Width;
 	int Height;
@@ -44,71 +42,38 @@ struct TE3D_Surface
 
 
 
-// Describes a 4-dimensional vector.
-struct TE3D_Vector4f
+// Creates a char surface.
+// Width: The width of the surface.
+// Returns the newly created surface.
+struct TE3D_Surface* TE3D_CreateSurface(int width, int height)
 {
-	float x, y, z, w;
-	struct TE3D_Color color;
-};
+	// Allocate memory for "char-pixels" and surface and zero-initialize it.
+	struct TE3D_Surface* addr = (struct TE3D_Surface*)malloc(sizeof(struct TE3D_Surface) + sizeof(struct TE3D_ColorChar) * width * height);
+	memset(addr + 1, 0, sizeof(struct TE3D_ColorChar) * width * height);
+	
+	// Initialize surface.
+	struct TE3D_Surface* surface = addr;
+	surface->Width = width;
+	surface->Height = height;
+	surface->Stride = sizeof(struct TE3D_ColorChar) * width;
+	// Points to the area after the structure.
+	surface->Pixels = (struct TE3D_ColorChar*)(addr + 1);
+	
+	return surface;	
+}
 
-// Describes a 3-dimensional Vector
-struct TE3D_Vector3f{
-	float x;
-	float y;
-	float z;
-	struct TE3D_Color color;
-};
-
-// Describes a 2-dimensional vector.
-struct TE3D_Vector2f
+// Releases a char surface.
+// surface: The surface to release.
+void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 {
-	float x, y;
-	struct TE3D_Color color;
-};
-
-// Describes a 2x2 matrix.
-struct TE3D_Matrix2x2f
-{
-	float m11, m12, m21, m22;
-};
-
-// Describes a 3x3 matrix.
-struct TE3D_Matrix3x3f
-{
-	float m11, m12, m13, m21, m22, m23, m31, m32, m33;
-};
-
-// Describes a 4x4 matrix.
-struct TE3D_Matrix4x4f
-{
-	float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
-};
-
-// Describes a line with two indices to vectors.
-struct TE3D_VectorIndex2
-{
-	int i1, i2;
-};
-
-// Describes a triangle with three indices to vectors.
-struct TE3D_VectorIndex3
-{
-	int i1, i2, i3;
-};
-
-// Available vector formats.
-enum TE3D_VectorFormat
-{
-	Points = 0,
-	Lines = 1,
-	Triangles = 2
-};
-
-#define TE3D_VECTORFORMAT_POINTS (TE3D_VectorFormat)0
-#define TE3D_VECTORFORMAT_LINES (TE3D_VectorFormat)1
-#define TE3D_VECTORFORMAT_TRIANGLES (TE3D_VectorFormat)2
-
-
+	free(surface);
+	
+	// Reset struct values.
+	surface->Width = 0;
+	surface->Height = 0;
+	surface->Stride = 0;
+	surface->Pixels = NULL;
+}
 
 
 
@@ -126,13 +91,12 @@ struct TE3D_Pixel{
 struct TE3D_DrawBuffer{
 	int width;
 	int legth;
-	TE3D_Pixel **data;
+	struct TE3D_Pixel **data;
 };
 
 
 struct TE3D_Polygon{
 	int count;
-	TE3D_Vector3f *data;
+	struct TE3D_Vector3f *data;
 
 };
-
