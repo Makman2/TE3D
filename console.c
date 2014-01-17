@@ -1,7 +1,5 @@
 #include "console.h"
 
-#pragma once
-
 int CON_init(int w, int h){
 
 	//WinAPI Initialisierung
@@ -50,7 +48,7 @@ int CON_flushBuffer(){
 	int z = width * hight;
 
 	for(int i = 0;i<z;i++){
-		COI_setColor(ConsoleBuffer[i].fgColor, ConsoleBuffer[i].bgColor);
+		COI_setColor((enum ConsoleColor)ConsoleBuffer[i].fgColor, (enum ConsoleColor)ConsoleBuffer[i].bgColor);
 		putchar(ConsoleBuffer[i].Char);
 
 		if(((i+1) % width == 0) && (i!= 0)){
@@ -62,7 +60,7 @@ int CON_flushBuffer(){
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
 	int pos = COI_getElementNumber(posX,posY);
 
-	if(ConsoleBuffer[pos].layer >= Layer ){
+	if(ConsoleBuffer[pos].layer >= layer ){
         ConsoleBuffer[pos].bgColor = bg;
         ConsoleBuffer[pos].fgColor = fg;;
         ConsoleBuffer[pos].Char = data;
@@ -136,7 +134,7 @@ extern  struct ConsoleCharacterInformation* getBuffer(){
 
 extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
 
-    char lineElements[6] = {"------"};
+    char lineElements[6] = {"-----"};
 
     //den Winkel der Linie berechnen
     float angle = (posY2 - posY1)/(posX2-posX1);
