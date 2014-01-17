@@ -6,7 +6,7 @@
 // dst: The destination address.
 // val: The value to add.
 // count: The number of ints in the memory to add the value to.
-inline void memadd(int* dst, int val, int count)
+static void memadd(int* dst, int val, int count)
 {
 	if (!val)
 		for(int i = 0; i < count; i++)
@@ -21,7 +21,11 @@ inline void memadd(int* dst, int val, int count)
 struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 {
 	if (width <= 0 || height <= 0)
-		return;
+	{
+		struct TE3D_Pipeline NULLpipe;
+		memset(&NULLpipe, 0, sizeof(NULLpipe));
+		return NULLpipe;
+	}
 	
 	struct TE3D_Pipeline pipe;
 	struct TE3D_Matrix4x4f initMatrix = TE3D_Transformation4x4f_Identity();
@@ -81,40 +85,40 @@ void TE3D_Pipeline_ResizeBuffers(struct TE3D_Pipeline* pipe, int newwidth, int n
 // Transforms all vectors and copies them to the vector output buffer.
 void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 {
-	TE3D_Model4f* element;
-	TE3D_Vector4f* vecbufferPos = pipe->vectorOut;
+	struct TE3D_Model4f* element;
+	struct TE3D_Vector4f* vecbufferPos = pipe->vectorOut;
 	int vectorscount = 0;
 	int* indexbufferPos = pipe->vectorIndexOut;
 	
 	for (int i = 0; i < pipe->models3D.count; i++)
 	{
 		// Get current list element.
-		element = (TE3D_Model4f*)List_At(&pipe->models3D, i);
+		element = (struct TE3D_Model4f*)List_At(&pipe->models3D, i);
 		
 		// If the buffer format matches, copy.
 		if (element->isActive && element->format == pipe->vectorFormat)
 		{
-			memcpy(vecbufferPos, element->vectors.items, element->vectors.count * sizeof(TE3D_Vector4f));
+			memcpy(vecbufferPos, element->vectors.items, element->vectors.count * sizeof(struct TE3D_Vector4f));
 			vecbufferPos += element->vectors.count;
 
 			// Now check if the vector format is indiced. If so, you must adjust the indices if copied behind the other indices.
 			if (pipe->vectorFormat == TE3D_VECTORFORMAT_LINES)
 			{
 				// Copy line indices.
-				memcpy(indexbufferPos, element->indices.items, element->indices.count * sizeof(TE3D_VectorIndex2));
+				memcpy(indexbufferPos, element->indices.items, element->indices.count * sizeof(struct TE3D_VectorIndex2));
 				// Adjust indices.
-				memadd(indexbufferPos, vectorscount, element->indices.count * sizeof(TE3D_VectorIndex2) / sizeof(int));
+				memadd(indexbufferPos, vectorscount, element->indices.count * sizeof(struct TE3D_VectorIndex2) / sizeof(int));
 
-				indexbufferPos += sizeof(TE3D_VectorIndex2) / sizeof(int) * element->indices.count;
+				indexbufferPos += sizeof(struct TE3D_VectorIndex2) / sizeof(int) * element->indices.count;
 			}
 			else if(pipe->vectorFormat == TE3D_VECTORFORMAT_TRIANGLES)
 			{
 				// Copy triangle indices.
-				memcpy(indexbufferPos, element->indices.items, element->indices.count * sizeof(TE3D_VectorIndex3));
+				memcpy(indexbufferPos, element->indices.items, element->indices.count * sizeof(struct TE3D_VectorIndex3));
 				// Adjust indices.
-				memadd(indexbufferPos, vectorscount, element->indices.count * sizeof(TE3D_VectorIndex3) / sizeof(int));
+				memadd(indexbufferPos, vectorscount, element->indices.count * sizeof(struct TE3D_VectorIndex3) / sizeof(int));
 
-				indexbufferPos += sizeof(TE3D_VectorIndex3) / sizeof(int) * element->indices.count;
+				indexbufferPos += sizeof(struct TE3D_VectorIndex3) / sizeof(int) * element->indices.count;
 			}
 			
 			vectorscount += element->vectors.count;
@@ -154,7 +158,7 @@ void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 	for (int x = 0; x < pipe->asciiOut.Width; x++)
 		for (int y = 0; y < pipe->asciiOut.Height; x++)
 		{
-			CON_setCharacter(pipe->asciiOut.Pixels[x + y * pipe->asciiOut.Stride].Char, x, y, 0, CONSOLECOLOR_WHITE, CONSOLECOLOR_WHITE);
+			CON_writeChar(pipe->asciiOut.Pixels[x + y * pipe->asciiOut.Stride].Char, x, y, 0, CONSOLECOLOR_WHITE, CONSOLECOLOR_WHITE);
 		}
 
 	CON_flushBuffer();

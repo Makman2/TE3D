@@ -1,7 +1,5 @@
 #include "ascii_converter.h"
 
-#include "graphics.h"
-
 #include <stdlib.h>
 
 
@@ -22,7 +20,7 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f vectors[], int count, struct TE3D_S
 			if (indices != NULL)
 				return false;
 			
-			// -- Hier gehts weiter mit dem Zeichnen. Die if-Bedingung von davor ist nur dazu da, um zu überprüfen ob indices nicht gesetzt wurden,
+			// -- Hier gehts weiter mit dem Zeichnen. Die if-Bedingung von davor ist nur dazu da, um zu überprüfen ob indices nicht gesetzt wurde,
 			// -- ansonsten ist wohl im Funktionsaufruf was schiefgegangen. Aber falls nicht, sind wir eben an dieser Stelle.
 			// -- Hier werden die Vektoren in Zeichen umgewandelt, und in diesem fall (also case ...POINTS) werden sie in Punkte umgezeichnet.
 			// -- Gezeichnet wird in 'target'. Die Definition der Struktur TE3D_Surface ist in graphics.h zu finden.
@@ -32,45 +30,6 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f vectors[], int count, struct TE3D_S
 			// -- vorher selber machen.
 			// -- Zur Erinnerung: Die umzuwandelnden Vektoren nimmst du aus dem Parameter vectors[].
 			
-
-
-float vpoints (int x*,int y* ) {   // Fkt. mit x,y Koordinaten
-
-
-
-	if (TE3D_VectorIndex2 = x,y) 
-
-{  
-
-
-
-	}
-
-
-
-
-
-
-
-
-
-
-return 0;
-			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			break;
 			
 		// -- Hier wollen wir Linien zwischen den Vektoren zeichnen. Dazu sollte sich ein Array vom Typ TE3D_VectorIndex2 in 'indices' befinden.

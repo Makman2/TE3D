@@ -36,6 +36,9 @@
     <ClCompile Include="..\transformation.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\graphics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\arraylist.h">

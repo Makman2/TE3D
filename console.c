@@ -160,7 +160,7 @@ extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum
 
 int con_init(int width, int high){
 
-
+#ifdef WIN32
 	//WinAPI Initialisierung
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (hConsole == INVALID_HANDLE_VALUE)
@@ -168,7 +168,7 @@ int con_init(int width, int high){
 		return 0;
 	}
 	//ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
-
+#endif
 
 }
 

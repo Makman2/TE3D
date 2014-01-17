@@ -48,6 +48,7 @@
     <ClCompile Include="..\ascii_converter.c" />
     <ClCompile Include="..\console.c" />
     <ClCompile Include="..\core.c" />
+    <ClCompile Include="..\graphics.c" />
     <ClCompile Include="..\list.c" />
     <ClCompile Include="..\models.c" />
     <ClCompile Include="..\transformation.c" />

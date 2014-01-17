@@ -26,6 +26,8 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 	
 	result.isActive = true;
 	result.format = format;
+
+	return result;
 }
 
 // Transforms the elements in the model.
