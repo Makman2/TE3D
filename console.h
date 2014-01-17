@@ -12,23 +12,28 @@ Enthält alle Funktionen welche zur Darstellung der Daten in der Konsole nötig 
 Hinweise:
 Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHintergrundfarbe übernommen.
 
+Änderungen:
+    - Fehler entfernt
+    - direkter Zugriff auf den Buffer nötig (muss noch getestet werden! kann sein das es linkerfehler hervorruft)
+    -Layer definiert
+    -Funktion CON_writeChar (vorher CON_setCharacter) umbenannt
 
 Noch zu tun:
 	- implementierung der Verwendung der Cursorposition (Win+Unix)
 	- Farbige Ausgabe Linux
 	- Layer ermöglichen
+	- Schreiben eines Textes in die Konsole
 
 
 Momentaner Stand:
-	- Texteffekte entfernt, da nicht wirklich nötig
-	- Farbige Ausgabe unter Windows möglich
+
 	- unter anderen Betriebssystemen ist die Ausgabe noch nicht implementiert, es ist jedoch eine Schwarzweiß Ausgabe schon möglich
-	- Texteffekte des Linuxterminals werden noch nicht unterstützt
-	- Schreiben eines Textes in den Buffer noch nicht implementiert
-	- Layer werden angenommen, jedoch noch nicht verglichen, der Text wird immer überschrieben
 
-Verbindung mit dem Rest der Bibliothek über console_abstraction.h
 
+
+
+
+###########################################################################################
 
 Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
 
@@ -47,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
+#define WIN32
 #include <stdio.h>
 //#include "graphics.h"
 
@@ -67,44 +72,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CON_DRAWMODE_SELECT
 
 
-enum ConsoleColor{
+#define CON_LAYER_BOTTOM 0
+#define CON_LAYER_TOP    256
 
-	//Für alle Systeme verfügbar
-	Black = 0,
-	White = 1,
-	Blue = 2,
-	Green = 3,
-	Red = 4,
-	Yellow = 5,
-	Cyan = 6,
-	Magenta = 7,
-	Purple = 8,
-	DarkGray = 9,
-	Brown = 10,
-	
-#ifdef LINUX
-	//Speziell unter Linux verfügbar:
-	LightBlue = 11,
-	LightGreen = 12,
-	LightCyan = 13,
-	LightRed = 14,
-	LightPurple = 15,
-#endif
 
-#ifdef WIN32
-	//Windows:
-	DarkBlue = 11,
-	DarkGreen = 12,
-	BlueGreen = 13,
-	DarkRed = 14
-#endif
-
-};
 
 #define CONSOLECOLOR_BLACK (enum ConsoleColor)0
 #define CONSOLECOLOR_WHITE (enum ConsoleColor)1
 #define CONSOLECOLOR_BLUE (enum ConsoleColor)2
-#define CONSOLECOLOR_GREEN (enum ConsoleColor)3 
+#define CONSOLECOLOR_GREEN (enum ConsoleColor)3
 #define CONSOLECOLOR_RED (enum ConsoleColor)4
 #define CONSOLECOLOR_YELLOW (enum ConsoleColor)5
 #define CONSOLECOLOR_CYAN (enum ConsoleColor)6
@@ -126,6 +102,42 @@ enum ConsoleColor{
 	#define CONSOLECOLOR_DARKRED (enum ConsoleColor)14
 #endif
 
+enum ConsoleColor{
+
+	//Für alle Systeme verfügbar
+	Black = 0,
+	White = 1,
+	Blue = 2,
+	Green = 3,
+	Red = 4,
+	Yellow = 5,
+	Cyan = 6,
+	Magenta = 7,
+	Purple = 8,
+	DarkGray = 9,
+	Brown = 10,
+
+#ifdef LINUX
+	//Speziell unter Linux verfügbar:
+	LightBlue = 11,
+	LightGreen = 12,
+	LightCyan = 13,
+	LightRed = 14,
+	LightPurple = 15,
+#endif
+
+#ifdef WIN32
+	//Windows:
+	DarkBlue = 11,
+	DarkGreen = 12,
+	BlueGreen = 13,
+	DarkRed = 14
+#endif
+
+};
+
+
+
 
 struct ConsoleCharacterInformation{
 	char Char;
@@ -140,35 +152,6 @@ struct ConsoleDrawOperation{
 	struct ConsoleCharacterInformation data;
 	struct ConsoleDrawOperation *next;
 };
-
-
-
-
-
-
-
-//Public functions
-
-
-//Writes a string in the ConsoleBuffer
-extern int CON_writeText(char *text, int posX, int posY,int wrap);
-
-//Writes a char in the ConsoleBuffer (deprecated)
-#define CON_writeChar CON_setCharacter
-extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
-
-
-
-//Clears the Console
-extern int CON_clearScreen();
-//Reset the ConsoleBuffer
-extern int CON_clearBuffer();
-//Init the ConsoleBuffer
-extern int CON_init(int w,int h);
-//Close the Module
-extern int CON_close();
-//Print the consoleBuffer out to the Console
-extern int CON_flushBuffer();
 
 
 
@@ -198,5 +181,36 @@ static int      hight, width;
 	static char     ConsoleColorTableLinuxBack[][4] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
 
 #endif
+
+
+//Public functions
+
+
+//Writes a string in the ConsoleBuffer
+extern int CON_writeText(char *text, int posX, int posY,int wrap);
+//Writes a char in the ConsoleBuffer
+extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
+//Write a Line of Chars in the Buffer
+extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg);
+
+
+
+
+
+//Clears the Console
+extern int CON_clearScreen();
+//Reset the ConsoleBuffer
+extern int CON_clearBuffer();
+//Init the ConsoleBuffer
+extern int CON_init(int w,int h);
+//Close the Module
+extern int CON_close();
+//Print the consoleBuffer out to the Console
+extern int CON_flushBuffer();
+
+extern struct ConsoleCharacterInformation* CON_getBuffer();
+
+
+
 
 

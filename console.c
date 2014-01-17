@@ -50,7 +50,7 @@ int CON_flushBuffer(){
 	int z = width * hight;
 
 	for(int i = 0;i<z;i++){
-		COI_setColor((ConsoleColor)ConsoleBuffer[i].fgColor, (ConsoleColor)ConsoleBuffer[i].bgColor);
+		COI_setColor(ConsoleBuffer[i].fgColor, ConsoleBuffer[i].bgColor);
 		putchar(ConsoleBuffer[i].Char);
 
 		if(((i+1) % width == 0) && (i!= 0)){
@@ -59,12 +59,16 @@ int CON_flushBuffer(){
 	}
 }
 
-extern int CON_setCharacter(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
+extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
 	int pos = COI_getElementNumber(posX,posY);
-	ConsoleBuffer[pos].bgColor = bg;
-	ConsoleBuffer[pos].fgColor = fg;;
-	ConsoleBuffer[pos].Char = data;
-	ConsoleBuffer[pos].layer = layer;
+
+	if(ConsoleBuffer[pos].layer >= Layer ){
+        ConsoleBuffer[pos].bgColor = bg;
+        ConsoleBuffer[pos].fgColor = fg;;
+        ConsoleBuffer[pos].Char = data;
+        ConsoleBuffer[pos].layer = layer;
+	}
+
 
 }
 
@@ -76,6 +80,9 @@ int COI_setPosition(int x,int y){
 		ConsoleCoords.Y = y;
 		SetConsoleCursorPosition(hConsole,ConsoleCoords);
 	#endif // WIN32
+
+
+    return 1;
 
 }
 
@@ -122,8 +129,35 @@ static int  COI_getElementNumber(int x,int y){
 #endif
 
 
+extern  struct ConsoleCharacterInformation* getBuffer(){
+    return ConsoleBuffer;
+}
 
 
+extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
+
+    char lineElements[6] = {"------"};
+
+    //den Winkel der Linie berechnen
+    float angle = (posY2 - posY1)/(posX2-posX1);
+
+
+    int startX = 0;
+    int startY = 0;
+
+    if(posX1 > posX2){
+
+
+
+    }
+
+
+
+
+
+
+
+}
 
 
 int con_init(int width, int high){
