@@ -55,6 +55,7 @@ int CON_flushBuffer(){
 			putchar('\n');
 		}
 	}
+	return 1;
 }
 
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
@@ -66,7 +67,7 @@ extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleCo
         ConsoleBuffer[pos].Char = data;
         ConsoleBuffer[pos].layer = layer;
 	}
-
+    return 1;
 
 }
 
@@ -133,7 +134,7 @@ extern  struct ConsoleCharacterInformation* getBuffer(){
 
 
 extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
-
+/*
     char lineElements[6] = {"-----"};
 
     //den Winkel der Linie berechnen
@@ -149,8 +150,8 @@ extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum
 
     }
 
-
-
+*/
+    return 0;
 
 
 
@@ -170,6 +171,7 @@ int con_init(int width, int high){
 	//ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
 #endif
 
+return 1;
 }
 
 

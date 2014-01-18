@@ -54,6 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
 //#include "graphics.h"
 
 #ifdef WIN32
@@ -166,7 +167,6 @@ static int      COI_getElementNumber(int x,int y);
 
 
 static struct   ConsoleCharacterInformation *ConsoleBuffer;
-static int      bufferSize = 0;
 static int      hight, width;
 
 
