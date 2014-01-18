@@ -7,14 +7,13 @@ source = $(wildcard *.c)
 # Linker switches
 linker_math = -lm
 
-objectout = $(output).o
 CC = gcc
 SL = ar
-CFLAGS_PIC = -std=c99 -pedantic -Wall -Wextra -fpic -o $(objectout) $(source) $(linker_math)
-CFLAGS_SO = -shared -o $(output) $(objectout)
-
+CFLAGS_PIC = -std=c99 -pedantic -Wall -Wextra -fpic -c $(source) $(linker_math)
+CFLAGS_SO = -shared -Wl,-soname,$(output) -o $(output).1.0
 SFLAGS = rcs $(objectout) $(output) 
 
+LD_LIBRARY_PATH = /usr/lib
 
 ifeq ($(OS),Windows_NT)
 	CFLAGS_PIC += -D WIN32
@@ -48,9 +47,16 @@ endif
 debug: $(source)
 	@echo "Compiling..."
 	@$(CC) $(CFLAGS_PIC)
-	@$(CC) $(CFLAGS_SO)
-	@mv $(output) $(LD_LIBRARY_PATH)/$(output)
-	@chmod 0755 $(LD_LIBRARY_PATH)
+	@echo "Creating shared object..."
+	$(eval CFLAGS_SO += $(wildcard *.o))
+	$(eval CFLAGS_SO += $(linker_math))
+	$(eval objectout = $(wildcard *.o))
+	$(CC) $(CFLAGS_SO)
+#	mv $(output) $(LD_LIBRARY_PATH)/$(output)
+	-mkdir $(LD_LIBRARY_PATH)
+	mv $(output).1.0 $(LD_LIBRARY_PATH)/$(output).1.0
+#	@chmod 0755 $(LD_LIBRARY_PATH)/
+	@ldconfig -l $(LD_LIBRARY_PATH)/$(output).1.0
 	@-rm $(objectout)
 	@echo "Debug compilation successful."
 
