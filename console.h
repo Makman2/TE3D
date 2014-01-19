@@ -17,11 +17,14 @@ Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHinte
     - direkter Zugriff auf den Buffer nötig (muss noch getestet werden! kann sein das es linkerfehler hervorruft)
     -Layer definiert
     -Funktion CON_writeChar (vorher CON_setCharacter) umbenannt
+    - Ausgabe unter Linux implementierrt (Muss noch getestet werden!)
+    - Auf den Konsolenspeicher sollte (demnächst) nicht mehr direkt zugegriffen werden, da ich an der Strucktur etwas ändern werde!
+    - Layer werden abgefragt
 
 Noch zu tun:
 	- implementierung der Verwendung der Cursorposition (Win+Unix)
 	- Farbige Ausgabe Linux
-	- Layer ermöglichen
+
 	- Schreiben eines Textes in die Konsole
 
 
@@ -52,10 +55,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#define LINUX 1
 
 #include <stdio.h>
 #include <stdlib.h>
 //#include "graphics.h"
+
+
 
 #ifdef WIN32
 	#include <windows.h>
@@ -77,18 +83,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CON_LAYER_TOP    256
 
 
+#define CONSOLECOLOR_DEFAULT (enum ConsoleColor)0
+#define CONSOLECOLOR_BLACK (enum ConsoleColor)1
+#define CONSOLECOLOR_WHITE (enum ConsoleColor)2
+#define CONSOLECOLOR_BLUE (enum ConsoleColor)3
+#define CONSOLECOLOR_GREEN (enum ConsoleColor)4
+#define CONSOLECOLOR_RED (enum ConsoleColor)5
+#define CONSOLECOLOR_YELLOW (enum ConsoleColor)6
+#define CONSOLECOLOR_CYAN (enum ConsoleColor)7
+#define CONSOLECOLOR_MAGENTA (enum ConsoleColor)8
+#define CONSOLECOLOR_PURPLE (enum ConsoleColor)9
+#define CONSOLECOLOR_DARKGRAY (enum ConsoleColor)10
+#define CONSOLECOLOR_BROWN (enum ConsoleColor)11
 
-#define CONSOLECOLOR_BLACK (enum ConsoleColor)0
-#define CONSOLECOLOR_WHITE (enum ConsoleColor)1
-#define CONSOLECOLOR_BLUE (enum ConsoleColor)2
-#define CONSOLECOLOR_GREEN (enum ConsoleColor)3
-#define CONSOLECOLOR_RED (enum ConsoleColor)4
-#define CONSOLECOLOR_YELLOW (enum ConsoleColor)5
-#define CONSOLECOLOR_CYAN (enum ConsoleColor)6
-#define CONSOLECOLOR_MAGENTA (enum ConsoleColor)7
-#define CONSOLECOLOR_PURPLE (enum ConsoleColor)8
-#define CONSOLECOLOR_DARKGRAY (enum ConsoleColor)9
-#define CONSOLECOLOR_BROWN (enum ConsoleColor)10
+//Die erweiterten Plattformabhängigenfarben sind momentan auskommentiert, damit durch die Benutzung dieser keine Probleme
+//hervorgerufen werden
+/*
 #ifdef LINUX
 	#define CONSOLECOLOR_LIGHTBLUE (enum ConsoleColor)11
 	#define CONSOLECOLOR_LIGHTGREEN (enum ConsoleColor)12
@@ -102,24 +112,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#define CONSOLECOLOR_BLUEGREEN (enum ConsoleColor)13
 	#define CONSOLECOLOR_DARKRED (enum ConsoleColor)14
 #endif
+*/
+
+
 
 enum ConsoleColor{
 
 	//Für alle Systeme verfügbar
-	Black = 0,
-	White = 1,
-	Blue = 2,
-	Green = 3,
-	Red = 4,
-	Yellow = 5,
-	Cyan = 6,
-	Magenta = 7,
-	Purple = 8,
-	DarkGray = 9,
-	Brown = 10,
-
+	Default  = 0,
+	Black = 1,
+	White = 2,
+	Blue = 3,
+	Green = 4,
+	Red = 5,
+	Yellow = 6,
+	Cyan = 7,
+	Magenta = 8,
+	Purple = 9,
+	DarkGray = 10,
+	Brown = 11,
+/*
 #ifdef LINUX
-	//Speziell unter Linux verfügbar:
+	//Only avaiable under Unix
 	LightBlue = 11,
 	LightGreen = 12,
 	LightCyan = 13,
@@ -128,13 +142,13 @@ enum ConsoleColor{
 #endif
 
 #ifdef WIN32
-	//Windows:
+	//Only avaiable under Windows (Win32)
 	DarkBlue = 11,
 	DarkGreen = 12,
 	BlueGreen = 13,
 	DarkRed = 14
 #endif
-
+*/
 };
 
 
@@ -208,7 +222,10 @@ extern int CON_close();
 //Print the consoleBuffer out to the Console
 extern int CON_flushBuffer();
 
-extern struct ConsoleCharacterInformation* CON_getBuffer();
+
+
+    extern struct ConsoleCharacterInformation* CON_getBuffer();
+
 
 
 

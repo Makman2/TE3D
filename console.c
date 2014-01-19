@@ -9,6 +9,7 @@ int CON_init(int w, int h){
 	if (hConsole == INVALID_HANDLE_VALUE)
 	{
 		return 0;
+
 	}
 
 	#endif // WIN32
@@ -86,24 +87,56 @@ int COI_setPosition(int x,int y){
 }
 
 
-int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
+static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 
 	#ifdef WIN32 //Operationssystem is Windows32
-		SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg],ConsoleColorTableWin[bg]));
+
+		if(fg == 0){
+            SetConsoleTextAttribute(hConsole, WINCOLOR(DarkGray,Black));
+		}else{
+            SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg-1],ConsoleColorTableWin[bg-1]));
+		}
+
+
 
 	#endif
 	#ifdef LINUX //Operationsystem is LINUX/UNIX
 
+
+        if(fg == 0){
+            //Default color wished, clear Colorsetting
+            puts("\033[0m");
+        }else{
+            //Write Color to the Terminal
+            puts("\033[");
+            puts(ConsoleColorTableLinuxFore[fg-1]);
+            puts("\033[");
+            puts(ConsoleColorTableLinuxBack[bg-1]);
+        }
+
 	#endif
 
-	//puts("\033[");
-	//char tmpBuf[5];
-	//strcpy(tmpBuf,ConsoleColorTableLinux[fg]);
+
 
 
 
 	return 1;
 }
+
+
+
+ int COI_clearScreen(){
+
+	#ifdef WIN32
+		system("CLS");
+	#endif
+	#ifdef LINUX
+		system("clear");
+	#endif
+
+	return 1;
+}
+
 static int  COI_getElementNumber(int x,int y){
 	return x*width + y;
 }
@@ -168,22 +201,15 @@ int con_init(int width, int high){
 	{
 		return 0;
 	}
-	//ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
+
 #endif
+
+    ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
+
 
 return 1;
 }
 
 
 
- int COI_clearScreen(){
 
-	#ifdef WIN32
-		system("CLS");
-	#endif
-	#ifdef LINUX
-		system("clear");
-	#endif
-
-	return 1;
-}
