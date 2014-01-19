@@ -1,87 +1,118 @@
-# Output static library file
-output = libte3d.so
+# Static library file settings.
+OUTPUT = libte3d.so
+VERSION = 1.0
+
+
+OBJECTDIR = obj
+RELEASEDIR = release
 
 # Sources
-source = $(wildcard *.c)
+SRC = $(wildcard *.c)
+HEAD = $(wildcard *.h)
+OBJ = $(patsubst %.c,$(OBJECTDIR)/%.o,$(SRC))
 
 # Linker switches
-linker_math = -lm
+LIBS = -lm
+
+
+OUTPUT_FULLNAME = $(strip $(OUTPUT)).$(strip $(VERSION))
 
 CC = gcc
-SL = ar
-CFLAGS_PIC = -std=c99 -pedantic -Wall -Wextra -fpic -c $(source) $(linker_math)
-CFLAGS_SO = -shared -Wl,-soname,$(output) -o $(output).1.0
-SFLAGS = rcs $(objectout) $(output) 
+LDFLAGS = $(LIBS)
+CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c
+CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+DEPENDFILE = $(OBJECTDIR)/.depend
+INSTALLATION_PATH = /usr/lib
 
-LD_LIBRARY_PATH = /usr/lib
 
 ifeq ($(OS),Windows_NT)
-	CFLAGS_PIC += -D WIN32
+	OS = WIN32
 	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-		CFLAGS_PIC += -D AMD64
+		CPU = AMD64
 	endif
 	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-		CFLAGS_PIC += -D IA32
+		CPU += IA32
 	endif
 else
-	UNAME_S := $(shell uname -s)
+	UNAME_S = $(strip $(shell uname -s))
 	ifeq ($(UNAME_S),Linux)
-		CFLAGS_PIC += -D LINUX
+		OS = LINUX
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		CFLAGS_PIC += -D OSX
+		OS = OSX
 	endif
-	UNAME_P := $(shell uname -p)
+	UNAME_P = $(strip $(shell uname -p))
 	ifeq ($(UNAME_P),x86_64)
-		CFLAGS_PIC += -D AMD64
+		CPU = AMD64
 	endif
 	ifneq ($(filter %86,$(UNAME_P)),)
-		CFLAGS_PIC += -D IA32
+		CPU = IA32
 	endif
 	ifneq ($(filter arm%,$(UNAME_P)),)
-		CFLAGS_PIC += -D ARM
+		CPU = ARM
 	endif
 endif
+CFLAGS += -D $(OS)
+CFLAGS += -D $(CPU)
+CFLAGS += -o
 
 
-debug: $(source)
-	@echo "Compiling..."
-	@$(CC) $(CFLAGS_PIC)
-	@echo "Creating shared object..."
-	$(eval CFLAGS_SO += $(wildcard *.o))
-	$(eval CFLAGS_SO += $(linker_math))
-	$(eval objectout = $(wildcard *.o))
-	$(CC) $(CFLAGS_SO)
-#	mv $(output) $(LD_LIBRARY_PATH)/$(output)
-	-mkdir $(LD_LIBRARY_PATH)
-	mv $(output).1.0 $(LD_LIBRARY_PATH)/$(output).1.0
-#	@chmod 0755 $(LD_LIBRARY_PATH)/
-	@ldconfig -l $(LD_LIBRARY_PATH)/$(output).1.0
-	@-rm $(objectout)
-	@echo "Debug compilation successful."
 
-release: $(source)
-	@echo "Compiling..."
-	@$(CC) $(CFLAGS:-g=)
-	@$(SL) $(SFLAGS)
-	@-rm $(objectout)
-	@echo "Release compilation successful."
+all:
+	make release
+
+release: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+
+dep: $(DEPENDFILE)
+	@echo "Dependencies ready."
+
+install:
+ifeq ($(wildcard $(INSTALLATION_PATH)),)
+	@mkdir $(INSTALLATION_PATH)
+endif
+	@printf "Copying shared library... "
+	@cp $(RELEASEDIR)/$(OUTPUT_FULLNAME) $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
+	@echo "Done."
+	@printf "Configuring link... "
+	@ldconfig -l $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
+	@echo "Done."
+	@echo "Installation successful."
+
+$(DEPENDFILE): $(SRC)
+ifeq ($(wildcard $(OBJECTDIR)/),)
+	@mkdir $(OBJECTDIR)
+endif
+ifneq ($(wildcard $(DEPENDFILE)/),)
+	@rm $(DEPENDFILE)
+endif
+	@printf "Reading and updating dependencies... "
+	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf "Compiling $$(notdir $$@)... "' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@echo "Done."' >> $(DEPENDFILE);)
+	@echo "Done."
+	
+$(RELEASEDIR)/$(OUTPUT_FULLNAME): $(OBJ)
+	@printf "Creating shared object... "
+ifeq ($(wildcard $(RELEASEDIR)),)
+	@mkdir $(RELEASEDIR)
+endif
+	@$(CC) $(CFLAGS_SO) $(OBJ) $(LDFLAGS)
+	@echo "Done."
+	@echo "Compilation successful."
+
 
 clean:
-ifneq ($(wilcard $(objectout)),)
-	@-rm $(objectout)
+ifneq ($(wildcard $(OBJECTDIR)/*.o),)
+	@rm $(wildcard $(OBJECTDIR)/*.o)
 	@echo "Deleted object files."
 endif
-ifneq ($(wildcard $(output)),)
-	@-rm $(output)
+ifneq ($(wildcard $(RELEASEDIR)/$(OUTPUT)),)
+	@-rm $(RELEASEDIR)/$(OUTPUT)
 	@echo "Deleted library."
 endif
 ifneq ($(wildcard *~),)
 	@-rm $(wildcard *~)
 	@echo "Deleted temporary files."
 endif
-	@echo "Cleaned Up."
-	
-uninstall:
-	@-rm $(LD_LIBRARY_PATH)/$(output)
-	@echo "Uninstalled."
+	@echo "Cleaned up."
+
+
+-include $(DEPENDFILE)
