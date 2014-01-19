@@ -22,30 +22,48 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f vectors[], int count, struct TE3D_S
 			if (indices != NULL)
 				return false;
 			
-			// -- Hier gehts weiter mit dem Zeichnen. Die if-Bedingung von davor ist nur dazu da, um zu überprüfen ob indices nicht gesetzt wurden,
-			// -- ansonsten ist wohl im Funktionsaufruf was schiefgegangen. Aber falls nicht, sind wir eben an dieser Stelle.
-			// -- Hier werden die Vektoren in Zeichen umgewandelt, und in diesem fall (also case ...POINTS) werden sie in Punkte umgezeichnet.
-			// -- Gezeichnet wird in 'target'. Die Definition der Struktur TE3D_Surface ist in graphics.h zu finden.
-			// -- TE3D_Surface enthält Breite (Width) und Höhe (Height) und ein Array von TE3D_ColorChar's, die eben die Farbe und den jeweiligen Char enthalten.
-			// -- Also im Prinzip ein Pixel vom Terminalbild. Dieses Array gilt es zu bauen aus den eingegebenen Vektoren (vectors).
-			// -- Den Speicher für das TE3D_ColorChar Array von der Surface brauchst du nicht mit malloc zu initialisieren, das sollte der Benutzer der Funktion
-			// -- vorher selber machen.
-			// -- Zur Erinnerung: Die umzuwandelnden Vektoren nimmst du aus dem Parameter vectors[].
+			/*( Hier gehts weiter mit dem Zeichnen. Die if-Bedingung von davor ist nur dazu da, um zu überprüfen ob indices nicht gesetzt wurden,
+			 ansonsten ist wohl im Funktionsaufruf was schiefgegangen. Aber falls nicht, sind wir eben an dieser Stelle. )
+			 Den Speicher für das TE3D_ColorChar Array von der Surface brauchst du nicht mit malloc zu initialisieren, das sollte der Benutzer der Funktion
+			 vorher selber machen.)*/
+
+
+
+
+
 			
+// -- Gezeichnet wird in 'target'. Die Definition der Struktur TE3D_Surface ist in graphics.h zu finden.
+			
+// -- TE3D_Surface enthält Breite (Width) und Höhe (Height) und ein Array von TE3D_ColorChar's, die eben die Farbe und den jeweiligen Char enthalten.
+
+// -- Also im Prinzip ein Pixel vom Terminalbild. Dieses Array gilt es zu bauen aus den eingegebenen Vektoren (vectors).
+			
+// -- Zur Erinnerung: Die umzuwandelnden Vektoren nimmst du aus dem Parameter vectors[].
+			
+// -- Hier werden die Vektoren in Zeichen umgewandelt, und in diesem fall (also case ...POINTS) werden sie in Punkte umgezeichnet.
+
+float vpoints (); {   // Fkt. mit x,y Koordinaten
+int Height;
+int Witdh;
+struct TE3D_Surface
+{
+	// A pointer to the array of colorized chars.
+	struct TE3D_ColorChar* Pixels;
+	// The width and height of the surface.
+	int Width;
+	int Height;
+	// The stride of the surface.
+	int Stride;
+}	
 
 
-float vpoints (int x*,int y* ) {   // Fkt. mit x,y Koordinaten
+printf ("Geben Sie eine x und y Koordinate ein");
+scanf ("%d,%d");
+
+vectors[ Witdh, Height];
 
 
 
-	if (TE3D_VectorIndex2 = x,y) 
-{  
-
-
-vector [] =  "."  // Vektor für Punkt
-
-
-	}
 
 return 0;
 			}
