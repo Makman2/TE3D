@@ -42,14 +42,14 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f vectors[], int count, struct TE3D_S
 			
 // -- Hier werden die Vektoren in Zeichen umgewandelt, und in diesem fall (also case ...POINTS) werden sie in Punkte umgezeichnet.
 
-float vpoints (); {   // Fkt. mit x,y Koordinaten
+			float vpoints (target); {   // Fkt. mit x,y Koordinaten
 int Height;
 int Witdh;
 
+vectors [x,y]; 
 
-TE3D_Surface ( vponts (Height, Witdh));
 
-target (vectors [int r]);
+
 
 
 
