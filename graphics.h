@@ -2,6 +2,7 @@
 
 #include "models.h"
 #include "transformation.h"
+#include "console.h"
 
 #ifndef WIN32
 	#include <stdbool.h>

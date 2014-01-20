@@ -60,7 +60,11 @@ int CON_flushBuffer(){
 }
 
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
-	int pos = COI_getElementNumber(posX,posY);
+	if(posX > width || posY > hight){
+        return 0;
+	}
+
+	int pos = COI_getElementNumber(posY,posX);
 
 	if(ConsoleBuffer[pos].layer >= layer ){
         ConsoleBuffer[pos].bgColor = bg;
@@ -71,10 +75,26 @@ extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleCo
     return 1;
 
 }
+extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap){
+    int pos = COI_getElementNumber(posY,posX);
+
+    while(*text != 0){
+        ConsoleBuffer[pos].Char = *text;
+        ConsoleBuffer[pos].fgColor = fg;
+        ConsoleBuffer[pos].bgColor = bg;
+        ConsoleBuffer[pos].layer = layer;
+        text++;
+        pos++;
 
 
+    }
 
-int COI_setPosition(int x,int y){
+    return 1;
+
+}
+
+
+static int COI_setPosition(int x,int y){
 	#ifdef WIN32
 		ConsoleCoords.X = x;
 		ConsoleCoords.Y = y;
@@ -85,8 +105,6 @@ int COI_setPosition(int x,int y){
     return 1;
 
 }
-
-
 static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 
 	#ifdef WIN32 //Operationssystem is Windows32
@@ -124,8 +142,7 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 }
 
 
-
- int COI_clearScreen(){
+static int COI_clearScreen(){
 
 	#ifdef WIN32
 		system("CLS");
@@ -142,7 +159,7 @@ static int  COI_getElementNumber(int x,int y){
 }
 
 
- int CON_clearScreen(){
+extern int CON_clearScreen(){
 
 	#ifdef WIN32
 		system("CLS");
@@ -192,23 +209,6 @@ extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum
 }
 
 
-int con_init(int width, int high){
-
-#ifdef WIN32
-	//WinAPI Initialisierung
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (hConsole == INVALID_HANDLE_VALUE)
-	{
-		return 0;
-	}
-
-#endif
-
-    ConsoleBuffer = malloc(sizeof(struct ConsoleCharacterInformation));
-
-
-return 1;
-}
 
 
 

@@ -55,11 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define LINUX 1
+
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include "graphics.h"
 
 
 
@@ -184,6 +183,8 @@ static struct   ConsoleCharacterInformation *ConsoleBuffer;
 static int      hight, width;
 
 
+static struct ConsoleDrawOperation *ConsoleOperationBuffer;
+
 #ifdef WIN32
 	static HANDLE   hConsole;
 	static COORD    ConsoleCoords;
@@ -201,7 +202,7 @@ static int      hight, width;
 
 
 //Writes a string in the ConsoleBuffer
-extern int CON_writeText(char *text, int posX, int posY,int wrap);
+extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap);
 //Writes a char in the ConsoleBuffer
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
 //Write a Line of Chars in the Buffer
@@ -224,7 +225,7 @@ extern int CON_flushBuffer();
 
 
 
-    extern struct ConsoleCharacterInformation* CON_getBuffer();
+extern struct ConsoleCharacterInformation* CON_getBuffer();
 
 
 
