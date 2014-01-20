@@ -2,6 +2,7 @@
 
 #include "arraylist.h"
 #include "transformation.h"
+#include "console.h"
 
 #include <string.h>
 
@@ -38,20 +39,23 @@ enum TE3D_VectorFormat
 struct TE3D_Model4f
 {
 	// The vectors that define the model.
-	struct ArrayList vectors;
+	struct ArrayList Vectors;
 	
 	// The indices that connect the model.
 	// Note: The array list type depends on the defined vector format.
 	// 		 TE3D_VECTORFORMAT_POINTS: indices is NULL.
 	//		 TE3D_VECTORFORMAT_LINES: indices contains an arraylist of type TE3D_VectorIndex2.
 	//		 TE3D_VECTORFORMAT_TRIANGLES: indices contains an arraylist of type TE3D_VectorIndex3.
-	struct ArrayList indices;
-	
-	// Sets if the model is rendered.
-	bool isActive;
+	struct ArrayList Indices;
+
+	// The colors of the model.
+	struct ArrayList Colors;
+
+	// Sets whether the model is rendered.
+	bool IsActive;
 	
 	// The vector format of this model.
-	enum TE3D_VectorFormat format;
+	enum TE3D_VectorFormat Format;
 };
 
 // Creates a new model.

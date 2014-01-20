@@ -5,27 +5,29 @@
 struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 {
 	struct TE3D_Model4f result;
-	result.vectors = ArrayList_New(sizeof(struct TE3D_Vector4f));
+	result.Vectors = ArrayList_New(sizeof(struct TE3D_Vector4f));
 	
 	switch (format)
 	{
 		case TE3D_VECTORFORMAT_POINTS:
-			result.indices.count = 0;
-			result.indices.items = NULL;
-			result.indices.typesize = 0;
+			result.Indices.count = 0;
+			result.Indices.items = NULL;
+			result.Indices.typesize = 0;
 			break;
 		
 		case TE3D_VECTORFORMAT_LINES:
-			result.vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
+			result.Vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
 			break;
 			
 		case TE3D_VECTORFORMAT_TRIANGLES:
-			result.vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
+			result.Vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
 			break;
 	}
 	
-	result.isActive = true;
-	result.format = format;
+	result.Colors = ArrayList_New(sizeof(enum ConsoleColor));
+	
+	result.IsActive = true;
+	result.Format = format;
 
 	return result;
 }
@@ -34,9 +36,9 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 void TE3D_Model4f_Transform(struct TE3D_Model4f* model, struct TE3D_Matrix4x4f matrix)
 {
 	// Iterate over each vector and transform it.
-	for(int i = 0; i < model->vectors.count; i++)
+	for(int i = 0; i < model->Vectors.count; i++)
 	{
-		((struct TE3D_Vector4f*)model->vectors.items)[i] = TE3D_Matrix4x4f_mul4(matrix, ((struct TE3D_Vector4f*)model->vectors.items)[i]);
+		((struct TE3D_Vector4f*)model->Vectors.items)[i] = TE3D_Matrix4x4f_mul4(matrix, ((struct TE3D_Vector4f*)model->Vectors.items)[i]);
 	}
 }
 

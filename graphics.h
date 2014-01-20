@@ -2,6 +2,7 @@
 
 #include "models.h"
 #include "transformation.h"
+#include "console.h"
 
 #ifndef WIN32
 	#include <stdbool.h>
@@ -25,7 +26,7 @@ struct TE3D_ColorChar
 	// The char.
 	char Char;
 	// The color of the char.
-	struct TE3D_Color Color;
+	enum ConsoleColor Color;
 };
 
 // Describes a surface of colorized chars.
@@ -44,7 +45,7 @@ struct TE3D_Surface
 
 // Creates a char surface.
 // Width: The width of the surface.
-struct TE3D_Surface* TE3D_CreateSurface(int width, int height);
+struct TE3D_Surface TE3D_CreateSurface(int width, int height);
 
 // Releases a char surface.
 // surface: The surface to release.

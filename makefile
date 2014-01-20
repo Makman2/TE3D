@@ -1,7 +1,9 @@
 # Static library file settings.
 OUTPUT = libte3d.so
 VERSION = 1.0
-
+# The name of the header to export and the header to create the export from.
+#EXPORTHEADER = te3d.h
+#EXPORTREFERENCEHEADER = core.h
 
 OBJECTDIR = obj
 RELEASEDIR = release
@@ -59,12 +61,17 @@ CFLAGS += -o
 
 
 all:
-	make release
+	make build
+	make header
 
-release: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+	@echo "Build up to date."
+
+#header: $(EXPORTHEADER)
+#	@echo "Export header up to date."
 
 dep: $(DEPENDFILE)
-	@echo "Dependencies ready."
+	@echo "Dependencies up to date."
 
 install:
 ifeq ($(wildcard $(INSTALLATION_PATH)),)
@@ -76,7 +83,27 @@ endif
 	@printf "Configuring link... "
 	@ldconfig -l $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
 	@echo "Done."
-	@echo "Installation successful."
+
+clean:
+ifneq ($(wildcard $(OBJECTDIR)/*.o),)
+	@rm $(wildcard $(OBJECTDIR)/*.o)
+	@echo "Deleted object files."
+endif
+ifneq ($(wildcard $(RELEASEDIR)/$(OUTPUT)),)
+	@-rm $(RELEASEDIR)/$(OUTPUT)
+	@echo "Deleted library."
+endif
+ifneq ($(wildcard *~),)
+	@-rm $(wildcard *~)
+	@echo "Deleted temporary files."
+endif
+	@echo "Cleaned up."
+
+
+
+#$(EXPORTHEADER): $(HEAD)
+#	@echo "" >> $(EXPORTHEADER)
+#	gcc -E
 
 $(DEPENDFILE): $(SRC)
 ifeq ($(wildcard $(OBJECTDIR)/),)
@@ -96,23 +123,9 @@ ifeq ($(wildcard $(RELEASEDIR)),)
 endif
 	@$(CC) $(CFLAGS_SO) $(OBJ) $(LDFLAGS)
 	@echo "Done."
-	@echo "Compilation successful."
 
 
-clean:
-ifneq ($(wildcard $(OBJECTDIR)/*.o),)
-	@rm $(wildcard $(OBJECTDIR)/*.o)
-	@echo "Deleted object files."
-endif
-ifneq ($(wildcard $(RELEASEDIR)/$(OUTPUT)),)
-	@-rm $(RELEASEDIR)/$(OUTPUT)
-	@echo "Deleted library."
-endif
-ifneq ($(wildcard *~),)
-	@-rm $(wildcard *~)
-	@echo "Deleted temporary files."
-endif
-	@echo "Cleaned up."
+
 
 
 -include $(DEPENDFILE)
