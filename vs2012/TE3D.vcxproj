@@ -37,6 +37,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);$(SolutionDir)\..;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
@@ -51,6 +52,7 @@
     <ClCompile Include="..\graphics.c" />
     <ClCompile Include="..\list.c" />
     <ClCompile Include="..\models.c" />
+    <ClCompile Include="..\test\cube\main.c" />
     <ClCompile Include="..\transformation.c" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +64,7 @@
     <ClInclude Include="..\interface.h" />
     <ClInclude Include="..\list.h" />
     <ClInclude Include="..\models.h" />
+    <ClInclude Include="..\TE3D.h" />
     <ClInclude Include="..\transformation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -25,7 +25,7 @@ CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c
 CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 DEPENDFILE = $(OBJECTDIR)/.depend
 INSTALLATION_PATH = /usr/lib
-
+INSTALLATION_PATH_HEADER = /usr/include
 
 ifeq ($(OS),Windows_NT)
 	OS = WIN32
@@ -60,9 +60,9 @@ CFLAGS += -o
 
 
 
-all:
+all: dep
 	make build
-	make header
+#	make header
 
 build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 	@echo "Build up to date."
@@ -79,10 +79,18 @@ ifeq ($(wildcard $(INSTALLATION_PATH)),)
 endif
 	@printf "Copying shared library... "
 	@cp $(RELEASEDIR)/$(OUTPUT_FULLNAME) $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
+	@chmod 0755 $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
 	@echo "Done."
 	@printf "Configuring link... "
 	@ldconfig -l $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
 	@echo "Done."
+ifeq ($(wildcard $(INSTALLATION_PATH_HEADER)),)
+	@mkdir $(INSTALLATION_PATH_HEADER)
+endif
+	@printf "Installing headers... "
+	@$(foreach header,$(wildcard *.h),cp $(header) $(INSTALLATION_PATH_HEADER)/$(header);chmod 0755 $(INSTALLATION_PATH_HEADER)/$(header);)
+	@echo "Done."
+
 
 clean:
 ifneq ($(wildcard $(OBJECTDIR)/*.o),)
@@ -115,6 +123,9 @@ endif
 	@printf "Reading and updating dependencies... "
 	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf "Compiling $$(notdir $$@)... "' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@echo "Done."' >> $(DEPENDFILE);)
 	@echo "Done."
+
+
+-include $(DEPENDFILE)
 	
 $(RELEASEDIR)/$(OUTPUT_FULLNAME): $(OBJ)
 	@printf "Creating shared object... "
@@ -124,8 +135,3 @@ endif
 	@$(CC) $(CFLAGS_SO) $(OBJ) $(LDFLAGS)
 	@echo "Done."
 
-
-
-
-
--include $(DEPENDFILE)

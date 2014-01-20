@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{1ce1030a-dbcb-4fe5-ba16-a3d992127070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\Cube">
+      <UniqueIdentifier>{4afe28b0-6ced-4838-96b3-0d9f0eb85be8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\arraylist.c">
@@ -38,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="..\graphics.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\test\cube\main.c">
+      <Filter>Test\Cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\transformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TE3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
