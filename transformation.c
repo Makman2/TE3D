@@ -811,7 +811,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(struct TE3D_Vector3f axis,
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
 	result.m14 = offset.x - ((float)cos(angle) + (1 - (float)cos(angle)) * axis.x * axis.x) * offset.x - ((1 - (float)cos(angle)) * axis.x * axis.y - (float)sin(angle) * axis.z) * offset.y - ((float)sin(angle) * axis.y + (1 - (float)cos(angle)) * axis.x * axis.z) * offset.z;
-	result.m21 = axis.x * axis.y * (1 - (float)cos(angle)) + axis.z * (float)sin((float)angle);
+	result.m21 = axis.x * axis.y * (1 - (float)cos(angle)) + axis.z * (float)sin(angle);
 	result.m22 = axis.y * axis.y * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m23 = axis.y * axis.z * (1 - (float)cos(angle)) - axis.x * (float)sin(angle);
 	result.m24 = -((1 - (float)cos(angle)) * axis.x * axis.y + (float)sin(angle) * axis.z) * offset.x + offset.y - ((float)cos(angle) + (1 - (float)cos(angle)) * axis.y * axis.y) * offset.y - (-(float)sin(angle) * axis.x + (1 - (float)cos(angle)) * axis.y * axis.z) * offset.z;
@@ -836,7 +836,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(struct TE3D_Vector3f
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
 	result.m14 = 0;
-	result.m21 = axis.x * axis.y * (1 - (float)cos(angle)) + axis.z * (float)sin((float)angle);
+	result.m21 = axis.x * axis.y * (1 - (float)cos(angle)) + axis.z * (float)sin(angle);
 	result.m22 = axis.y * axis.y * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m23 = axis.y * axis.z * (1 - (float)cos(angle)) - axis.x * (float)sin(angle);
 	result.m24 = 0;

@@ -10,6 +10,7 @@
 
 #define STANDARD_VECTOR_OUTPUTBUFFER_SIZE (256 * sizeof(struct TE3D_Vector4f))
 #define STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE (128 * sizeof(struct TE3D_VectorIndex2))
+#define STANDARD_COLORMAP_SIZE (128 * sizeof(enum ConsoleColor))
 
 // The standard TE3D working pipeline.
 struct TE3D_Pipeline

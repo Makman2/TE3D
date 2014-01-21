@@ -1,7 +1,5 @@
 #include "ascii_converter.h"
 
-#include <stdlib.h>
-
 static void memsetd(double* dst, double value, int count)
 {
 	for (int i = 0; i < count; i++)
@@ -44,11 +42,17 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// Iterate over each vector and assign color.
 			for (int i = 0; i < count; i++)
 			{
-				if (zBuffer[(int)vectors[i].x + (int)vectors[i].y * target->Width] <= vectors[i].z)
+				int xround = (int)round(vectors[i].x);
+				int yround = (int)round(vectors[i].y);
+				
+				
+				if (zBuffer[xround + yround * target->Width] >= vectors[i].z && 
+					xround >= 0 && xround < target->Width &&
+					yround >= 0 && yround < target->Height)
 				{
-					zBuffer[(int)vectors[i].x + (int)vectors[i].y * target->Width] = vectors[i].z;
-					target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Char = '.';
-					target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Color = colormap[i];
+					zBuffer[xround + yround * target->Width] = vectors[i].z;
+					target->Pixels[xround + yround * target->Width].Char = '.';
+					target->Pixels[xround + yround * target->Width].Color = colormap[i];
 				}
 			}
 
