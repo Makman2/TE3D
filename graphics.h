@@ -34,6 +34,8 @@ struct TE3D_Surface
 {
 	// A pointer to the array of colorized chars.
 	struct TE3D_ColorChar* Pixels;
+	// The background of the surface.
+	enum ConsoleColor Background;
 	// The width and height of the surface.
 	int Width;
 	int Height;

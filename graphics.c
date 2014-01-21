@@ -12,6 +12,8 @@ struct TE3D_Surface TE3D_CreateSurface(int width, int height)
 	surface.Pixels = (struct TE3D_ColorChar*)malloc(sizeof(struct TE3D_ColorChar) * width * height);
 	memset(surface.Pixels, 0, sizeof(struct TE3D_ColorChar) * width * height);
 	
+	surface.Background = CONSOLECOLOR_DEFAULT;
+
 	return surface;	
 }
 
@@ -24,6 +26,7 @@ void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 	surface->Width = 0;
 	surface->Height = 0;
 	surface->Stride = 0;
+	surface->Background = CONSOLECOLOR_DEFAULT;
 	surface->Pixels = NULL;
 }
 

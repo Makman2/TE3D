@@ -59,37 +59,37 @@ int CON_flushBuffer(){
 	return 1;
 }
 
-extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
+int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
 	if(posX > width || posY > hight){
-        return 0;
+		return 0;
 	}
 
 	int pos = COI_getElementNumber(posY,posX);
 
 	if(ConsoleBuffer[pos].layer >= layer ){
-        ConsoleBuffer[pos].bgColor = bg;
-        ConsoleBuffer[pos].fgColor = fg;;
-        ConsoleBuffer[pos].Char = data;
-        ConsoleBuffer[pos].layer = layer;
+		ConsoleBuffer[pos].bgColor = bg;
+		ConsoleBuffer[pos].fgColor = fg;;
+		ConsoleBuffer[pos].Char = data;
+		ConsoleBuffer[pos].layer = layer;
 	}
-    return 1;
+	return 1;
 
 }
-extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap){
-    int pos = COI_getElementNumber(posY,posX);
+int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap){
+	int pos = COI_getElementNumber(posY,posX);
 
-    while(*text != 0){
-        ConsoleBuffer[pos].Char = *text;
-        ConsoleBuffer[pos].fgColor = fg;
-        ConsoleBuffer[pos].bgColor = bg;
-        ConsoleBuffer[pos].layer = layer;
-        text++;
-        pos++;
+	while(*text != 0){
+		ConsoleBuffer[pos].Char = *text;
+		ConsoleBuffer[pos].fgColor = fg;
+		ConsoleBuffer[pos].bgColor = bg;
+		ConsoleBuffer[pos].layer = layer;
+		text++;
+		pos++;
 
 
-    }
+	}
 
-    return 1;
+	return 1;
 
 }
 
@@ -102,7 +102,7 @@ static int COI_setPosition(int x,int y){
 	#endif // WIN32
 
 
-    return 1;
+	return 1;
 
 }
 static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
@@ -110,9 +110,9 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 	#ifdef WIN32 //Operationssystem is Windows32
 
 		if(fg == 0){
-            SetConsoleTextAttribute(hConsole, WINCOLOR(DarkGray,Black));
+			SetConsoleTextAttribute(hConsole, WINCOLOR(DarkGray,Black));
 		}else{
-            SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg-1],ConsoleColorTableWin[bg-1]));
+			SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg-1],ConsoleColorTableWin[bg-1]));
 		}
 
 
@@ -120,17 +120,22 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 	#endif
 	#ifdef LINUX //Operationsystem is LINUX/UNIX
 
+		// Reset attributes.
+		puts("\033[0m");
+		if(fg != CONSOLECOLOR_DEFAULT)
+		{
+			//Write Color to the Terminal
+			puts("\033[");
+			puts(ConsoleColorTableLinuxFore[30 + fg - 1]);
+			putchar('m');
+		}
 
-        if(fg == 0){
-            //Default color wished, clear Colorsetting
-            puts("\033[0m");
-        }else{
-            //Write Color to the Terminal
-            puts("\033[");
-            puts(ConsoleColorTableLinuxFore[fg-1]);
-            puts("\033[");
-            puts(ConsoleColorTableLinuxBack[bg-1]);
-        }
+		if (bg != CONSOLECOLOR_DEFAULT)
+		{
+			puts("\033[");
+			puts(ConsoleColorTableLinuxBack[40 + bg - 1]);
+			putchar('m');
+		}
 
 	#endif
 
@@ -159,7 +164,7 @@ static int  COI_getElementNumber(int x,int y){
 }
 
 
-extern int CON_clearScreen(){
+int CON_clearScreen(){
 
 	#ifdef WIN32
 		system("CLS");
@@ -179,29 +184,29 @@ extern int CON_clearScreen(){
 
 
 extern  struct ConsoleCharacterInformation* getBuffer(){
-    return ConsoleBuffer;
+	return ConsoleBuffer;
 }
 
 
 extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
 /*
-    char lineElements[6] = {"-----"};
+	char lineElements[6] = {"-----"};
 
-    //den Winkel der Linie berechnen
-    float angle = (posY2 - posY1)/(posX2-posX1);
-
-
-    int startX = 0;
-    int startY = 0;
-
-    if(posX1 > posX2){
+	//den Winkel der Linie berechnen
+	float angle = (posY2 - posY1)/(posX2-posX1);
 
 
+	int startX = 0;
+	int startY = 0;
 
-    }
+	if(posX1 > posX2){
+
+
+
+	}
 
 */
-    return 0;
+	return 0;
 
 
 

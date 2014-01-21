@@ -1,6 +1,6 @@
 #include "core.h"
 
-#define STANDARD_CHARCOLOR CONSOLECOLOR_WHITE
+#define STANDARD_CHARCOLOR CONSOLECOLOR_DEFAULT
 #define STANDARD_CHAR ' '
 
 // Adds to each field in memory the given value.
@@ -163,7 +163,7 @@ void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 	for (int y = 0; y < pipe->CharOutput.Height; y++)
 		for (int x = 0; x < pipe->CharOutput.Width; x++)
 		{
-			CON_writeChar(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Stride].Char, x, y, 0, CONSOLECOLOR_WHITE, CONSOLECOLOR_WHITE);
+			CON_writeChar(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Char, x, y, 0, pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Color, pipe->CharOutput.Background);
 		}
 
 	CON_flushBuffer();

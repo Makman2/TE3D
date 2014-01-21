@@ -13,13 +13,13 @@ Hinweise:
 Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHintergrundfarbe übernommen.
 
 Änderungen:
-    - Fehler entfernt
-    - direkter Zugriff auf den Buffer nötig (muss noch getestet werden! kann sein das es linkerfehler hervorruft)
-    -Layer definiert
-    -Funktion CON_writeChar (vorher CON_setCharacter) umbenannt
-    - Ausgabe unter Linux implementierrt (Muss noch getestet werden!)
-    - Auf den Konsolenspeicher sollte (demnächst) nicht mehr direkt zugegriffen werden, da ich an der Strucktur etwas ändern werde!
-    - Layer werden abgefragt
+	- Fehler entfernt
+	- direkter Zugriff auf den Buffer nötig (muss noch getestet werden! kann sein das es linkerfehler hervorruft)
+	-Layer definiert
+	-Funktion CON_writeChar (vorher CON_setCharacter) umbenannt
+	- Ausgabe unter Linux implementierrt (Muss noch getestet werden!)
+	- Auf den Konsolenspeicher sollte (demnächst) nicht mehr direkt zugegriffen werden, da ich an der Strucktur etwas ändern werde!
+	- Layer werden abgefragt
 
 Noch zu tun:
 	- implementierung der Verwendung der Cursorposition (Win+Unix)
@@ -133,19 +133,19 @@ enum ConsoleColor{
 /*
 #ifdef LINUX
 	//Only avaiable under Unix
-	LightBlue = 11,
-	LightGreen = 12,
-	LightCyan = 13,
-	LightRed = 14,
-	LightPurple = 15,
+	LightBlue = 12,
+	LightGreen = 13,
+	LightCyan = 14,
+	LightRed = 15,
+	LightPurple = 16
 #endif
 
 #ifdef WIN32
 	//Only avaiable under Windows (Win32)
-	DarkBlue = 11,
-	DarkGreen = 12,
-	BlueGreen = 13,
-	DarkRed = 14
+	DarkBlue = 12,
+	DarkGreen = 13,
+	BlueGreen = 14,
+	DarkRed = 15
 #endif
 */
 };

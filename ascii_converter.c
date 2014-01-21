@@ -44,9 +44,12 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// Iterate over each vector and assign color.
 			for (int i = 0; i < count; i++)
 			{
-				zBuffer[(int)vectors[i].x + (int)vectors[i].y * target->Width] = vectors[i].z;
-				target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Char = '.';
-				target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Color = colormap[i];
+				if (zBuffer[(int)vectors[i].x + (int)vectors[i].y * target->Width] <= vectors[i].z)
+				{
+					zBuffer[(int)vectors[i].x + (int)vectors[i].y * target->Width] = vectors[i].z;
+					target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Char = '.';
+					target->Pixels[(int)vectors[i].x + (int)vectors[i].y * target->Width].Color = colormap[i];
+				}
 			}
 
 			break;
