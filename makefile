@@ -21,8 +21,8 @@ OUTPUT_FULLNAME = $(strip $(OUTPUT)).$(strip $(VERSION))
 
 CC = gcc
 LDFLAGS = $(LIBS)
-CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c
-CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c -g
+CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -g -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 DEPENDFILE = $(OBJECTDIR)/.depend
 INSTALLATION_PATH = /usr/lib
 INSTALLATION_PATH_HEADER = /usr/include

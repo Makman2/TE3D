@@ -48,8 +48,12 @@ struct TE3D_Surface
 struct TE3D_Surface TE3D_CreateSurface(int width, int height);
 
 // Releases a char surface.
-// surface: The surface to release.
 void TE3D_ReleaseSurface(struct TE3D_Surface* surface);
+
+// Clears the surface with the given value.
+// val: The colorized char to clear buffer with.
+void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val);
+
 
 
 

@@ -579,7 +579,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(st
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, xvec);
+	xvec = TE3D_Vector3f_cross(direction, yvec);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);
@@ -617,7 +617,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, xvec);
+	xvec = TE3D_Vector3f_cross(direction, yvec);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);
@@ -653,7 +653,7 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, xvec);
+	xvec = TE3D_Vector3f_cross(direction, yvec);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);

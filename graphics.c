@@ -26,3 +26,12 @@ void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 	surface->Stride = 0;
 	surface->Pixels = NULL;
 }
+
+// Clears the surface with the given value.
+void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val)
+{
+	for (int i = 0; i < surface->Width * surface->Height; i++)
+	{
+		surface->Pixels[i] = val;
+	}
+}

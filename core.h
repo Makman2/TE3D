@@ -50,6 +50,9 @@ struct TE3D_Pipeline
 // height: The initial output height.
 struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height);
 
+// Releases the pipeline and all it's associated objects.
+void TE3D_ReleasePipeline(struct TE3D_Pipeline* pipe);
+
 // Resizes the output ASCII buffer of the pipeline.
 // newwidth: The new width.
 // newheight: The new height.

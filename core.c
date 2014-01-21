@@ -1,6 +1,7 @@
 #include "core.h"
 
-
+#define STANDARD_CHARCOLOR CONSOLECOLOR_WHITE
+#define STANDARD_CHAR ' '
 
 // Adds to each field in memory the given value.
 // dst: The destination address.
@@ -159,8 +160,8 @@ void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 {
 
 	// Workaround for console. Redefine new global accessible buffer or buffer in struct. Squeezes out performance.
-	for (int x = 0; x < pipe->CharOutput.Width; x++)
-		for (int y = 0; y < pipe->CharOutput.Height; x++)
+	for (int y = 0; y < pipe->CharOutput.Height; y++)
+		for (int x = 0; x < pipe->CharOutput.Width; x++)
 		{
 			CON_writeChar(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Stride].Char, x, y, 0, CONSOLECOLOR_WHITE, CONSOLECOLOR_WHITE);
 		}
@@ -172,6 +173,12 @@ void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 void TE3D_Pipeline_Render(struct TE3D_Pipeline* pipe)
 {
 	TE3D_Pipeline_Transform(pipe);
+	
+	struct TE3D_ColorChar defaultchar;
+	defaultchar.Char = STANDARD_CHAR;
+	defaultchar.Color = STANDARD_CHARCOLOR;
+
+	TE3D_ClearSurface(&pipe->CharOutput, defaultchar);
 	TE3D_Pipeline_RenderASCII(pipe);
 	TE3D_Pipeline_FlushConsole(pipe);
 }
@@ -188,13 +195,18 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 	if (format == TE3D_VECTORFORMAT_POINTS)
 	{
 		if (pipe->VectorIndexOutput)
+		{
 			free(pipe->VectorIndexOutput);
+			pipe->VectorIndexOutput = NULL;
+		}
 	}
 	else if(format == TE3D_VECTORFORMAT_LINES || format == TE3D_VECTORFORMAT_TRIANGLES)
 	{
 		if (!pipe->VectorIndexOutput)
-			pipe->VectorIndexOutput = (int*)malloc(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE);
+			pipe->VectorIndexOutput = malloc(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE);
 	}
+
+	pipe->VectorFormat = format;
 }
 
 // Resizes the vector output index buffer.
