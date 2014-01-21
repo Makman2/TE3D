@@ -43,7 +43,7 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 	pipe.VectorOutputCount = 0;
 	pipe.VectorFormat = TE3D_VECTORFORMAT_TRIANGLES;
 
-	pipe.Colormap = (enum ConsoleColor*)malloc(STANDARD_VECTOR_OUTPUTBUFFER_SIZE);
+	pipe.Colormap = (enum ConsoleColor*)malloc(STANDARD_COLORMAP_SIZE);
 
 	// Initialize terminal.
 	CON_init(width, height);

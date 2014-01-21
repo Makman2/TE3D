@@ -30,8 +30,8 @@ int CON_init(int w, int h){
 int CON_clearBuffer(){
 
 	for(int i = 0;i< width * hight;i++){
-		ConsoleBuffer[i].bgColor = Black;
-		ConsoleBuffer[i].fgColor = White;
+		ConsoleBuffer[i].bgColor = CONSOLECOLOR_DEFAULT;
+		ConsoleBuffer[i].fgColor = CONSOLECOLOR_DEFAULT;
 		ConsoleBuffer[i].layer = 0;
 		ConsoleBuffer[i].Char = ' ';
 
@@ -116,24 +116,24 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 		}
 
 
-
+		
 	#endif
 	#ifdef LINUX //Operationsystem is LINUX/UNIX
 
 		// Reset attributes.
-		puts("\033[0m");
+		fputs("\033[0m", stdout);
 		if(fg != CONSOLECOLOR_DEFAULT)
 		{
 			//Write Color to the Terminal
-			puts("\033[");
-			puts(ConsoleColorTableLinuxFore[30 + fg - 1]);
+			fputs("\033[", stdout);
+			fputs(ConsoleColorTableLinuxFore[fg - 1], stdout);
 			putchar('m');
 		}
 
 		if (bg != CONSOLECOLOR_DEFAULT)
 		{
-			puts("\033[");
-			puts(ConsoleColorTableLinuxBack[40 + bg - 1]);
+			fputs("\033[", stdout);
+			fputs(ConsoleColorTableLinuxBack[bg - 1], stdout);
 			putchar('m');
 		}
 

@@ -16,16 +16,79 @@ int main()
 	// Construct the cube.
 	struct TE3D_Model4f cube = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
 	
-	struct TE3D_Vector4f cubeverts[] = {TE3D_Vector4f_N(0,0,0,1),
+	struct TE3D_Vector4f cubeverts[] = {TE3D_Vector4f_N(0,0,0,1),		// Bottom border
+										
+										TE3D_Vector4f_N(2,0,0,1),
+										TE3D_Vector4f_N(4,0,0,1),
+										TE3D_Vector4f_N(6,0,0,1),
+										TE3D_Vector4f_N(8,0,0,1),
 										TE3D_Vector4f_N(10,0,0,1),
-										TE3D_Vector4f_N(10,0,10,1),
-										TE3D_Vector4f_N(0,0,10,1),
-										TE3D_Vector4f_N(0,10,0,1),
-										TE3D_Vector4f_N(10,10,0,1),
-										TE3D_Vector4f_N(10,10,10,1),
-										TE3D_Vector4f_N(0,10,10,1)};
 
-	ArrayList_AddRange(&cube.Vectors, cubeverts, 8);
+										TE3D_Vector4f_N(0,0,2,1),
+										TE3D_Vector4f_N(0,0,4,1),
+										TE3D_Vector4f_N(0,0,6,1),
+										TE3D_Vector4f_N(0,0,8,1),
+										TE3D_Vector4f_N(0,0,10,1),
+
+										TE3D_Vector4f_N(2,0,10,1),
+										TE3D_Vector4f_N(4,0,10,1),
+										TE3D_Vector4f_N(6,0,10,1),
+										TE3D_Vector4f_N(8,0,10,1),
+										TE3D_Vector4f_N(10,0,10,1),
+
+										TE3D_Vector4f_N(10,0,2,1),
+										TE3D_Vector4f_N(10,0,4,1),
+										TE3D_Vector4f_N(10,0,6,1),
+										TE3D_Vector4f_N(10,0,8,1),
+
+										TE3D_Vector4f_N(0,10,0,1),		// Top border.
+										
+										TE3D_Vector4f_N(2,10,0,1),
+										TE3D_Vector4f_N(4,10,0,1),
+										TE3D_Vector4f_N(6,10,0,1),
+										TE3D_Vector4f_N(8,10,0,1),
+										TE3D_Vector4f_N(10,10,0,1),
+
+										TE3D_Vector4f_N(0,10,2,1),
+										TE3D_Vector4f_N(0,10,4,1),
+										TE3D_Vector4f_N(0,10,6,1),
+										TE3D_Vector4f_N(0,10,8,1),
+										TE3D_Vector4f_N(0,10,10,1),
+
+										TE3D_Vector4f_N(2,10,10,1),
+										TE3D_Vector4f_N(4,10,10,1),
+										TE3D_Vector4f_N(6,10,10,1),
+										TE3D_Vector4f_N(8,10,10,1),
+										TE3D_Vector4f_N(10,10,10,1),
+
+										TE3D_Vector4f_N(10,10,2,1),
+										TE3D_Vector4f_N(10,10,4,1),
+										TE3D_Vector4f_N(10,10,6,1),
+										TE3D_Vector4f_N(10,10,8,1),
+
+
+										TE3D_Vector4f_N(0,2,0,1),		// Connections between borders.
+										TE3D_Vector4f_N(0,4,0,1),
+										TE3D_Vector4f_N(0,6,0,1),
+										TE3D_Vector4f_N(0,8,0,1),
+	
+										TE3D_Vector4f_N(10,2,0,1),
+										TE3D_Vector4f_N(10,4,0,1),
+										TE3D_Vector4f_N(10,6,0,1),
+										TE3D_Vector4f_N(10,8,0,1),
+	
+										TE3D_Vector4f_N(0,2,10,1),
+										TE3D_Vector4f_N(0,4,10,1),
+										TE3D_Vector4f_N(0,6,10,1),
+										TE3D_Vector4f_N(0,8,10,1),
+	
+										TE3D_Vector4f_N(10,2,10,1),
+										TE3D_Vector4f_N(10,4,10,1),
+										TE3D_Vector4f_N(10,6,10,1),
+										TE3D_Vector4f_N(10,8,10,1)};
+	
+
+	ArrayList_AddRange(&cube.Vectors, cubeverts, 56);
 	
 	// Add colors for each vertex.
 	enum ConsoleColor vertcolor = CONSOLECOLOR_WHITE;
@@ -34,8 +97,16 @@ int main()
 	
 	List_Add(&pipe.Models, &cube);
 
+	// Set the stretch matrix. This improves the vision of the render scene, because the letters in the terminal are taller than wide.
+	pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);
+	
 	// Set the ortho-transformation.
-	pipe.Transformation = TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(1,1,1), TE3D_Vector3f_N(0,1,0));
+	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(1,1,1), TE3D_Vector3f_N(0,1,0)));
+	//pipe.Transformation = TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(1,1,1), TE3D_Vector3f_N(0,1,0));
+	// Add translation.
+	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Translation(-40, 0, 10));
+	// Rotate the cube.	
+	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f_N(1,1,1), 0.5));
 
 	// Render.
 	TE3D_Pipeline_Render(&pipe);
