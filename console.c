@@ -48,6 +48,11 @@ int CON_flushBuffer(){
 
 	int z = width * hight;
 
+#ifdef LINUX
+	// Save cursor position.
+	fputs("\033[s", stdout);
+#endif
+
 	for(int i = 0;i<z;i++){
 		COI_setColor((enum ConsoleColor)ConsoleBuffer[i].fgColor, (enum ConsoleColor)ConsoleBuffer[i].bgColor);
 		putchar(ConsoleBuffer[i].Char);
@@ -56,6 +61,12 @@ int CON_flushBuffer(){
 			putchar('\n');
 		}
 	}
+
+#ifdef LINUX
+	// Restore cursor position.
+	fputs("\033[u", stdout);
+#endif
+
 	return 1;
 }
 

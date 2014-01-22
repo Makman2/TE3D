@@ -2,7 +2,17 @@
 
 #include <stdio.h>
 
-#define OUTPUT_WIDTH 50
+#ifdef LINUX
+	#include <unistd.h>
+	#define sleep(ms) usleep(ms * 1000)
+#endif
+
+#ifdef WIN32
+	#include <windows.h>
+	#define sleep(ms) Sleep(ms)
+#endif
+
+#define OUTPUT_WIDTH 150
 #define OUTPUT_HEIGHT 50
 
 int main()
@@ -15,6 +25,7 @@ int main()
 
 	// Construct the cube.
 	struct TE3D_Model4f cube = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
+	struct TE3D_Model4f cube2 = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
 	
 	struct TE3D_Vector4f cubeverts[] = {TE3D_Vector4f_N(0,0,0,1),		// Bottom border
 										
@@ -89,27 +100,41 @@ int main()
 	
 
 	ArrayList_AddRange(&cube.Vectors, cubeverts, 56);
+	ArrayList_AddRange(&cube2.Vectors, cubeverts, 56);
 	
 	// Add colors for each vertex.
 	enum ConsoleColor vertcolor = CONSOLECOLOR_WHITE;
 	for (int i = 0; i < cube.Vectors.count; i++)
+	{
 		ArrayList_Add(&cube.Colors, &vertcolor);
+		ArrayList_Add(&cube2.Colors, &vertcolor);
+	}
 	
 	List_Add(&pipe.Models, &cube);
-
-	// Set the stretch matrix. This improves the vision of the render scene, because the letters in the terminal are taller than wide.
-	pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);
 	
-	// Set the ortho-transformation.
-	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(1,1,1), TE3D_Vector3f_N(0,1,0)));
-	//pipe.Transformation = TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(1,1,1), TE3D_Vector3f_N(0,1,0));
-	// Add translation.
-	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Translation(-40, 0, 10));
-	// Rotate the cube.	
-	pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f_N(1,1,1), 0.5));
+	// Transform the second cube.
+	TE3D_Model4f_Transform(&cube2, TE3D_Transformation4x4f_Translation(10, 10, -10));
+	List_Add(&pipe.Models, &cube2);
 
-	// Render.
-	TE3D_Pipeline_Render(&pipe);
+
+	// Enter render loop.
+	for (int i = 0; i < 50; i++)
+	{
+		// Set the stretch matrix. This improves the vision of the render scene, because the letters in the terminal are taller than wide.
+		pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);
+	
+		// Set the ortho-transformation.
+		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(i / 50.0f,1,1), TE3D_Vector3f_N(0,1,0)));
+		// Add translation.
+		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Translation(-60, 0, 0));
+		// Scal up.
+		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Scale(3, 3, 3));		
+		// Rotate the cube.	
+		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f_N(1,1,1), i * 0.05));
+
+		// Render.
+		TE3D_Pipeline_Render(&pipe);
+	}
 
 	// Release the pipeline.
 	TE3D_ReleasePipeline(&pipe);
