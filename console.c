@@ -34,8 +34,6 @@ int CON_clearBuffer(){
 		ConsoleBuffer[i].fgColor = CONSOLECOLOR_DEFAULT;
 		ConsoleBuffer[i].layer = 0;
 		ConsoleBuffer[i].Char = ' ';
-
-
 	}
 	return 1;
 }
@@ -96,12 +94,9 @@ int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum Conso
 		ConsoleBuffer[pos].layer = layer;
 		text++;
 		pos++;
-
-
 	}
 
 	return 1;
-
 }
 
 
@@ -126,9 +121,8 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 			SetConsoleTextAttribute(hConsole, WINCOLOR(ConsoleColorTableWin[fg-1],ConsoleColorTableWin[bg-1]));
 		}
 
-
-		
 	#endif
+
 	#ifdef LINUX //Operationsystem is LINUX/UNIX
 
 		// Reset attributes.
@@ -149,10 +143,6 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 		}
 
 	#endif
-
-
-
-
 
 	return 1;
 }
@@ -189,39 +179,11 @@ int CON_clearScreen(){
 }
 
 
-#ifdef WIN32
-	static HANDLE hConsole;
-#endif
+
 
 
 extern  struct ConsoleCharacterInformation* getBuffer(){
 	return ConsoleBuffer;
-}
-
-
-extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
-/*
-	char lineElements[6] = {"-----"};
-
-	//den Winkel der Linie berechnen
-	float angle = (posY2 - posY1)/(posX2-posX1);
-
-
-	int startX = 0;
-	int startY = 0;
-
-	if(posX1 > posX2){
-
-
-
-	}
-
-*/
-	return 0;
-
-
-
-
 }
 
 

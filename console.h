@@ -4,38 +4,6 @@ Console.h
 Version 1.0
 08.01.2014
 
-
-
-
-Enthält alle Funktionen welche zur Darstellung der Daten in der Konsole nötig sind
-
-Hinweise:
-Unter Windows wird die zuletzt gewählte Zeichenhintergrundfarbe zur GesamtHintergrundfarbe übernommen.
-
-Änderungen:
-	- Fehler entfernt
-	- direkter Zugriff auf den Buffer nötig (muss noch getestet werden! kann sein das es linkerfehler hervorruft)
-	-Layer definiert
-	-Funktion CON_writeChar (vorher CON_setCharacter) umbenannt
-	- Ausgabe unter Linux implementierrt (Muss noch getestet werden!)
-	- Auf den Konsolenspeicher sollte (demnächst) nicht mehr direkt zugegriffen werden, da ich an der Strucktur etwas ändern werde!
-	- Layer werden abgefragt
-
-Noch zu tun:
-	- implementierung der Verwendung der Cursorposition (Win+Unix)
-	- Farbige Ausgabe Linux
-
-	- Schreiben eines Textes in die Konsole
-
-
-Momentaner Stand:
-
-	- unter anderen Betriebssystemen ist die Ausgabe noch nicht implementiert, es ist jedoch eine Schwarzweiß Ausgabe schon möglich
-
-
-
-
-
 ###########################################################################################
 
 Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
@@ -72,11 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CON_DEFAULT_SIZE_Y_WIN      25
 #define CON_DEFAULT_SIZE_X_LINUX    0
 #define CON_DEFAULT_SIZE_Y_LINUX    0
-
-
-#define CON_DRAWMODE_FULL
-#define CON_DRAWMODE_SELECT
-
 
 #define CON_LAYER_BOTTOM 0
 #define CON_LAYER_TOP    256
@@ -152,6 +115,7 @@ enum ConsoleColor{
 
 
 
+//Struct definitions
 
 struct ConsoleCharacterInformation{
 	char Char;
@@ -159,7 +123,6 @@ struct ConsoleCharacterInformation{
 	int fgColor;
 	int layer;
 };
-
 struct ConsoleDrawOperation{
 	int x;
 	int y;
@@ -168,16 +131,7 @@ struct ConsoleDrawOperation{
 };
 
 
-
-
-//Private Functions
-//
-
-static int      COI_setPosition(int x,int y);
-static int      COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg);
-static int      COI_getElementNumber(int x,int y);
-
-
+//Private Members
 
 static struct   ConsoleCharacterInformation *ConsoleBuffer;
 static int      hight, width;
@@ -197,9 +151,15 @@ static struct ConsoleDrawOperation *ConsoleOperationBuffer;
 
 #endif
 
+//Private Functions
+
+static int      COI_setPosition(int x,int y);
+static int      COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg);
+static int      COI_getElementNumber(int x,int y);
+
+
 
 //Public functions
-
 
 //Writes a string in the ConsoleBuffer
 extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap);

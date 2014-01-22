@@ -1,12 +1,7 @@
 #pragma once
 
 #include "models.h"
-#include "transformation.h"
-#include "console.h"
-
-#ifndef WIN32
-	#include <stdbool.h>
-#endif
+#include <stdbool.h>
 
 
 // Describes a color with red, green and blue components.
@@ -43,6 +38,13 @@ struct TE3D_Surface
 	int Stride;
 };
 
+//Describes a colored Pixel
+struct TE3D_Pixel{
+	int r;
+	int g;
+	int b;
+
+};
 
 
 // Creates a char surface.
@@ -59,24 +61,4 @@ void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val);
 
 
 
-//Describes a colored Pixel
-struct TE3D_Pixel{
-	int r;
-	int g;
-	int b;
 
-};
-
-//Describes the DrawBuffer for Drawingfunctions
-struct TE3D_DrawBuffer{
-	int width;
-	int legth;
-	struct TE3D_Pixel **data;
-};
-
-
-struct TE3D_Polygon{
-	int count;
-	struct TE3D_Vector3f *data;
-
-};
