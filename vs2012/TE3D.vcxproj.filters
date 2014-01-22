@@ -19,6 +19,9 @@
     <Filter Include="Test\Cube">
       <UniqueIdentifier>{4afe28b0-6ced-4838-96b3-0d9f0eb85be8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test\Modelloader">
+      <UniqueIdentifier>{28e2ae8c-bf40-43a6-9b20-52441ec15834}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\arraylist.c">
@@ -47,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="..\test\cube\main.c">
       <Filter>Test\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\modelloader_obj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\test\modelloader\main.c">
+      <Filter>Test\Modelloader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,5 +89,13 @@
     <ClInclude Include="..\TE3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\modelloader_obj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\test\modelloader\church.obj">
+      <Filter>Test\Modelloader</Filter>
+    </Object>
   </ItemGroup>
 </Project>

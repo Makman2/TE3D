@@ -2,6 +2,7 @@
 
 #include "graphics.h"
 #include "console.h"
+#include <math.h>
 #ifndef WIN32
 	#include "stdbool.h"
 #endif

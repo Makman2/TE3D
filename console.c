@@ -22,14 +22,14 @@ int CON_init(int w, int h){
 
 	CON_clearBuffer();
 	width = w;
-	hight = h;
+	height = h;
 
 
 	return 1;
 }
 int CON_clearBuffer(){
 
-	for(int i = 0;i< width * hight;i++){
+	for(int i = 0;i< width * height;i++){
 		ConsoleBuffer[i].bgColor = CONSOLECOLOR_DEFAULT;
 		ConsoleBuffer[i].fgColor = CONSOLECOLOR_DEFAULT;
 		ConsoleBuffer[i].layer = 0;
@@ -46,12 +46,7 @@ int CON_close(){
 
 int CON_flushBuffer(){
 
-	int z = width * hight;
-
-#ifdef LINUX
-	// Save cursor position.
-	fputs("\033[s", stdout);
-#endif
+	int z = width * height;
 
 	for(int i = 0;i<z;i++){
 		COI_setColor((enum ConsoleColor)ConsoleBuffer[i].fgColor, (enum ConsoleColor)ConsoleBuffer[i].bgColor);
@@ -63,15 +58,20 @@ int CON_flushBuffer(){
 	}
 
 #ifdef LINUX
-	// Restore cursor position.
-	fputs("\033[u", stdout);
+	// Move back cursor.
+	fprintf(stdout, "\033[%dA\033[%dD", width - 1, height);
 #endif
+
+	FILE hello;
+	
+
+	fflush(stdout);
 
 	return 1;
 }
 
 int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
-	if(posX > width || posY > hight){
+	if(posX > width || posY > height){
 		return 0;
 	}
 
@@ -221,6 +221,17 @@ extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum
 
 
 
+
+}
+
+// Moves the cursor of the console.
+int CON_moveCursor(int x, int y)
+{
+
+#ifdef LINUX
+	fprintf(stdout, "\033[%dA\033[%dC", x, y);
+	fflush(stdout);
+#endif
 
 }
 

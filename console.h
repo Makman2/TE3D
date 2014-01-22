@@ -180,7 +180,7 @@ static int      COI_getElementNumber(int x,int y);
 
 
 static struct   ConsoleCharacterInformation *ConsoleBuffer;
-static int      hight, width;
+static int      height, width;
 
 
 static struct ConsoleDrawOperation *ConsoleOperationBuffer;
@@ -223,7 +223,10 @@ extern int CON_close();
 //Print the consoleBuffer out to the Console
 extern int CON_flushBuffer();
 
-
+// Moves the cursor of the console.
+// x: The x-steps to move.
+// y: The y-steps to move.
+int CON_moveCursor(int x, int y);
 
 extern struct ConsoleCharacterInformation* CON_getBuffer();
 

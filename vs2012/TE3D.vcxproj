@@ -51,8 +51,10 @@
     <ClCompile Include="..\core.c" />
     <ClCompile Include="..\graphics.c" />
     <ClCompile Include="..\list.c" />
+    <ClCompile Include="..\modelloader_obj.cpp" />
     <ClCompile Include="..\models.c" />
     <ClCompile Include="..\test\cube\main.c" />
+    <ClCompile Include="..\test\modelloader\main.c" />
     <ClCompile Include="..\transformation.c" />
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +65,13 @@
     <ClInclude Include="..\graphics.h" />
     <ClInclude Include="..\interface.h" />
     <ClInclude Include="..\list.h" />
+    <ClInclude Include="..\modelloader_obj.h" />
     <ClInclude Include="..\models.h" />
     <ClInclude Include="..\TE3D.h" />
     <ClInclude Include="..\transformation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\test\modelloader\church.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

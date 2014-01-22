@@ -54,11 +54,20 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 // Releases the pipeline and all it's associated objects.
 void TE3D_ReleasePipeline(struct TE3D_Pipeline* pipe)
 {
+	// Reset position after rendering frame.
+	CON_moveCursor(-pipe->CharOutput.Width, pipe->CharOutput.Height);
+	
+	// Release each model.
+	for (int i = 0; i < pipe->Models.count; i++)
+		TE3D_Model4f_Release((struct TE3D_Model4f*)List_At(&pipe->Models, i));
+
 	List_Release(&pipe->Models);
 	free(pipe->CharOutput.Pixels);
 	free(pipe->zBuffer);
 	free(pipe->VectorOutput);
 	free(pipe->VectorIndexOutput);	
+	
+	// Release console buffer.
 	CON_close();
 }
 
@@ -88,6 +97,7 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 	struct TE3D_Vector4f* vecbufferPos = pipe->VectorOutput;
 	int vectorscount = 0;
 	void* indexbufferPos = pipe->VectorIndexOutput;
+	int indexcount = 0;
 	enum ConsoleColor* colorbufferpos = pipe->Colormap;
 
 	for (int i = 0; i < pipe->Models.count; i++)
@@ -126,7 +136,7 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 			}
 			
 			vectorscount += element->Vectors.count;
-
+			indexcount += element->Indices.count;
 		}
 	}
 
@@ -143,16 +153,17 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 	}
 
 	pipe->VectorOutputCount = vectorscount;
-
-	// Do 2D work here.
-
-
+	pipe->VectorIndexOutputCount = indexcount;
+	
 }
 
 // Converts the vector to ASCII-Art.
 void TE3D_Pipeline_RenderASCII(struct TE3D_Pipeline* pipe)
 {
-	TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->Colormap);
+	if (pipe->VectorFormat == TE3D_VECTORFORMAT_POINTS)
+		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->Colormap);
+	else
+		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorIndexOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->Colormap);
 }
 
 // Flushes the current surface to the console.
@@ -216,4 +227,16 @@ void TE3D_Pipeline_ResizeVectorIndexOutputBuffer(struct TE3D_Pipeline* pipe, int
 		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, newcount * sizeof(struct TE3D_VectorIndex2));
 	else if(pipe->VectorFormat == TE3D_VECTORFORMAT_TRIANGLES)
 		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, newcount * sizeof(struct TE3D_VectorIndex3));
+}
+
+// Prepends a transformation to the pipeline. This transformation is called at the end of the transformation chain.
+void TE3D_Pipeline_PrependTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix)
+{
+	pipe->Transformation = TE3D_Matrix4x4f_mul(matrix, pipe->Transformation);
+}
+
+// Appends a transformation to the pipeline. This transformation is called at the beginning of the transformation chain.
+void TE3D_Pipeline_AppendTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix)
+{
+	pipe->Transformation = TE3D_Matrix4x4f_mul(pipe->Transformation, matrix);
 }

@@ -33,14 +33,17 @@ struct TE3D_Pipeline
 	// The size of the vector output buffer. Adjust it via TE3D_Pipeline_ResizeVectorOutputBuffer, if memory allocation errors occur,
 	// because the transformation routine that copies the all vectors together in an array doesn't check for memory overflows.
 	size_t VectorOutputCapacity;
-	// The number of vectors in the vectorOut buffer.
+	// The number of vectors in the vector output buffer.
 	int VectorOutputCount;
 	// The vector output buffer.
 	struct TE3D_Vector4f* VectorOutput;
 	// The vector index output buffer.
 	void* VectorIndexOutput;
+	// The number of vector indices in the vector index output buffer.
+	int VectorIndexOutputCount;
 
 	// The char surface for the ASCII converter output.
+	// Contains the rendered image.
 	struct TE3D_Surface CharOutput;
 };
 
@@ -82,3 +85,11 @@ void TE3D_Pipeline_ResizeVectorIndexOutputBuffer(struct TE3D_Pipeline* pipe, int
 // Changes the vector format.
 // format: The new vector format.
 void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_VectorFormat format);
+
+// Prepends a transformation to the pipeline. This transformation is called at the end of the transformation chain.
+// matrix: The matrix to transform with.
+void TE3D_Pipeline_PrependTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix);
+
+// Appends a transformation to the pipeline. This transformation is called at the beginning of the transformation chain.
+// matrix: The matrix to transform with.
+void TE3D_Pipeline_AppendTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix);

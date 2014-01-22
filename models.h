@@ -38,6 +38,9 @@ enum TE3D_VectorFormat
 // Describes a model build up from vectors.
 struct TE3D_Model4f
 {
+	// The name or ID of the model.
+	char* Name;
+
 	// The vectors that define the model.
 	struct ArrayList Vectors;
 	
@@ -84,3 +87,8 @@ void TE3D_Model4f_RotateY(struct TE3D_Model4f* model, double angle);
 // Rotates the model over the z-axis.
 // angle: The angle of the rotation to perform.
 void TE3D_Model4f_RotateZ(struct TE3D_Model4f* model, double angle);
+// Sets the name or ID of the model.
+// name: The name or ID to set.
+void TE3D_Model4f_SetName(struct TE3D_Model4f* model, char* name);
+// Releases the model.
+void TE3D_Model4f_Release(struct TE3D_Model4f* model);
