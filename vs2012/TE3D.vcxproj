@@ -51,7 +51,7 @@
     <ClCompile Include="..\core.c" />
     <ClCompile Include="..\graphics.c" />
     <ClCompile Include="..\list.c" />
-    <ClCompile Include="..\modelloader_obj.cpp" />
+    <ClCompile Include="..\modelloader_obj.c" />
     <ClCompile Include="..\models.c" />
     <ClCompile Include="..\test\cube\main.c" />
     <ClCompile Include="..\test\modelloader\main.c" />

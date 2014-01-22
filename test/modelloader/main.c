@@ -14,14 +14,19 @@ int main()
 	TE3D_Pipeline_ChangeVectorFormat(&pipe, TE3D_VECTORFORMAT_POINTS);
 
 	// Load the model.
+	int newvectors, newindices;
 	struct List inputmodels;
-	inputmodels = LoadWavefrontFromFile("church.obj", TE3D_VECTORFORMAT_POINTS);
-	
+	inputmodels = LoadWavefrontFromFile("church.obj", TE3D_VECTORFORMAT_POINTS, &newvectors, &newindices);
+		
 	for (int i = 0; i < inputmodels.count; i++)
 	{
 			List_Add(&pipe.Models, List_At(&inputmodels, i));
 	}
 
+
+	// Adjust the vector and indices buffer, because they're now insufficient.
+	TE3D_Pipeline_ResizeVectorOutputBuffer(&pipe, newvectors);
+	TE3D_Pipeline_ResizeVectorIndexOutputBuffer(&pipe, newindices);
 
 	// Set the stretch matrix. This improves the vision of the render scene, because the letters in the terminal are taller than wide.
 	pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);

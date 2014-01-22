@@ -51,11 +51,11 @@
     <ClCompile Include="..\test\cube\main.c">
       <Filter>Test\Cube</Filter>
     </ClCompile>
-    <ClCompile Include="..\modelloader_obj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\test\modelloader\main.c">
       <Filter>Test\Modelloader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\modelloader_obj.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
