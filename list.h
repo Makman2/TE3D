@@ -20,9 +20,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#ifndef WIN32
+
 	#include <stdbool.h>
-#endif
+
 
 // The memory block header for list items.
 struct ListMemoryBlockHeader
@@ -42,10 +42,10 @@ struct List
 	struct ListMemoryBlockHeader* first;
 	// Points to the previous memory block.
 	struct ListMemoryBlockHeader* last;
-	
+
 	// Number of items in this list.
 	int count;
-	
+
 	// The last found item.
 	struct ListMemoryBlockHeader* found;
 	// The index of the last found item.
