@@ -187,7 +187,6 @@ extern  struct ConsoleCharacterInformation* getBuffer(){
 }
 
 
-<<<<<<< HEAD
 extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
 /*
 	char lineElements[6] = {"-----"};
@@ -223,10 +222,6 @@ int CON_moveCursor(int x, int y)
 #endif
 
 }
-
-
-=======
->>>>>>> ab618da2c06d56a3dfabdee7546b01b883191558
 
 
 

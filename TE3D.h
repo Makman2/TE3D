@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-#include "core.h"
-#include "modelloader_obj.h"
-=======
 /*
 
 Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
@@ -24,4 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "core.h"
->>>>>>> ab618da2c06d56a3dfabdee7546b01b883191558
+#include "modelloader_obj.h"
