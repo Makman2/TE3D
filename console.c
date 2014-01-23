@@ -13,10 +13,6 @@ int CON_init(int w, int h){
 	}
 
 	#endif // WIN32
-	#ifdef LINUX
-        puts("\033[?12l"); //Cursor deaktivieren
-
-	#endif // LINUX
 
 
 	ConsoleBuffer = (struct ConsoleCharacterInformation*) malloc(sizeof(struct ConsoleCharacterInformation) * w * h);
@@ -58,17 +54,17 @@ int CON_flushBuffer(){
 			putchar('\n');
 		}
 	}
-/*
+
 #ifdef LINUX
 	// Move back cursor.
 	fprintf(stdout, "\033[%dA\033[%dD", width - 1, height);
 #endif
 
 	FILE hello;
-
+	
 
 	fflush(stdout);
-*/
+
 	return 1;
 }
 
@@ -152,6 +148,18 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 }
 
 
+static int COI_clearScreen(){
+
+	#ifdef WIN32
+		system("CLS");
+	#endif
+	#ifdef LINUX
+		system("clear");
+	#endif
+
+	return 1;
+}
+
 static int  COI_getElementNumber(int x,int y){
 	return x*width + y;
 }
@@ -164,7 +172,7 @@ int CON_clearScreen(){
 	#endif
 
 	#ifdef LINUX
-		puts("\033[2J");
+		system("clear");
 	#endif
 
 	return 1;
@@ -178,6 +186,31 @@ extern  struct ConsoleCharacterInformation* getBuffer(){
 	return ConsoleBuffer;
 }
 
+
+extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
+/*
+	char lineElements[6] = {"-----"};
+
+	//den Winkel der Linie berechnen
+	float angle = (posY2 - posY1)/(posX2-posX1);
+
+
+	int startX = 0;
+	int startY = 0;
+
+	if(posX1 > posX2){
+
+
+
+	}
+
+*/
+	return 0;
+
+
+
+
+}
 
 // Moves the cursor of the console.
 int CON_moveCursor(int x, int y)
