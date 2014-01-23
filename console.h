@@ -4,6 +4,19 @@ Console.h
 Version 1.0
 08.01.2014
 
+
+Momentan noch vorhandene Bugs:
+[Linux]
+- Die Hintergrundfarbe wird nicht richtig übernommen, die Vordergrundfarbe sollte jedoch stimmen
+[Windows]
+- Die Hintergrundfarbe wird zur Hintergrundfarbe der Konsole.
+    Ziel: Verhindern und durch eine extra Funktion ermöglichen wenn dieses Verhalten vom Benutzer gewünscht
+[Alle]
+- Umlaute und Sonderzeichen in der Textausgabe funktionieren nicht
+- Es sind noch nicht alle Farben implementiert
+- Farben sind noch nicht getestet, sollte ein Farbwert nicht stimmen, müsste er noch korrigiert werden
+
+
 ###########################################################################################
 
 Copyright (C) 2014 Mischa Krüger, Ammar Al-Qaiser, Frank Zimdars, Gordon Kemsies
@@ -28,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <stdlib.h>
 
-
+#define LINUX
 
 #ifdef WIN32
 	#include <windows.h>
@@ -36,10 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-#define CON_DEFAULT_SIZE_X_WIN      79
-#define CON_DEFAULT_SIZE_Y_WIN      25
-#define CON_DEFAULT_SIZE_X_LINUX    0
-#define CON_DEFAULT_SIZE_Y_LINUX    0
+#define CON_DEFAULT_SIZE_X     30
+#define CON_DEFAULT_SIZE_Y     15
+
 
 #define CON_LAYER_BOTTOM 0
 #define CON_LAYER_TOP    256
@@ -147,7 +159,7 @@ static struct ConsoleDrawOperation *ConsoleOperationBuffer;
 #endif
 #ifdef LINUX
 	static char     ConsoleColorTableLinuxFore[][5] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
-	static char     ConsoleColorTableLinuxBack[][5] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
+	static char     ConsoleColorTableLinuxBack[][4] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
 
 #endif
 
@@ -166,9 +178,6 @@ extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enu
 //Writes a char in the ConsoleBuffer
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
 //Write a Line of Chars in the Buffer
-extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg);
-
-
 
 
 
@@ -186,7 +195,9 @@ extern int CON_flushBuffer();
 // Moves the cursor of the console.
 // x: The x-steps to move.
 // y: The y-steps to move.
+// Das Benutzen dieser Funktion sollte eigentlich nicht mehr nötig sein, falls doch ist immernoch ein Fehler drin
 int CON_moveCursor(int x, int y);
+
 
 extern struct ConsoleCharacterInformation* CON_getBuffer();
 

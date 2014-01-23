@@ -46,6 +46,12 @@ int CON_flushBuffer(){
 
 	int z = width * height;
 
+    #ifdef LINUX
+    //Cursorposition anpassen
+	COI_setPosition(width,height);
+	#endif
+
+
 	for(int i = 0;i<z;i++){
 		COI_setColor((enum ConsoleColor)ConsoleBuffer[i].fgColor, (enum ConsoleColor)ConsoleBuffer[i].bgColor);
 		putchar(ConsoleBuffer[i].Char);
@@ -54,14 +60,6 @@ int CON_flushBuffer(){
 			putchar('\n');
 		}
 	}
-
-#ifdef LINUX
-	// Move back cursor.
-	fprintf(stdout, "\033[%dA\033[%dD", width - 1, height);
-#endif
-
-	FILE hello;
-	
 
 	fflush(stdout);
 
@@ -106,7 +104,10 @@ static int COI_setPosition(int x,int y){
 		ConsoleCoords.Y = y;
 		SetConsoleCursorPosition(hConsole,ConsoleCoords);
 	#endif // WIN32
-
+    #ifdef LINUX
+	// Move back cursor.
+	fprintf(stdout, "\033[%dA\033[%dD", x - 1, y);
+    #endif
 
 	return 1;
 
@@ -127,6 +128,13 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 
 		// Reset attributes.
 		fputs("\033[0m", stdout);
+
+        if (bg != CONSOLECOLOR_DEFAULT)
+		{
+			fputs("\033[", stdout);
+			fputs(ConsoleColorTableLinuxBack[bg - 1], stdout);
+			putchar('m');
+		}
 		if(fg != CONSOLECOLOR_DEFAULT)
 		{
 			//Write Color to the Terminal
@@ -135,12 +143,7 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 			putchar('m');
 		}
 
-		if (bg != CONSOLECOLOR_DEFAULT)
-		{
-			fputs("\033[", stdout);
-			fputs(ConsoleColorTableLinuxBack[bg - 1], stdout);
-			putchar('m');
-		}
+
 
 	#endif
 
@@ -148,17 +151,7 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 }
 
 
-static int COI_clearScreen(){
 
-	#ifdef WIN32
-		system("CLS");
-	#endif
-	#ifdef LINUX
-		system("clear");
-	#endif
-
-	return 1;
-}
 
 static int  COI_getElementNumber(int x,int y){
 	return x*width + y;
@@ -172,7 +165,7 @@ int CON_clearScreen(){
 	#endif
 
 	#ifdef LINUX
-		system("clear");
+		puts("\033[2J");
 	#endif
 
 	return 1;
@@ -186,31 +179,6 @@ extern  struct ConsoleCharacterInformation* getBuffer(){
 	return ConsoleBuffer;
 }
 
-
-extern int CON_writeLine(int posX1,int posY1,int posX2,int posY2,int layer, enum ConsoleColor fg, enum ConsoleColor bg){
-/*
-	char lineElements[6] = {"-----"};
-
-	//den Winkel der Linie berechnen
-	float angle = (posY2 - posY1)/(posX2-posX1);
-
-
-	int startX = 0;
-	int startY = 0;
-
-	if(posX1 > posX2){
-
-
-
-	}
-
-*/
-	return 0;
-
-
-
-
-}
 
 // Moves the cursor of the console.
 int CON_moveCursor(int x, int y)
