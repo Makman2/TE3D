@@ -67,13 +67,32 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// If indices is NULL the function must exit.
 			if (!indices)
 				return false;
+/* target = x ebene; v1 und v2 als vektoren; cos alpha (v1,v2) =  a_x/ax²+ay² ;  
+
+	           45° = /\
+		   0°,180° = _
+			   90° = |		*/
 
 			for (int i = 0; i < count; i++  )
 
 			{
-			/* target = x ebene; v1 und v2 als vektoren; cos alpha (v1,v2) =  <a,b>/|a|*|b| ;  */
+				int xround = (int)round(vectors[i].x);
+				int yround = (int)round(vectors[i].y);
+		
+
+				if (zBuffer[xround + yround *target->Width] >= vectors[i].z &&
+
+					xround >= 0 && xround < target -> Width &&
+					yround >= 0 && yround < target ->Height)
+				{
 
 
+					zBuffer[xround + yround * target ->Width] = vectors[i].z;
+					target->Pixels[xround + yround * target ->Width].Char = '_'
+					target->Pixels[xround + yround * target ->Width].Char = '/\|']
+
+
+        
 			}
 
 
