@@ -1,120 +1,123 @@
 #include "console.h"
 
-int CON_init(int w, int h){
+#define GET_2D_INDEX(x, y) (x + y * width)
+#define BUFFER_CONTROLCHAR_FACTOR 64
+
+int TE3D_Console_Init(int w, int h){
 
 	//WinAPI Initialisierung
 
-	#ifdef WIN32
+#ifdef WIN32
+
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (hConsole == INVALID_HANDLE_VALUE)
 	{
-		return 0;
-
+		return -1;
 	}
 
-	#endif // WIN32
+#endif
+	
 
+	// Create the buffer for the console and set it as new one.
+	ConsoleBuffer = (char*)malloc(sizeof(char) * w * h * BUFFER_CONTROLCHAR_FACTOR);
 
-	ConsoleBuffer = (struct ConsoleCharacterInformation*) malloc(sizeof(struct ConsoleCharacterInformation) * w * h);
-	if(ConsoleBuffer == 0){
-		return 0;
-	}
+	if(ConsoleBuffer == NULL)
+		return -1;
+	
+	stream = stdout;
+	setvbuf(stream, ConsoleBuffer, _IOFBF, sizeof(char) * w * h * BUFFER_CONTROLCHAR_FACTOR);
 
-	CON_clearBuffer();
+	// Clear the screen for the view.
+	TE3D_Console_ClearScreen();
+	TE3D_Console_ResetPosition();
+
 	width = w;
 	height = h;
 
+	// At least hide the cursor.
+	TE3D_Console_HideCursor();
 
-	return 1;
-}
-int CON_clearBuffer(){
-
-	for(int i = 0;i< width * height;i++){
-		ConsoleBuffer[i].bgColor = CONSOLECOLOR_DEFAULT;
-		ConsoleBuffer[i].fgColor = CONSOLECOLOR_DEFAULT;
-		ConsoleBuffer[i].layer = 0;
-		ConsoleBuffer[i].Char = ' ';
-	}
-	return 1;
-}
-int CON_close(){
-	free(ConsoleBuffer);
-	return 1;
+	return 0;
 }
 
-int CON_flushBuffer(){
+int TE3D_Console_Close(){
+	
+	// Make the cursor visible.
+	TE3D_Console_ShowCursor();
 
-	int z = width * height;
+	// And additionally set the cursor at the end:
+	TE3D_Console_SetPosition(0, width);
 
-    #ifdef LINUX
-    //Cursorposition anpassen
-	COI_setPosition(width,height);
-	#endif
+	TE3D_Console_FlushBuffer();
+		
+	// Reset buffer.
+	setvbuf(stream, (char*)malloc(BUFSIZ), _IOLBF, BUFSIZ);
+	ConsoleBuffer = NULL;
 
+	stream = NULL;
 
-	for(int i = 0;i<z;i++){
-		COI_setColor((enum ConsoleColor)ConsoleBuffer[i].fgColor, (enum ConsoleColor)ConsoleBuffer[i].bgColor);
-		putchar(ConsoleBuffer[i].Char);
-
-		if(((i+1) % width == 0) && (i!= 0)){
-			putchar('\n');
-		}
-	}
-
-	fflush(stdout);
-
-	return 1;
+	return 0;
 }
 
-int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg){
+int TE3D_Console_FlushBuffer(){
+
+	fflush(stream);
+	return 0;
+}
+
+/* Not supported
+int CON_writeChar(char data,int posX, int posY, enum ConsoleColor fg,enum ConsoleColor bg){
 	if(posX > width || posY > height){
-		return 0;
+		return -1;
 	}
 
-	int pos = COI_getElementNumber(posY,posX);
+	int pos = GET_2D_INDEX(posX, posY);
 
-	if(ConsoleBuffer[pos].layer >= layer ){
-		ConsoleBuffer[pos].bgColor = bg;
-		ConsoleBuffer[pos].fgColor = fg;;
-		ConsoleBuffer[pos].Char = data;
-		ConsoleBuffer[pos].layer = layer;
-	}
-	return 1;
+	ConsoleBuffer[pos].bgColor = bg;
+	ConsoleBuffer[pos].fgColor = fg;;
+	ConsoleBuffer[pos].Char = data;
+	
+	return 0;
 
-}
-int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap){
-	int pos = COI_getElementNumber(posY,posX);
+}*/
+
+/* Not supported
+int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int wrap){
+	int pos = GET_2D_INDEX(posX, posY);
 
 	while(*text != 0){
 		ConsoleBuffer[pos].Char = *text;
 		ConsoleBuffer[pos].fgColor = fg;
 		ConsoleBuffer[pos].bgColor = bg;
-		ConsoleBuffer[pos].layer = layer;
 		text++;
 		pos++;
 	}
 
-	return 1;
-}
+	return 0;
+} */
 
 
-static int COI_setPosition(int x,int y){
+int TE3D_Console_SetPosition(int x, int y){
+
 	#ifdef WIN32
-		ConsoleCoords.X = x;
-		ConsoleCoords.Y = y;
-		SetConsoleCursorPosition(hConsole,ConsoleCoords);
+		//ConsoleCoords.X = x;
+		//ConsoleCoords.Y = y;
+		COORD newcoords;
+		newcoords.X = x;
+		newcoords.Y = y;
+		SetConsoleCursorPosition(hConsole, newcoords);
 	#endif // WIN32
-    #ifdef LINUX
-	// Move back cursor.
-	fprintf(stdout, "\033[%dA\033[%dD", x - 1, y);
-    #endif
 
-	return 1;
+	#ifdef LINUX
+		fprintf(stream, "\033[%d;%dH", y, x);
+	#endif
+
+	return 0;
 
 }
-static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
+int TE3D_Console_SetCurrentColor(enum ConsoleColor fg, enum ConsoleColor bg){
 
-	#ifdef WIN32 //Operationssystem is Windows32
+	#ifdef WIN32 //Operating system is Windows32
 
 		if(fg == 0){
 			SetConsoleTextAttribute(hConsole, WINCOLOR(DarkGray,Black));
@@ -124,73 +127,104 @@ static int COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg){
 
 	#endif
 
-	#ifdef LINUX //Operationsystem is LINUX/UNIX
+	#ifdef LINUX //Operating system is LINUX/UNIX
 
 		// Reset attributes.
-		fputs("\033[0m", stdout);
+		fputs("\033[0m", stream);
 
-        if (bg != CONSOLECOLOR_DEFAULT)
+		if (bg != CONSOLECOLOR_DEFAULT)
 		{
-			fputs("\033[", stdout);
-			fputs(ConsoleColorTableLinuxBack[bg - 1], stdout);
+			
+			fputs("\033[", stream);
+			fputs(ConsoleColorTableLinuxBack[bg - 1], stream);
 			putchar('m');
 		}
 		if(fg != CONSOLECOLOR_DEFAULT)
 		{
 			//Write Color to the Terminal
-			fputs("\033[", stdout);
-			fputs(ConsoleColorTableLinuxFore[fg - 1], stdout);
-			putchar('m');
+			fputs("\033[", stream);
+			fputs(ConsoleColorTableLinuxFore[fg - 1], stream);
+			putc('m', stream);
 		}
-
-
 
 	#endif
 
-	return 1;
+	return 0;
 }
 
 
 
-
-static int  COI_getElementNumber(int x,int y){
-	return x*width + y;
-}
-
-
-int CON_clearScreen(){
+int TE3D_Console_ClearScreen(){
 
 	#ifdef WIN32
 		system("CLS");
 	#endif
 
 	#ifdef LINUX
-		puts("\033[2J");
+		fputs("\033[2J", stream);
 	#endif
 
-	return 1;
+	return 0;
 }
 
 
 
 
 
-extern  struct ConsoleCharacterInformation* getBuffer(){
+char* TE3D_Console_GetBuffer(){
 	return ConsoleBuffer;
 }
 
 
 // Moves the cursor of the console.
-int CON_moveCursor(int x, int y)
+int TE3D_Console_MoveCursor(int x, int y)
 {
 
-#ifdef LINUX
-	fprintf(stdout, "\033[%dA\033[%dC", x, y);
-	fflush(stdout);
+#ifdef WIN32
+	PCONSOLE_SCREEN_BUFFER_INFO info;
+	GetConsoleScreenBufferInfo(hConsole, info);
+	COORD newcoord = info->dwCursorPosition;
+	newcoord.X += x;
+	newcoord.Y += y;
+	SetConsoleCursorPosition(hConsole, newcoord);
 #endif
+
+#ifdef LINUX
+	fprintf(stream, "\033[%dA\033[%dC", x, y);
+	fflush(stream);
+#endif
+
+	return 0;
 
 }
 
+int TE3D_Console_NewLine()
+{
+	return putc('\n', stream);
+}
 
 
+int TE3D_Console_ResetPosition()
+{
+	return TE3D_Console_SetPosition(0,0);
+}
 
+FILE* TE3D_Console_GetStream()
+{
+	return stream;
+}
+
+int TE3D_Console_WriteChar(char chr)
+{
+	return putc(chr, stream);
+}
+
+int TE3D_Console_HideCursor()
+{
+	return fputs("\033[?1c", stream);
+}
+
+int TE3D_Console_ShowCursor()
+{
+	return fputs("\033[?0c", stream);
+}

@@ -10,7 +10,7 @@ Momentan noch vorhandene Bugs:
 - Die Hintergrundfarbe wird nicht richtig übernommen, die Vordergrundfarbe sollte jedoch stimmen
 [Windows]
 - Die Hintergrundfarbe wird zur Hintergrundfarbe der Konsole.
-    Ziel: Verhindern und durch eine extra Funktion ermöglichen wenn dieses Verhalten vom Benutzer gewünscht
+	Ziel: Verhindern und durch eine extra Funktion ermöglichen wenn dieses Verhalten vom Benutzer gewünscht
 [Alle]
 - Umlaute und Sonderzeichen in der Textausgabe funktionieren nicht
 - Es sind noch nicht alle Farben implementiert
@@ -40,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#define LINUX
 
 #ifdef WIN32
 	#include <windows.h>
@@ -133,76 +131,78 @@ struct ConsoleCharacterInformation{
 	char Char;
 	int bgColor;
 	int fgColor;
-	int layer;
 };
+
+/*
 struct ConsoleDrawOperation{
 	int x;
 	int y;
 	struct ConsoleCharacterInformation data;
 	struct ConsoleDrawOperation *next;
 };
-
+*/
 
 //Private Members
 
-static struct   ConsoleCharacterInformation *ConsoleBuffer;
+static char		*ConsoleBuffer;
 static int      height, width;
+static FILE*	stream;
 
 
-static struct ConsoleDrawOperation *ConsoleOperationBuffer;
+//static struct ConsoleDrawOperation *ConsoleOperationBuffer;
 
 #ifdef WIN32
 	static HANDLE   hConsole;
-	static COORD    ConsoleCoords;
+	//static COORD    ConsoleCoords;
 	static int      ConsoleColorTableWin[] = { 0x00, 0x0F, 0x09, 0x0A, 0x0C, 0x0E, 0x0B, 0x0D, 0x05, 0x08, 0x06 };
 
 #endif
 #ifdef LINUX
 	static char     ConsoleColorTableLinuxFore[][5] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
-	static char     ConsoleColorTableLinuxBack[][4] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
-
+	static char     ConsoleColorTableLinuxBack[][5] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
 #endif
 
-//Private Functions
-
-static int      COI_setPosition(int x,int y);
-static int      COI_setColor(enum ConsoleColor fg,enum ConsoleColor bg);
-static int      COI_getElementNumber(int x,int y);
 
 
 
 //Public functions
 
+/* Not supported
 //Writes a string in the ConsoleBuffer
 extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap);
 //Writes a char in the ConsoleBuffer
 extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
 //Write a Line of Chars in the Buffer
+*/
 
-
+int TE3D_Console_WriteChar(char chr);
 
 //Clears the Console
-extern int CON_clearScreen();
-//Reset the ConsoleBuffer
-extern int CON_clearBuffer();
+int TE3D_Console_ClearScreen();
 //Init the ConsoleBuffer
-extern int CON_init(int w,int h);
+int TE3D_Console_Init(int w, int h);
 //Close the Module
-extern int CON_close();
+int TE3D_Console_Close();
 //Print the consoleBuffer out to the Console
-extern int CON_flushBuffer();
+int TE3D_Console_FlushBuffer();
+
+int TE3D_Console_SetPosition(int x, int y);
+int TE3D_Console_SetCurrentColor(enum ConsoleColor fg,enum ConsoleColor bg);
 
 // Moves the cursor of the console.
 // x: The x-steps to move.
 // y: The y-steps to move.
-// Das Benutzen dieser Funktion sollte eigentlich nicht mehr nötig sein, falls doch ist immernoch ein Fehler drin
-int CON_moveCursor(int x, int y);
+int TE3D_Console_MoveCursor(int x, int y);
 
+// Sets the position of the cursor to 0,0.
+int TE3D_Console_ResetPosition();
 
-extern struct ConsoleCharacterInformation* CON_getBuffer();
+// Writes a newline.
+int TE3D_Console_NewLine();
 
+char* TE3D_Console_GetBuffer();
+FILE* TE3D_Console_GetStream();
 
+int TE3D_Console_HideCursor();
 
-
-
-
+int TE3D_Console_ShowCursor();
