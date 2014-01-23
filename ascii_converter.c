@@ -68,6 +68,17 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			if (!indices)
 				return false;
 
+			for (int i = 0; i < count; i++  )
+
+			{
+			/* target = x ebene; v1 und v2 als vektoren; cos alpha (v1,v2) =  <a,b>/|a|*|b| ;  */
+
+
+			}
+
+
+
+
 			// -- Also hier dasselbe mit dem Zeichnen, nur eben keine Punkte sondern Linien. Jetzt ist 'indices' nicht mehr NULL, sondern ein Zeiger auf
 			// -- ein Array von integern (also Ganzzahlen), die die Indexe beschreiben. D.h. Die Indexe sagen dir, welche Linien aus dem vectors-Array
 			// -- verbunden werden sollen.
