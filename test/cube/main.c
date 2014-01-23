@@ -113,27 +113,28 @@ int main()
 	List_Add(&pipe.Models, &cube);
 	
 	// Transform the second cube.
-	TE3D_Model4f_Transform(&cube2, TE3D_Transformation4x4f_Translation(10, 10, -10));
+	TE3D_Model4f_Transform(&cube2, TE3D_Transformation4x4f_Translation(10, 10, 10));
 	List_Add(&pipe.Models, &cube2);
 
 
 	// Enter render loop.
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		// Set the stretch matrix. This improves the vision of the render scene, because the letters in the terminal are taller than wide.
-		pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);
+		TE3D_Pipeline_SetTransformation(&pipe, TE3D_Transformation4x4f_Scale(1, 0.5f, 1));
 	
 		// Set the ortho-transformation.
-		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f_N(i / 50.0f,1,1), TE3D_Vector3f_N(0,1,0)));
-		// Add translation.
-		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Translation(-60, 0, 0));
-		// Scal up.
-		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_Scale(3, 3, 3));		
-		// Rotate the cube.	
-		pipe.Transformation = TE3D_Matrix4x4f_mul(pipe.Transformation, TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f_N(1,1,1), i * 0.05));
+		TE3D_Pipeline_AppendTransformation(&pipe, TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(TE3D_Vector3f_N(0,0,1), TE3D_Vector3f_N(-20,-20,-100), TE3D_Vector3f_N(0,1,0)));
+		// Scale the cubes up.
+		TE3D_Pipeline_AppendTransformation(&pipe, TE3D_Transformation4x4f_Scale(3, 3, 3));
+		// Rotate the cubes.
+		TE3D_Pipeline_AppendTransformation(&pipe, TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f_N(1,1,1), i * 0.05));
 
 		// Render.
 		TE3D_Pipeline_Render(&pipe);
+		
+		// And sleep for a while.
+		sleep(40);
 	}
 
 	// Release the pipeline.

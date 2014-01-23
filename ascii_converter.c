@@ -75,7 +75,7 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 				return false;
 /* target = x ebene; v1 und v2 als vektoren; cos alpha (v1,v2) =  a_x/ax²+ay² ;  
 
-	           45° = /\
+			   45° = /\
 		   0°,180° = _
 			   90° = |		*/
 
@@ -94,11 +94,11 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 
 
 					zBuffer[xround + yround * target ->Width] = vectors[i].z;
-					target->Pixels[xround + yround * target ->Width].Char = '_'
-					target->Pixels[xround + yround * target ->Width].Char = '/\|']
+					target->Pixels[xround + yround * target ->Width].Char = '_';
+					target->Pixels[xround + yround * target ->Width].Char = '/\|'];
 
 
-        
+		
 			}
 
 

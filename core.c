@@ -54,7 +54,7 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 	pipe.Colormap = (enum ConsoleColor*)malloc(STANDARD_COLORMAP_SIZE);
 
 	// Initialize terminal.
-	CON_init(width, height);
+	TE3D_Console_Init(width, height);
 		
 	return pipe;
 }
@@ -63,7 +63,7 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 void TE3D_ReleasePipeline(struct TE3D_Pipeline* pipe)
 {
 	// Reset position after rendering frame.
-	CON_moveCursor(-pipe->CharOutput.Width, pipe->CharOutput.Height);
+	TE3D_Console_ResetPosition();
 	
 	// Release each model.
 	for (int i = 0; i < pipe->Models.count; i++)
@@ -76,7 +76,7 @@ void TE3D_ReleasePipeline(struct TE3D_Pipeline* pipe)
 	free(pipe->VectorIndexOutput);	
 	
 	// Release console buffer.
-	CON_close();
+	TE3D_Console_Close();
 }
 
 // Resizes the output ASCII buffer of the pipeline.
@@ -90,8 +90,8 @@ void TE3D_Pipeline_ResizeBuffers(struct TE3D_Pipeline* pipe, int newwidth, int n
 	pipe->CharOutput = TE3D_CreateSurface(newwidth, newheight);
 	
 	// Re-init console.
-	CON_close();
-	CON_init(newwidth, newheight);
+	TE3D_Console_Close();
+	TE3D_Console_Init(newwidth, newheight);
 
 	// Reset z-buffer.
 	free(pipe->zBuffer);
@@ -180,12 +180,18 @@ void TE3D_Pipeline_FlushConsole(struct TE3D_Pipeline* pipe)
 
 	// Workaround for console. Redefine new global accessible buffer or buffer in struct. Squeezes out performance.
 	for (int y = 0; y < pipe->CharOutput.Height; y++)
+	{
 		for (int x = 0; x < pipe->CharOutput.Width; x++)
 		{
-			CON_writeChar(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Char, x, y, 0, pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Color, pipe->CharOutput.Background);
+			TE3D_Console_SetCurrentColor(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Color, pipe->CharOutput.Background);
+			TE3D_Console_WriteChar(pipe->CharOutput.Pixels[x + y * pipe->CharOutput.Width].Char);
 		}
 
-	CON_flushBuffer();
+		TE3D_Console_NewLine();
+	}
+
+	TE3D_Console_FlushBuffer();
+	TE3D_Console_ResetPosition();
 }
 
 // Applies complete rendering and flushes the console.
