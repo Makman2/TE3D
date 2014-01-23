@@ -27,11 +27,16 @@ struct TE3D_Pipeline
 	// The Z-buffer.
 	float* zBuffer;
 
+	// The clipping distance of the near plane.
+	float ClipNear;
+	// The clipping distance of the far plane.
+	float ClipFar;
+
 	// The colormap. This array assigns each point, line or triangle a color.
 	enum ConsoleColor* Colormap;
 
-	// The size of the vector output buffer. Adjust it via TE3D_Pipeline_ResizeVectorOutputBuffer, if memory allocation errors occur,
-	// because the transformation routine that copies the all vectors together in an array doesn't check for memory overflows.
+	// The size of the vector output buffer. Adjust it via TE3D_Pipeline_ResizeVectorOutputBuffer if memory allocation errors occur,
+	// because the transformation routine that copies all vectors together in an array doesn't check for memory overflows.
 	size_t VectorOutputCapacity;
 	// The number of vectors in the vector output buffer.
 	int VectorOutputCount;
@@ -41,6 +46,9 @@ struct TE3D_Pipeline
 	void* VectorIndexOutput;
 	// The number of vector indices in the vector index output buffer.
 	int VectorIndexOutputCount;
+	// The size of the vector index output buffer. Adjust it via TE3D_Pipeline_ResizeVectorIndexOutputBuffer if memory allocation errors occur,
+	// because the transformation routine that copies all vectors together in an array doesn't check for memory overflows.
+	size_t VectorIndexOutputCapacity;
 
 	// The char surface for the ASCII converter output.
 	// Contains the rendered image.
@@ -93,3 +101,20 @@ void TE3D_Pipeline_PrependTransformation(struct TE3D_Pipeline* pipe, struct TE3D
 // Appends a transformation to the pipeline. This transformation is called at the beginning of the transformation chain.
 // matrix: The matrix to transform with.
 void TE3D_Pipeline_AppendTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix);
+
+// Sets the far clipping plane.
+// clipnear: The distance to the near clipping plane.
+// clipfar: The distance to the far clipping plane.
+void TE3D_Pipeline_SetClipping(struct TE3D_Pipeline* pipe, float clipnear, float clipfar);
+
+// Sets the far clipping plane.
+// clipnear: The distance to the near clipping plane.
+void TE3D_Pipeline_SetClippingNear(struct TE3D_Pipeline* pipe, float clipnear);
+
+// Sets the far clipping plane.
+// clipfar: The distance to the far clipping plane.
+void TE3D_Pipeline_SetClippingFar(struct TE3D_Pipeline* pipe, float clipfar);
+
+// Sets and overrides the transformation matrix.
+// matrix: The matrix to set.
+void TE3D_Pipeline_SetTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix);

@@ -141,9 +141,15 @@ struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13, float 
 // worldsup: A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is).
 struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup);
 struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup);
+// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
+// direction: A normal vector, that defines the plane to project on.
+// offset: The position of the projection plane.
+// worldsup: A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is).
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(struct TE3D_Vector3f direction, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup);
+
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-// fieldOfView: The view-angle.
+// fieldOfView: The view-angle (measured in degrees).
 // nearPlane: The distance to the near clipping plane.
 // farPlane: The distance to the far clipping plane.
 struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane);

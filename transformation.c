@@ -451,11 +451,11 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fie
 	result.m24 = 0;
 	result.m31 = 0;
 	result.m32 = 0;
-	result.m33 = farPlane / (farPlane - nearPlane);
-	result.m34 = -1;
+	result.m33 = - (farPlane + nearPlane) / (farPlane - nearPlane);
+	result.m34 = - 2 * farPlane * nearPlane / (farPlane - nearPlane);
 	result.m41 = 0;
 	result.m42 = 0;
-	result.m43 = farPlane * nearPlane / (farPlane - nearPlane);
+	result.m43 = -1;
 	result.m44 = 0;
 	
 	return result;
@@ -566,7 +566,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(s
 	return result;
 }
 
-// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional direction.
+// Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
 struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(struct TE3D_Vector3f direction, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
@@ -579,7 +579,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(st
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, yvec);
+	xvec = TE3D_Vector3f_cross(yvec, direction);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);
@@ -617,7 +617,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, yvec);
+	xvec = TE3D_Vector3f_cross(yvec, direction);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);
@@ -653,7 +653,7 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_
 
 	// Gram-Schmidting the worldsup-vector to get the first span-vector.
 	yvec = TE3D_Vector3f_sub(worldsup, TE3D_Vector3f_project(worldsup, direction));
-	xvec = TE3D_Vector3f_cross(direction, yvec);
+	xvec = TE3D_Vector3f_cross(yvec, direction);
 
 	TE3D_Vector3f_normalize(&yvec);
 	TE3D_Vector3f_normalize(&xvec);
@@ -991,13 +991,17 @@ struct TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 	result.m12 = -(float)sin(angle);
 	result.m21 = (float)sin(angle);
 	result.m22 = (float)cos(angle);
-	return result;	
+	return result;
+
+	
 }
+
 // Creates a rotation matrix in 2D-space for any axis.
 // offset: The offset of the rotation axis.
 // angle: The angle.
 struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offset, double angle)
 {
+
 	struct TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;

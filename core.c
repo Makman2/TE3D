@@ -3,6 +3,10 @@
 #define STANDARD_CHARCOLOR CONSOLECOLOR_DEFAULT
 #define STANDARD_CHAR ' '
 
+#ifndef INFINITY
+	#define INFINITY (1.0 / 0.0)
+#endif
+
 // Adds to each field in memory the given value.
 // dst: The destination address.
 // val: The value to add.
@@ -37,10 +41,14 @@ struct TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 
 	pipe.zBuffer = (float*)malloc(pipe.CharOutput.Width * pipe.CharOutput.Height * sizeof(float));
 	
+	pipe.ClipNear = 0;
+	pipe.ClipFar = INFINITY;
+
 	pipe.VectorOutputCapacity = STANDARD_VECTOR_OUTPUTBUFFER_SIZE;
 	pipe.VectorOutput = (struct TE3D_Vector4f*)malloc(STANDARD_VECTOR_OUTPUTBUFFER_SIZE);
 	pipe.VectorIndexOutput = malloc(sizeof(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE));
 	pipe.VectorOutputCount = 0;
+	pipe.VectorIndexOutputCapacity = STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE;
 	pipe.VectorFormat = TE3D_VECTORFORMAT_TRIANGLES;
 
 	pipe.Colormap = (enum ConsoleColor*)malloc(STANDARD_COLORMAP_SIZE);
@@ -161,9 +169,9 @@ void TE3D_Pipeline_Transform(struct TE3D_Pipeline* pipe)
 void TE3D_Pipeline_RenderASCII(struct TE3D_Pipeline* pipe)
 {
 	if (pipe->VectorFormat == TE3D_VECTORFORMAT_POINTS)
-		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->Colormap);
+		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->ClipNear, pipe->ClipFar, pipe->Colormap);
 	else
-		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorIndexOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->Colormap);
+		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorIndexOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->ClipNear, pipe->ClipFar, pipe->Colormap);
 }
 
 // Flushes the current surface to the console.
@@ -197,7 +205,8 @@ void TE3D_Pipeline_Render(struct TE3D_Pipeline* pipe)
 // Resizes the vector output buffer.
 void TE3D_Pipeline_ResizeVectorOutputBuffer(struct TE3D_Pipeline* pipe, int newcount)
 {
-	pipe->VectorOutput = (struct TE3D_Vector4f*)realloc(pipe->VectorOutput, newcount * sizeof(struct TE3D_Vector4f));
+	pipe->VectorOutputCapacity = newcount * sizeof(struct TE3D_Vector4f);
+	pipe->VectorOutput = (struct TE3D_Vector4f*)realloc(pipe->VectorOutput, pipe->VectorOutputCapacity);
 }
 
 // Changes the vector format.
@@ -209,12 +218,18 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 		{
 			free(pipe->VectorIndexOutput);
 			pipe->VectorIndexOutput = NULL;
+			pipe->VectorIndexOutputCount = 0;
+			pipe->VectorIndexOutputCapacity = 0;
 		}
 	}
 	else if(format == TE3D_VECTORFORMAT_LINES || format == TE3D_VECTORFORMAT_TRIANGLES)
 	{
 		if (!pipe->VectorIndexOutput)
+		{
 			pipe->VectorIndexOutput = malloc(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE);
+			pipe->VectorIndexOutputCount = 0;
+			pipe->VectorIndexOutputCapacity = STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE;
+		}
 	}
 
 	pipe->VectorFormat = format;
@@ -224,9 +239,15 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 void TE3D_Pipeline_ResizeVectorIndexOutputBuffer(struct TE3D_Pipeline* pipe, int newcount)
 {
 	if (pipe->VectorFormat == TE3D_VECTORFORMAT_LINES)
-		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, newcount * sizeof(struct TE3D_VectorIndex2));
+	{
+		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex2);
+		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, pipe->VectorIndexOutputCapacity);
+	}
 	else if(pipe->VectorFormat == TE3D_VECTORFORMAT_TRIANGLES)
-		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, newcount * sizeof(struct TE3D_VectorIndex3));
+	{
+		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex3);
+		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, pipe->VectorIndexOutputCapacity);
+	}
 }
 
 // Prepends a transformation to the pipeline. This transformation is called at the end of the transformation chain.
@@ -239,4 +260,29 @@ void TE3D_Pipeline_PrependTransformation(struct TE3D_Pipeline* pipe, struct TE3D
 void TE3D_Pipeline_AppendTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix)
 {
 	pipe->Transformation = TE3D_Matrix4x4f_mul(pipe->Transformation, matrix);
+}
+
+// Sets the far clipping plane.
+void TE3D_Pipeline_SetClipping(struct TE3D_Pipeline* pipe, float clipnear, float clipfar)
+{
+	pipe->ClipNear = clipnear;
+	pipe->ClipFar = clipfar;
+}
+
+// Sets the far clipping plane.
+void TE3D_Pipeline_SetClippingNear(struct TE3D_Pipeline* pipe, float clipnear)
+{
+	pipe->ClipNear = clipnear;
+}
+
+// Sets the far clipping plane.
+void TE3D_Pipeline_SetClippingFar(struct TE3D_Pipeline* pipe, float clipfar)
+{
+	pipe->ClipFar = clipfar;
+}
+
+// Sets and overrides the transformation matrix.
+void TE3D_Pipeline_SetTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix)
+{
+	pipe->Transformation = matrix;
 }

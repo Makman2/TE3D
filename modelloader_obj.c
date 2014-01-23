@@ -35,7 +35,8 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 		{
 			// Comment
 
-			iseof = fgetc(file);			while(iseof != '\n' && iseof != -1)
+			iseof = fgetc(file);
+			while(iseof != '\n' && iseof != -1)
 			{
 				iseof = fgetc(file);
 			}
