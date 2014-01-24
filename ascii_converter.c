@@ -73,11 +73,25 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// If indices is NULL the function must exit.
 			if (!indices)
 				return false;
-/* target = x ebene; v1 und v2 als vektoren; cos alpha (v1,v2) =  a_x/ax²+ay² ;  
+/* target = x ebene; v1 und v2 als vektoren; cos (a,b) =  ;  
 
+Winkelberechnung:  
 			   45° = /\
 		   0°,180° = _
 			   90° = |		*/
+					
+					if else Winkel = 45°/135° then put '/\'
+					or winkel = 0°, 180° then put '_'
+					else put '|'											/*if else unterscheidung der winkel; neue variabeln a,b und degree...; berechnung in einer for schleife, 
+																			es endet wenn a=0 wird.*/
+
+					float a[2],b[2];
+					float degree
+
+					for (a=0;<a,b>/<|a|,|b|>; a++ )
+
+					for degree = (a[2]*b[2]) / (a²[2]*b²[2]);
+
 
 			for (int i = 0; i < count; i++  )
 
@@ -94,8 +108,8 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 
 
 					zBuffer[xround + yround * target ->Width] = vectors[i].z;
-					target->Pixels[xround + yround * target ->Width].Char = '_';
-					target->Pixels[xround + yround * target ->Width].Char = '/\|'];
+					target->vectors[xround + yround * target ->Width].Char = '_';
+					target->vectors[xround + yround * target ->Width].Char = '/\|'];
 
 
 		
