@@ -1,7 +1,10 @@
 #pragma once
 
 #include "models.h"
-#include <stdbool.h>
+
+#ifdef LINUX
+	#include <stdbool.h>
+#endif
 
 
 // Describes a color with red, green and blue components.

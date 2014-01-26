@@ -54,8 +54,13 @@ else
 		CPU = ARM
 	endif
 endif
-CFLAGS += -D $(OS)
-CFLAGS += -D $(CPU)
+ifneq ($(OS),)
+	CFLAGS += -D $(OS)
+endif
+ifneq ($(CPU),)
+	CFLAGS += -D $(CPU)
+endif
+CFLAGS += -D VERSION=$(VERSION)
 CFLAGS += -o
 
 

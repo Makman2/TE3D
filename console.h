@@ -68,8 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONSOLECOLOR_DARKGRAY (enum ConsoleColor)10
 #define CONSOLECOLOR_BROWN (enum ConsoleColor)11
 
-//Die erweiterten Plattformabhängigenfarben sind momentan auskommentiert, damit durch die Benutzung dieser keine Probleme
-//hervorgerufen werden
+// Extended operating system specific colors for the moment not supported.
 /*
 #ifdef LINUX
 	#define CONSOLECOLOR_LIGHTBLUE (enum ConsoleColor)11
@@ -90,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum ConsoleColor{
 
-	//Für alle Systeme verfügbar
+	// Available for all operating systems.
 	Default  = 0,
 	Black = 1,
 	White = 2,
@@ -103,6 +102,7 @@ enum ConsoleColor{
 	Purple = 9,
 	DarkGray = 10,
 	Brown = 11,
+
 /*
 #ifdef LINUX
 	//Only avaiable under Unix
@@ -123,70 +123,25 @@ enum ConsoleColor{
 */
 };
 
-
-
-//Struct definitions
-
-struct ConsoleCharacterInformation{
-	char Char;
-	int bgColor;
-	int fgColor;
-};
-
-/*
-struct ConsoleDrawOperation{
-	int x;
-	int y;
-	struct ConsoleCharacterInformation data;
-	struct ConsoleDrawOperation *next;
-};
-*/
-
-//Private Members
-
-static char		*ConsoleBuffer;
-static int      height, width;
-static FILE*	stream;
-
-
-//static struct ConsoleDrawOperation *ConsoleOperationBuffer;
-
-#ifdef WIN32
-	static HANDLE   hConsole;
-	//static COORD    ConsoleCoords;
-	static int      ConsoleColorTableWin[] = { 0x00, 0x0F, 0x09, 0x0A, 0x0C, 0x0E, 0x0B, 0x0D, 0x05, 0x08, 0x06 };
-
-#endif
-#ifdef LINUX
-	static char     ConsoleColorTableLinuxFore[][5] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
-	static char     ConsoleColorTableLinuxBack[][5] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
-#endif
-
-
-
-
-//Public functions
-
-/* Not supported
-//Writes a string in the ConsoleBuffer
-extern int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int layer,int wrap);
-//Writes a char in the ConsoleBuffer
-extern int CON_writeChar(char data,int posX, int posY, int layer, enum ConsoleColor fg,enum ConsoleColor bg);
-//Write a Line of Chars in the Buffer
-*/
-
+// Writes a char to the underlying stream.
 int TE3D_Console_WriteChar(char chr);
 
-//Clears the Console
+// Clears the console screen.
 int TE3D_Console_ClearScreen();
-//Init the ConsoleBuffer
+// Initializes the console module.
 int TE3D_Console_Init(int w, int h);
-//Close the Module
+// Closes the module.
 int TE3D_Console_Close();
 //Print the consoleBuffer out to the Console
 int TE3D_Console_FlushBuffer();
 
+// Sets the position of the cursor.
+// x: The x-position.
+// y: The y-position.
 int TE3D_Console_SetPosition(int x, int y);
+// Sets the color of the following terminal chars that are printed out.
+// fg: The foreground color.
+// bg: The background color.
 int TE3D_Console_SetCurrentColor(enum ConsoleColor fg,enum ConsoleColor bg);
 
 // Moves the cursor of the console.
@@ -200,9 +155,13 @@ int TE3D_Console_ResetPosition();
 // Writes a newline.
 int TE3D_Console_NewLine();
 
+// Retrieves the output buffer.
 char* TE3D_Console_GetBuffer();
+// Retrieves the underlying stream (usually stdout).
 FILE* TE3D_Console_GetStream();
 
+// Hides the cursor.
 int TE3D_Console_HideCursor();
 
+// Shows the cursor.
 int TE3D_Console_ShowCursor();

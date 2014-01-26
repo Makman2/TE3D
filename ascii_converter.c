@@ -4,7 +4,12 @@
 	#define INFINITY (1.0 / 0.0)
 #endif
 
+#define THRESHOLD_HORIZONTAL_45 0.92387953251128675612818318939679f //cos(45/2 °)
+#define THRESHOLD_VERTICAL_45 0.3826834323650897717284599840304f //cos(45 + 45/2 °)
 
+#define MAX(x,y) (x > y ? x : y)
+
+/*
 static void memsetd(double* dst, double value, int count)
 {
 	for (int i = 0; i < count; i++)
@@ -13,6 +18,7 @@ static void memsetd(double* dst, double value, int count)
 		dst++;
 	}
 }
+*/
 
 static void memsetf(float* dst, float value, int count)
 {
@@ -73,55 +79,101 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// If indices is NULL the function must exit.
 			if (!indices)
 				return false;
-/* target = x ebene; v1 und v2 als vektoren; cos (a,b) =  ;  
-
-Winkelberechnung:  
-			   45° = /\
-		   0°,180° = _
-			   90° = |		*/
-					
-					if else Winkel = 45°/135° then put '/\'
-					or winkel = 0°, 180° then put '_'
-					else put '|'											/*if else unterscheidung der winkel; neue variabeln a,b und degree...; berechnung in einer for schleife, 
-																			es endet wenn a=0 wird.*/
-
-					float a[2],b[2];
-					float degree
-
-					for (a=0;<a,b>/<|a|,|b|>; a++ )
-
-					for degree = (a[2]*b[2]) / (a²[2]*b²[2]);
-
-
-			for (int i = 0; i < count; i++  )
-
+				
+			// Iterate over each line index.
+			for (int i = 0; i < count; i++)
 			{
-				int xround = (int)round(vectors[i].x);
-				int yround = (int)round(vectors[i].y);
-		
+				// The precomputed char for the 45° angle.				
+				char char45;
+				// Holds the current angle.
+				float angle;
+				
+				// The steps to go in x- and y-direction after processing a pixel.
+				int xstep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x ? 1 : -1;
+				int ystep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y ? 1 : -1;
 
-				if (zBuffer[xround + yround *target->Width] >= vectors[i].z &&
+				// The integer rounded coords. Instead used for the vectors because of performance reasons.
+				int coord1x = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x);
+				int coord1y = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y);
+				int coord2x = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x);
+				int coord2y = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y);
+				
+				// The z-component of the first line vector.
+				float z1 = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].z;
+				// The difference of the z-components from v1 and v2.
+				float dz = vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].z - z1;
+				// Holds the current z-value of processed vector.
+				float cz;
+				// Holds the current line length of the processing step (needed for calculating z-buffer).
+				float clen = 0;
 
-					xround >= 0 && xround < target -> Width &&
-					yround >= 0 && yround < target ->Height)
+				// The coordinate difference of v1 and v2.
+				int difvecx = coord2x - coord1x;
+				int difvecy = coord2y - coord1y;
+
+				// The whole length of the line.
+				float linelen = sqrtf(difvecx * difvecx + difvecy * difvecy);
+				// The factor to increment clen. This variable holds the step-width for the line when processing z.
+				float clenfactor = linelen / MAX(difvecx, difvecy);
+				
+
+				char45 = ((difvecx < 0 && difvecy < 0) || (difvecx > 0 && difvecy > 0)) ? '\\' : '/';
+
+				// The current processing coordinates.
+				int linex = coord1x;
+				int liney = coord1y;
+
+				while (linex != coord2x || liney != coord2y)
 				{
+					// Calculate z.
+					cz = z1 + dz * clen / linelen;
+									
+					// Calculate angle.
+					angle = linex / sqrtf(linex * linex + liney * liney);
 
+					// Select char.
+					if (angle > THRESHOLD_HORIZONTAL_45)
+					{
+						// Char: _
+						if (zBuffer[linex + liney * target->Width] >= cz)
+						{
+							target->Pixels[linex + liney * target->Width].Char = '_';
+							zBuffer[linex + liney * target->Width] = cz;
+						}
 
-					zBuffer[xround + yround * target ->Width] = vectors[i].z;
-					target->vectors[xround + yround * target ->Width].Char = '_';
-					target->vectors[xround + yround * target ->Width].Char = '/\|'];
+						linex += xstep;
+					}
+					else if (angle < THRESHOLD_VERTICAL_45)
+					{
+						// Char: |
+						if (zBuffer[linex + liney * target->Width] >= cz)
+						{
+							target->Pixels[linex + liney * target->Width].Char = '|';
+							zBuffer[linex + liney * target->Width] = cz;
+						}
 
+						liney += ystep;
+					}
+					else
+					{
+						// Char: \ or /
+						if (zBuffer[linex + liney * target->Width] >= cz)
+						{
+							target->Pixels[linex + liney * target->Width].Char = char45;
+							zBuffer[linex + liney * target->Width] = cz;
+						}
 
-		
+						linex += xstep;
+						liney += ystep;
+					}
+
+					clen += clenfactor;
+					target->Pixels[linex + liney * target->Width].Color = colormap[i];
+					
+				}
+
 			}
-
-
-
-
-			// -- Also hier dasselbe mit dem Zeichnen, nur eben keine Punkte sondern Linien. Jetzt ist 'indices' nicht mehr NULL, sondern ein Zeiger auf
-			// -- ein Array von integern (also Ganzzahlen), die die Indexe beschreiben. D.h. Die Indexe sagen dir, welche Linien aus dem vectors-Array
-			// -- verbunden werden sollen.
-
+				
 			break;
 
 		case TE3D_VECTORFORMAT_TRIANGLES:
@@ -130,12 +182,8 @@ Winkelberechnung:
 			if (!indices)
 				return false;
 
-			// -- Dasselbe hier wie oben nur jetzt mit Dreiecken malen und indices ist vom Typ Array von TE3D_VectorIndex3.
-
 			break;
 	}
 
-	// -- Wenn alles geklappt hat, 'true' zurückgeben.
-	// -- PS: Alle deutschen Kommentare (mit -- nach jedem //) werden am Ende gelöscht wenn die Funktion fertig ist.
 	return true;
 }

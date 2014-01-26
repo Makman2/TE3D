@@ -3,8 +3,6 @@
 #define PI 3.1415926535897932384626433832795
 #define ABS(x) (x < 0 ? -x : x)
 
-#pragma region Vector Math Functions
-
 // Returns a new 4-dimensional vector with predefined values.
 inline struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
 {
@@ -431,9 +429,6 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13,
 	result.m44 = m44;
 	return result;
 }
-
-#pragma endregion
-
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
 struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane)

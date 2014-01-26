@@ -3,8 +3,9 @@
 #include <stdio.h>
 
 #ifdef LINUX
+	// GCC triggers warning, usleep is implicitly declarated, but this is only a C99 issue. It works anyway, so just ignore it.
 	#include <unistd.h>
-	#define sleep(ms) usleep(ms * 1000)
+	#define sleep(ms) usleep((ms) * 1000)
 #endif
 
 #ifdef WIN32
@@ -104,10 +105,11 @@ int main()
 	
 	// Add colors for each vertex.
 	enum ConsoleColor vertcolor = CONSOLECOLOR_WHITE;
+	enum ConsoleColor vertcolor2 = CONSOLECOLOR_CYAN;
 	for (int i = 0; i < cube.Vectors.count; i++)
 	{
 		ArrayList_Add(&cube.Colors, &vertcolor);
-		ArrayList_Add(&cube2.Colors, &vertcolor);
+		ArrayList_Add(&cube2.Colors, &vertcolor2);
 	}
 	
 	List_Add(&pipe.Models, &cube);
