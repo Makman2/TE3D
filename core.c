@@ -211,8 +211,17 @@ void TE3D_Pipeline_Render(struct TE3D_Pipeline* pipe)
 // Resizes the vector output buffer.
 void TE3D_Pipeline_ResizeVectorOutputBuffer(struct TE3D_Pipeline* pipe, int newcount)
 {
+	if (newcount <= 0)
+		return;
+	
 	pipe->VectorOutputCapacity = newcount * sizeof(struct TE3D_Vector4f);
 	pipe->VectorOutput = (struct TE3D_Vector4f*)realloc(pipe->VectorOutput, pipe->VectorOutputCapacity);
+
+	// If TE3D_VECTORFORMAT_POINTS is specified, we must adjust the colormap size.
+	if (pipe->VectorFormat == TE3D_VECTORFORMAT_POINTS)
+	{
+		pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, newcount * sizeof(enum ConsoleColor));
+	}
 }
 
 // Changes the vector format.
@@ -226,6 +235,9 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 			pipe->VectorIndexOutput = NULL;
 			pipe->VectorIndexOutputCount = 0;
 			pipe->VectorIndexOutputCapacity = 0;
+
+			// Reallocate colormap memory suited for the capacity of the vectors, not the indices.
+			pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, pipe->VectorOutputCapacity / sizeof(struct TE3D_Vector4f) * sizeof(enum ConsoleColor));
 		}
 	}
 	else if(format == TE3D_VECTORFORMAT_LINES || format == TE3D_VECTORFORMAT_TRIANGLES)
@@ -235,7 +247,10 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 			pipe->VectorIndexOutput = malloc(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE);
 			pipe->VectorIndexOutputCount = 0;
 			pipe->VectorIndexOutputCapacity = STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE;
-		}
+			
+			// Also adjust the colormap.
+			pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, STANDARD_COLORMAP_SIZE);
+		}	
 	}
 
 	pipe->VectorFormat = format;
@@ -248,11 +263,15 @@ void TE3D_Pipeline_ResizeVectorIndexOutputBuffer(struct TE3D_Pipeline* pipe, int
 	{
 		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex2);
 		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, pipe->VectorIndexOutputCapacity);
+
+		pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, newcount * sizeof(enum ConsoleColor));
 	}
 	else if(pipe->VectorFormat == TE3D_VECTORFORMAT_TRIANGLES)
 	{
 		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex3);
 		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorOutput, pipe->VectorIndexOutputCapacity);
+
+		pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, newcount * sizeof(enum ConsoleColor));
 	}
 }
 
