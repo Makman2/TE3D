@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="core_8c">
+    <title>core.c File Reference</title>
+    <programlisting>#include &quot;core.h&quot;</programlisting>
+        <simplesect>
+            <title>Defines</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="core_8c_1ad85a9f97bb7af8af7a61b85540332989">STANDARD_CHARCOLOR</link> <link linkend="console_8h_1a05c9780163f754d29fb3364b90589010">CONSOLECOLOR_DEFAULT</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="core_8c_1ac574382cfb54d07e743057cfa486b09e">STANDARD_CHAR</link> &apos; &apos;</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="core_8c_1a956e2723d559858d08644ac99146e910">INFINITY</link> (1.0 / 0.0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="core_8c_1a5a5a8f6e182153449d6b961ea3531691">memadd</link> (
+int * dst, int val, int count)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> <link linkend="core_8c_1acb659b45b48897195bdc11895a06118a">TE3D_InitializePipeline</link> (
+int width, int height)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a791a6e82a7a45f1e4cb063236686a9b9">TE3D_ReleasePipeline</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1af1ff8293b6a98c216d8ff23dd42abd28">TE3D_Pipeline_ResizeBuffers</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, int newwidth, int newheight)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1aac201d2654ab82debe5824cc96f6c4b2">TE3D_Pipeline_Transform</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a8d1f85f33cd673ec4f0ce66d79d22d98">TE3D_Pipeline_RenderASCII</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1ac8f4376b944ac69db0c8ced2eba897b6">TE3D_Pipeline_FlushConsole</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1ad80b46c865a99ce9da1f116d90bab391">TE3D_Pipeline_Render</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a2aaea2cd031373ed08cb45a49b385de4">TE3D_Pipeline_ResizeVectorOutputBuffer</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, int newcount)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1ae58f82144b7bf15475ff94bcadf2640c">TE3D_Pipeline_ChangeVectorFormat</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, enum <link linkend="models_8h_1a68e3f605ef2dc9e35776b9c37f15495a">TE3D_VectorFormat</link> format)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a6f3133270d982ab7f1eab54f628358d5">TE3D_Pipeline_ResizeVectorIndexOutputBuffer</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, int newcount)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a898c1c8b07f23ef6ff2a5c79725b82f6">TE3D_Pipeline_PrependTransformation</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, struct <link linkend="struct_t_e3_d___matrix4x4f">TE3D_Matrix4x4f</link> matrix)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a00dc4008b4523d8f5ed1c5139e819fd8">TE3D_Pipeline_AppendTransformation</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, struct <link linkend="struct_t_e3_d___matrix4x4f">TE3D_Matrix4x4f</link> matrix)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a4f54375e1ede059c07a26a80155816f4">TE3D_Pipeline_SetClipping</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, float clipnear, float clipfar)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1ac1de29bf90471e6d7f79b9bbff93047e">TE3D_Pipeline_SetClippingNear</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, float clipnear)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1adad71357a3618b59fb7f2a88abfe1a9a">TE3D_Pipeline_SetClippingFar</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, float clipfar)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="core_8c_1a13dcbec2c2bb0b5ea70f81e75ed167c7">TE3D_Pipeline_SetTransformation</link> (
+struct <link linkend="struct_t_e3_d___pipeline">TE3D_Pipeline</link> * pipe, struct <link linkend="struct_t_e3_d___matrix4x4f">TE3D_Matrix4x4f</link> matrix)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file E:/System/Benutzerdaten/Dokumente/GitHub/TE3D/core.c</para>
+    </simplesect>
+</section>

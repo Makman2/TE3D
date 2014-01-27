@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="dir_a0e3201cdab3ea93bea828bac8d93d42">
+    <title>E:/System/Benutzerdaten/Dokumente Directory Reference</title>
+        <simplesect>
+            <title> Directories </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>dir <link linkend="dir_2aca9eff92b37589c8185623fe119bc7">E:/System/Benutzerdaten/Dokumente/GitHub</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Directory location is E:/System/Benutzerdaten/Dokumente/</para>
+    </simplesect>
+</section>

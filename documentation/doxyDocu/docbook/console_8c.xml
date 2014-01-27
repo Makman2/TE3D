@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="console_8c">
+    <title>console.c File Reference</title>
+    <programlisting>#include &quot;console.h&quot;</programlisting>
+        <simplesect>
+            <title>Defines</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="console_8c_1a3b257d16af44828f6f9f348bc5501aa6">GET_2D_INDEX</link> (x + y * width)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="console_8c_1abc8f6acc7aec66e9b2c6c3c5dcc79505">BUFFER_CONTROLCHAR_FACTOR</link> 64</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static char * <link linkend="console_8c_1a0f23b3a51929d2c0dc1f987cd31c8c5a">ConsoleBuffer</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="console_8c_1ad12fc34ce789bce6c8a05d8a17138534">height</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="console_8c_1a2474a5474cbff19523a51eb1de01cda4">width</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static FILE * <link linkend="console_8c_1a867a8cb54d3231f2acbfaa44fb31d6c4">stream</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1aaee921863efbfa03c412df32959616ef">TE3D_Console_Init</link> (
+int w, int h)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1ae411d48937a42f50f5842e1b058bffa7">TE3D_Console_Close</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a57d1bfc282a0185173270e28c927f0be">TE3D_Console_FlushBuffer</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1afab30a7826dd47a920640b53875d324e">TE3D_Console_SetPosition</link> (
+int x, int y)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a940c5861b3508cc806cb773124389c7f">TE3D_Console_SetCurrentColor</link> (
+enum <link linkend="console_8h_1a821042d5f30537f776ce823c5d66aada">ConsoleColor</link> fg, enum <link linkend="console_8h_1a821042d5f30537f776ce823c5d66aada">ConsoleColor</link> bg)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a05852a886dd5a86a286c1f48265bda64">TE3D_Console_ClearScreen</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>char * <link linkend="console_8c_1a58764c03de5544935445aaa4c3d82530">TE3D_Console_GetBuffer</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1af0b94478f2e56c1b950fb177eaa2c865">TE3D_Console_MoveCursor</link> (
+int x, int y)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a203438d75406ca328d46aff5eb1cbd4d">TE3D_Console_NewLine</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1ac4a2dacfcae8185ad1599b3b18cfe9e1">TE3D_Console_ResetPosition</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>FILE * <link linkend="console_8c_1ad30990c941b303a6e2de59cd62651f55">TE3D_Console_GetStream</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a3ef2890480b9c4f01ee96bb8edeaa7da">TE3D_Console_WriteChar</link> (
+char chr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1af9377292605440697f7a04221cc72889">TE3D_Console_HideCursor</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="console_8c_1a39746b54a00884daa41531def07c6103">TE3D_Console_ShowCursor</link> (
+)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file E:/System/Benutzerdaten/Dokumente/GitHub/TE3D/console.c</para>
+    </simplesect>
+</section>

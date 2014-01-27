@@ -8,16 +8,16 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{struct_array_list}{Array\-List}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A managed array. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{struct_array_list}{Array\-List} \hyperlink{arraylist_8h_a34745f432d40c674ff9ce9bf089801c5}{Array\-List\-\_\-\-New} (size\-\_\-t typesize)
 \item 
 void \hyperlink{arraylist_8h_a434718979a3305c20bd06db8b328b7c4}{Array\-List\-\_\-\-Release} (struct \hyperlink{struct_array_list}{Array\-List} $\ast$list)
-\item 
+\begin{DoxyCompactList}\small\item\em Safely releases the list. \end{DoxyCompactList}\item 
 void \hyperlink{arraylist_8h_af322a946cdaf61e59c85845036c62bc7}{Array\-List\-\_\-\-Clear} (struct \hyperlink{struct_array_list}{Array\-List} $\ast$list)
-\item 
+\begin{DoxyCompactList}\small\item\em Clears all items from the stack. \end{DoxyCompactList}\item 
 void $\ast$ \hyperlink{arraylist_8h_a0d292195dd8ae3ebfb6416d5d9cd9106}{Array\-List\-\_\-\-Add} (struct \hyperlink{struct_array_list}{Array\-List} $\ast$, void $\ast$item)
 \item 
 void $\ast$ \hyperlink{arraylist_8h_a90cfbb8f3d3565fd82a1636155d05696}{Array\-List\-\_\-\-Add\-Range} (struct \hyperlink{struct_array_list}{Array\-List} $\ast$, void $\ast$items, int itemscount)
@@ -49,6 +49,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a0d292195dd8ae3ebfb6416d5d9cd9106}
+Adds an item at the end of the list. Returns a pointer to the newly added item in the list. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to add. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a90cfbb8f3d3565fd82a1636155d05696}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Add\-Range@{Array\-List\-\_\-\-Add\-Range}}
 \index{Array\-List\-\_\-\-Add\-Range@{Array\-List\-\_\-\-Add\-Range}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Add\-Range}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Array\-List\-\_\-\-Add\-Range (
@@ -58,6 +63,13 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{itemscount}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a90cfbb8f3d3565fd82a1636155d05696}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em items} & A pointer to the items array to add. \\
+\hline
+\mbox{\tt in}  & {\em itemscount} & The number of items of the array to add. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a5554e40aa6480b1b14ce94940ab0ebbc}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-At@{Array\-List\-\_\-\-At}}
 \index{Array\-List\-\_\-\-At@{Array\-List\-\_\-\-At}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-At}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Array\-List\-\_\-\-At (
@@ -66,6 +78,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a5554e40aa6480b1b14ce94940ab0ebbc}
+Returns the item at the specified index. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index of the item to get. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_af322a946cdaf61e59c85845036c62bc7}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Clear@{Array\-List\-\_\-\-Clear}}
 \index{Array\-List\-\_\-\-Clear@{Array\-List\-\_\-\-Clear}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Clear}]{\setlength{\rightskip}{0pt plus 5cm}void Array\-List\-\_\-\-Clear (
@@ -73,6 +90,10 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{struct {\bf Array\-List} $\ast$}]{list}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_af322a946cdaf61e59c85845036c62bc7}
+
+
+Clears all items from the stack. 
+
 \hypertarget{arraylist_8h_a61e739f613a4549e6168024f84e175dd}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Find@{Array\-List\-\_\-\-Find}}
 \index{Array\-List\-\_\-\-Find@{Array\-List\-\_\-\-Find}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Find}]{\setlength{\rightskip}{0pt plus 5cm}int Array\-List\-\_\-\-Find (
@@ -81,6 +102,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a61e739f613a4549e6168024f84e175dd}
+Returns the index of the first specified item found. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & The item to find. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Find\-Range@{Array\-List\-\_\-\-Find\-Range}}
 \index{Array\-List\-\_\-\-Find\-Range@{Array\-List\-\_\-\-Find\-Range}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Find\-Range}]{\setlength{\rightskip}{0pt plus 5cm}int Array\-List\-\_\-\-Find\-Range (
@@ -90,6 +116,13 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{itemscount}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}
+Returns the index of the first specified range found. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em items} & The item range to find. \\
+\hline
+\mbox{\tt in}  & {\em itemscount} & The length of the item range. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a2fae9e373629dfb874c1dfb432e3c281}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Insert@{Array\-List\-\_\-\-Insert}}
 \index{Array\-List\-\_\-\-Insert@{Array\-List\-\_\-\-Insert}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Insert}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Array\-List\-\_\-\-Insert (
@@ -99,6 +132,13 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a2fae9e373629dfb874c1dfb432e3c281}
+Inserts an item at the specified index. Returns a pointer to the newly insertet item in the list. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to insert. \\
+\hline
+\mbox{\tt in}  & {\em index} & The index where to insert. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a957cffb46dde9bfcf91d6f3c318c0d17}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Insert\-Range@{Array\-List\-\_\-\-Insert\-Range}}
 \index{Array\-List\-\_\-\-Insert\-Range@{Array\-List\-\_\-\-Insert\-Range}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Insert\-Range}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Array\-List\-\_\-\-Insert\-Range (
@@ -109,6 +149,15 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a957cffb46dde9bfcf91d6f3c318c0d17}
+Inserts a range of items at the specified index. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em items} & A pointer to the items array to insert. \\
+\hline
+\mbox{\tt in}  & {\em itemscount} & The number of items of the array to insert. \\
+\hline
+\mbox{\tt in}  & {\em index} & The index where to insert. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a34745f432d40c674ff9ce9bf089801c5}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-New@{Array\-List\-\_\-\-New}}
 \index{Array\-List\-\_\-\-New@{Array\-List\-\_\-\-New}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-New}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Array\-List} Array\-List\-\_\-\-New (
@@ -116,6 +165,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{size\-\_\-t}]{typesize}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a34745f432d40c674ff9ce9bf089801c5}
+Creates and sets up a new array list. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em typesize} & The size of the type the list should contain. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a434718979a3305c20bd06db8b328b7c4}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Release@{Array\-List\-\_\-\-Release}}
 \index{Array\-List\-\_\-\-Release@{Array\-List\-\_\-\-Release}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Release}]{\setlength{\rightskip}{0pt plus 5cm}void Array\-List\-\_\-\-Release (
@@ -123,6 +177,10 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{struct {\bf Array\-List} $\ast$}]{list}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a434718979a3305c20bd06db8b328b7c4}
+
+
+Safely releases the list. 
+
 \hypertarget{arraylist_8h_a244dd88bf80c42bd056514a4bf30e925}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Remove@{Array\-List\-\_\-\-Remove}}
 \index{Array\-List\-\_\-\-Remove@{Array\-List\-\_\-\-Remove}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}bool Array\-List\-\_\-\-Remove (
@@ -131,6 +189,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a244dd88bf80c42bd056514a4bf30e925}
+Removes the first item found. Returns 'true' on success, 'false' on fail. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to remove. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a2b4f7980d6d26a9effa17106de0c5084}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Remove\-At@{Array\-List\-\_\-\-Remove\-At}}
 \index{Array\-List\-\_\-\-Remove\-At@{Array\-List\-\_\-\-Remove\-At}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Remove\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool Array\-List\-\_\-\-Remove\-At (
@@ -139,6 +202,11 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a2b4f7980d6d26a9effa17106de0c5084}
+Removes an item at the specified index. Returns 'true' on success, 'false' on fail. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index of the element to remove. \\
+\hline
+\end{DoxyParams}
 \hypertarget{arraylist_8h_a9383d51eb886e2697e3ca3af74f0d682}{\index{arraylist.\-h@{arraylist.\-h}!Array\-List\-\_\-\-Remove\-Range\-At@{Array\-List\-\_\-\-Remove\-Range\-At}}
 \index{Array\-List\-\_\-\-Remove\-Range\-At@{Array\-List\-\_\-\-Remove\-Range\-At}!arraylist.h@{arraylist.\-h}}
 \subsubsection[{Array\-List\-\_\-\-Remove\-Range\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool Array\-List\-\_\-\-Remove\-Range\-At (
@@ -148,3 +216,10 @@ int \hyperlink{arraylist_8h_a7ec4087b3318d2c9fe29359b1ccf8f7b}{Array\-List\-\_\-
 \item[{int}]{count}
 \end{DoxyParamCaption}
 )}}\label{arraylist_8h_a9383d51eb886e2697e3ca3af74f0d682}
+Removes the given number of elements in the list at the specified index. Returns 'true' on success, 'false' on fail. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index where the removing begins. \\
+\hline
+\mbox{\tt in}  & {\em count} & The number of items to remove from list. \\
+\hline
+\end{DoxyParams}

@@ -9,18 +9,18 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{struct_list_memory_block_header}{List\-Memory\-Block\-Header}
-\item 
+\begin{DoxyCompactList}\small\item\em The memory block header for list items. \end{DoxyCompactList}\item 
 struct \hyperlink{struct_list}{List}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A double linked list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{struct_list}{List} \hyperlink{list_8h_ac8821fe3b367768592b573cdcdeec545}{List\-\_\-\-New} (size\-\_\-t typesize)
 \item 
 void \hyperlink{list_8h_a71490f8ae060c980385b7bb6ee011696}{List\-\_\-\-Release} (struct \hyperlink{struct_list}{List} $\ast$list)
-\item 
+\begin{DoxyCompactList}\small\item\em Safely releases the list. \end{DoxyCompactList}\item 
 void \hyperlink{list_8h_a706ccbf710955a4b7f262593e1ff0e15}{List\-\_\-\-Clear} (struct \hyperlink{struct_list}{List} $\ast$list)
-\item 
+\begin{DoxyCompactList}\small\item\em Clears all items from the list. \end{DoxyCompactList}\item 
 void $\ast$ \hyperlink{list_8h_a93f0b1e2db69d3be302413c7ed15d98a}{List\-\_\-\-Add} (struct \hyperlink{struct_list}{List} $\ast$, void $\ast$item)
 \item 
 void $\ast$ \hyperlink{list_8h_a98f6f2c1e3286ea3708de62ceae844f9}{List\-\_\-\-Insert} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item, int index)
@@ -30,7 +30,7 @@ bool \hyperlink{list_8h_abccee8a10f7279f7a5c94708b5201b52}{List\-\_\-\-Remove} (
 bool \hyperlink{list_8h_afd0b5fde284a2073703828e6ec1b9e65}{List\-\_\-\-Remove\-At} (struct \hyperlink{struct_list}{List} $\ast$, int index)
 \item 
 bool \hyperlink{list_8h_a65565d1b01d1c44c77eb78cc06c73e02}{List\-\_\-\-Remove\-Range\-At} (struct \hyperlink{struct_list}{List} $\ast$list, int index, int count)
-\item 
+\begin{DoxyCompactList}\small\item\em Removes the given number of elements in the list at the specified index. \end{DoxyCompactList}\item 
 void $\ast$ \hyperlink{list_8h_abdd54888fd31e790a19c16d69151f5df}{List\-\_\-\-At} (struct \hyperlink{struct_list}{List} $\ast$list, int index)
 \item 
 int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item)
@@ -46,6 +46,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{list_8h_a93f0b1e2db69d3be302413c7ed15d98a}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to add. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_abdd54888fd31e790a19c16d69151f5df}{\index{list.\-h@{list.\-h}!List\-\_\-\-At@{List\-\_\-\-At}}
 \index{List\-\_\-\-At@{List\-\_\-\-At}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-At}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ List\-\_\-\-At (
@@ -54,6 +59,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{list_8h_abdd54888fd31e790a19c16d69151f5df}
+Returns the item at the specified index. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index of the item to get. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_a706ccbf710955a4b7f262593e1ff0e15}{\index{list.\-h@{list.\-h}!List\-\_\-\-Clear@{List\-\_\-\-Clear}}
 \index{List\-\_\-\-Clear@{List\-\_\-\-Clear}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Clear}]{\setlength{\rightskip}{0pt plus 5cm}void List\-\_\-\-Clear (
@@ -61,6 +71,10 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{struct {\bf List} $\ast$}]{list}
 \end{DoxyParamCaption}
 )}}\label{list_8h_a706ccbf710955a4b7f262593e1ff0e15}
+
+
+Clears all items from the list. 
+
 \hypertarget{list_8h_abc31364e3a738351458cfb8824731fa5}{\index{list.\-h@{list.\-h}!List\-\_\-\-Find@{List\-\_\-\-Find}}
 \index{List\-\_\-\-Find@{List\-\_\-\-Find}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Find}]{\setlength{\rightskip}{0pt plus 5cm}int List\-\_\-\-Find (
@@ -69,6 +83,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{list_8h_abc31364e3a738351458cfb8824731fa5}
+Returns the index of the first specified item found. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & The item to find. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_a98f6f2c1e3286ea3708de62ceae844f9}{\index{list.\-h@{list.\-h}!List\-\_\-\-Insert@{List\-\_\-\-Insert}}
 \index{List\-\_\-\-Insert@{List\-\_\-\-Insert}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Insert}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ List\-\_\-\-Insert (
@@ -78,6 +97,13 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{list_8h_a98f6f2c1e3286ea3708de62ceae844f9}
+Inserts an item at the specified index. Returns a pointer to the newly insertet item in the list. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to insert. \\
+\hline
+\mbox{\tt in}  & {\em index} & The index where to insert. (Inserts before element with given index) \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_ac8821fe3b367768592b573cdcdeec545}{\index{list.\-h@{list.\-h}!List\-\_\-\-New@{List\-\_\-\-New}}
 \index{List\-\_\-\-New@{List\-\_\-\-New}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-New}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf List} List\-\_\-\-New (
@@ -85,6 +111,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{size\-\_\-t}]{typesize}
 \end{DoxyParamCaption}
 )}}\label{list_8h_ac8821fe3b367768592b573cdcdeec545}
+Creates and sets up a new list. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em typesize} & The size of the type the list should contain. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_a71490f8ae060c980385b7bb6ee011696}{\index{list.\-h@{list.\-h}!List\-\_\-\-Release@{List\-\_\-\-Release}}
 \index{List\-\_\-\-Release@{List\-\_\-\-Release}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Release}]{\setlength{\rightskip}{0pt plus 5cm}void List\-\_\-\-Release (
@@ -92,6 +123,10 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{struct {\bf List} $\ast$}]{list}
 \end{DoxyParamCaption}
 )}}\label{list_8h_a71490f8ae060c980385b7bb6ee011696}
+
+
+Safely releases the list. 
+
 \hypertarget{list_8h_abccee8a10f7279f7a5c94708b5201b52}{\index{list.\-h@{list.\-h}!List\-\_\-\-Remove@{List\-\_\-\-Remove}}
 \index{List\-\_\-\-Remove@{List\-\_\-\-Remove}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove (
@@ -100,6 +135,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{void $\ast$}]{item}
 \end{DoxyParamCaption}
 )}}\label{list_8h_abccee8a10f7279f7a5c94708b5201b52}
+Removes the first item found. Returns 'true' on success, 'false' on fail. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em item} & A pointer to the item to remove. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_afd0b5fde284a2073703828e6ec1b9e65}{\index{list.\-h@{list.\-h}!List\-\_\-\-Remove\-At@{List\-\_\-\-Remove\-At}}
 \index{List\-\_\-\-Remove\-At@{List\-\_\-\-Remove\-At}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Remove\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove\-At (
@@ -108,6 +148,11 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}}\label{list_8h_afd0b5fde284a2073703828e6ec1b9e65}
+Removes an item at the specified index. Returns 'true' on success, 'false' on fail. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index of the element to remove. \\
+\hline
+\end{DoxyParams}
 \hypertarget{list_8h_a65565d1b01d1c44c77eb78cc06c73e02}{\index{list.\-h@{list.\-h}!List\-\_\-\-Remove\-Range\-At@{List\-\_\-\-Remove\-Range\-At}}
 \index{List\-\_\-\-Remove\-Range\-At@{List\-\_\-\-Remove\-Range\-At}!list.h@{list.\-h}}
 \subsubsection[{List\-\_\-\-Remove\-Range\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove\-Range\-At (
@@ -117,3 +162,14 @@ int \hyperlink{list_8h_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (str
 \item[{int}]{count}
 \end{DoxyParamCaption}
 )}}\label{list_8h_a65565d1b01d1c44c77eb78cc06c73e02}
+
+
+Removes the given number of elements in the list at the specified index. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index where the removing begins. \\
+\hline
+\mbox{\tt in}  & {\em count} & The number of items to remove from list. \\
+\hline
+\end{DoxyParams}

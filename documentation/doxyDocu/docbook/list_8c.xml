@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="list_8c">
+    <title>list.c File Reference</title>
+    <programlisting>#include &quot;list.h&quot;</programlisting>
+    <programlisting>#include &lt;stdio.h&gt;</programlisting>
+    <programlisting>#include &lt;string.h&gt;</programlisting>
+    <programlisting>#include &lt;stdlib.h&gt;</programlisting>
+    <programlisting>#include &lt;stdbool.h&gt;</programlisting>
+        <simplesect>
+            <title>Defines</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="list_8c_1a996f7be338ccb40d1a2a5abc1ad61759">ABS</link> (x &lt; 0 ? -x : x)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="list_8c_1a40ad3ad9097c6c610ecbc75e573fac77">Allocator</link> (
+struct <link linkend="struct_list">List</link> * list, struct <link linkend="struct_list_memory_block_header">ListMemoryBlockHeader</link> ** header)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="list_8c_1af020db3a46ceb918af36de3b9d8fde0d">Releasor</link> (
+struct <link linkend="struct_list">List</link> * list, struct <link linkend="struct_list_memory_block_header">ListMemoryBlockHeader</link> * addr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="struct_list">List</link> <link linkend="list_8c_1ac8821fe3b367768592b573cdcdeec545">List_New</link> (
+size_t typesize)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="list_8c_1a71490f8ae060c980385b7bb6ee011696">List_Release</link> (
+struct <link linkend="struct_list">List</link> * list)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void * <link linkend="list_8c_1a18e066d31d3ff0c15a3796f7d275851d">List_Add</link> (
+struct <link linkend="struct_list">List</link> * , void * item)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void * <link linkend="list_8c_1a98f6f2c1e3286ea3708de62ceae844f9">List_Insert</link> (
+struct <link linkend="struct_list">List</link> * list, void * item, int index)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>bool <link linkend="list_8c_1a43893bdf2905001ec9716172aaa1685c">List_RemoveAt</link> (
+struct <link linkend="struct_list">List</link> * , int index)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>bool <link linkend="list_8c_1abccee8a10f7279f7a5c94708b5201b52">List_Remove</link> (
+struct <link linkend="struct_list">List</link> * list, void * item)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>bool <link linkend="list_8c_1a65565d1b01d1c44c77eb78cc06c73e02">List_RemoveRangeAt</link> (
+struct <link linkend="struct_list">List</link> * list, int index, int count)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void * <link linkend="list_8c_1abdd54888fd31e790a19c16d69151f5df">List_At</link> (
+struct <link linkend="struct_list">List</link> * list, int index)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="list_8c_1abc31364e3a738351458cfb8824731fa5">List_Find</link> (
+struct <link linkend="struct_list">List</link> * list, void * item)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="list_8c_1a706ccbf710955a4b7f262593e1ff0e15">List_Clear</link> (
+struct <link linkend="struct_list">List</link> * list)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file E:/System/Benutzerdaten/Dokumente/GitHub/TE3D/list.c</para>
+    </simplesect>
+</section>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="modelloader__obj_8h">
+    <title>modelloader_obj.h File Reference</title>
+    <programlisting>#include &quot;transformation.h&quot;</programlisting>
+    <programlisting>#include &quot;models.h&quot;</programlisting>
+    <programlisting>#include &quot;list.h&quot;</programlisting>
+    <programlisting>#include &lt;stdio.h&gt;</programlisting>
+        <simplesect>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="struct_list">List</link> <link linkend="modelloader__obj_8h_1a71fa80cdd0630bd75afbde5b377f2b77">LoadWavefront</link> (
+FILE * file, enum <link linkend="models_8h_1a68e3f605ef2dc9e35776b9c37f15495a">TE3D_VectorFormat</link> format, int * vectorscount, int * indicescount)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="struct_list">List</link> <link linkend="modelloader__obj_8h_1a2b1f2f7ab9400984d856950e8781e37a">LoadWavefrontFromFile</link> (
+char * path, enum <link linkend="models_8h_1a68e3f605ef2dc9e35776b9c37f15495a">TE3D_VectorFormat</link> format, int * vectorscount, int * indicescount)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file E:/System/Benutzerdaten/Dokumente/GitHub/TE3D/modelloader_obj.h</para>
+    </simplesect>
+</section>

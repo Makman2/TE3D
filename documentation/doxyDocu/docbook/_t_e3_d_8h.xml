@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_t_e3_d_8h">
+    <title>TE3D.h File Reference</title>
+    <programlisting>#include &quot;core.h&quot;</programlisting>
+    <programlisting>#include &quot;modelloader_obj.h&quot;</programlisting>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file E:/System/Benutzerdaten/Dokumente/GitHub/TE3D/TE3D.h</para>
+    </simplesect>
+</section>

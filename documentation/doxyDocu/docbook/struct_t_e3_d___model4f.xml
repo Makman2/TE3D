@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="struct_t_e3_d___model4f">
+<title>TE3D_Model4f struct Reference</title>
+<para>
+    <programlisting>#include <link linkend="models_8h">&lt;models.h&gt;</link></programlisting>
+</para>
+        <simplesect>
+            <title>Public Attributes</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>char * Name<para><emphasis>The name or ID of the model.</emphasis></para></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct ArrayList Vectors<para><emphasis>The vectors that define the model.</emphasis></para></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct ArrayList Indices</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct ArrayList Colors<para><emphasis>The colors of the model.</emphasis></para></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>bool IsActive<para><emphasis>Sets whether the model is rendered.</emphasis></para></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>enum TE3D_VectorFormat Format<para><emphasis>The vector format of this model.</emphasis></para></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+    <simplesect>
+        <title>Brief Description</title>
+
+<para>Describes a model build up from vectors. </para>
+    </simplesect>
+        <simplesect>
+            <title>Member Documentation</title>
+            <simplesect>
+                <title>struct ArrayList Indices</title>                
+<para>The indices that connect the model. Note: The array list type depends on the defined vector format. TE3D_VECTORFORMAT_POINTS: indices is NULL. TE3D_VECTORFORMAT_LINES: indices contains an arraylist of type <link linkend="struct_t_e3_d___vector_index2">TE3D_VectorIndex2</link>. TE3D_VECTORFORMAT_TRIANGLES: indices contains an arraylist of type <link linkend="struct_t_e3_d___vector_index3">TE3D_VectorIndex3</link>. </para>
+
+                <para>Definition at line 62 of file models.h</para>
+                <para>The Documentation for this struct was generated from the following file: </para>
+                <para><itemizedlist><listitem><para>models.h</para></listitem></itemizedlist></para>
+            </simplesect>
+        </simplesect>
+</section>
