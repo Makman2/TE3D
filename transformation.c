@@ -436,7 +436,22 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fie
 	// The transformation matrix.
 	struct TE3D_Matrix4x4f result;
 	
-	result.m11 = 1.0f / tan(fieldOfView * 0.5f) / ratio;	result.m12 = 0;	result.m13 = 0;	result.m14 = 0;	result.m21 = 0;	result.m22 = 1.0f / tan(fieldOfView * 0.5f);	result.m23 = 0;	result.m24 = 0;	result.m31 = 0;	result.m32 = 0;	result.m33 = farPlane / (farPlane - nearPlane);	result.m34 = nearPlane * farPlane / (nearPlane - farPlane);	result.m41 = 0;	result.m42 = 0;	result.m43 = 1;	result.m44 = 0;
+	result.m11 = 1.0f / tan(fieldOfView * 0.5f) / ratio;
+	result.m12 = 0;
+	result.m13 = 0;
+	result.m14 = 0;
+	result.m21 = 0;
+	result.m22 = 1.0f / tan(fieldOfView * 0.5f);
+	result.m23 = 0;
+	result.m24 = 0;
+	result.m31 = 0;
+	result.m32 = 0;
+	result.m33 = farPlane / (farPlane - nearPlane);
+	result.m34 = nearPlane * farPlane / (nearPlane - farPlane);
+	result.m41 = 0;
+	result.m42 = 0;
+	result.m43 = 1;
+	result.m44 = 0;
 	
 	return result;
 }
