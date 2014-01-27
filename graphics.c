@@ -20,7 +20,7 @@ struct TE3D_Surface TE3D_CreateSurface(int width, int height)
 // Releases a char surface.
 void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 {
-	free(surface);
+	free(surface->Pixels);
 	
 	// Reset struct values.
 	surface->Width = 0;

@@ -9,8 +9,9 @@
 #include <stdlib.h>
 
 #define STANDARD_VECTOR_OUTPUTBUFFER_SIZE (256 * sizeof(struct TE3D_Vector4f))
-#define STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE (128 * sizeof(struct TE3D_VectorIndex3))
-#define STANDARD_COLORMAP_SIZE (STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE / sizeof(struct TE3D_VectorIndex3) * sizeof(enum ConsoleColor))
+#define STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE 1056
+#define STANDARD_COLORMAP_SIZE_VI2 (STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE / sizeof(struct TE3D_VectorIndex2) * sizeof(enum ConsoleColor))
+#define STANDARD_COLORMAP_SIZE_VI3 (STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE / sizeof(struct TE3D_VectorIndex3) * sizeof(enum ConsoleColor))
 
 // The standard TE3D working pipeline.
 struct TE3D_Pipeline

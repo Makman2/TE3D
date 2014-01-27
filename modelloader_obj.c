@@ -29,7 +29,7 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 	{
 
 		// Read prefix character.
-		iseof = fscanf(file, "%c", &prefix);
+		iseof = fscanf(file, " %c", &prefix);
 
 		if (prefix == '#')
 		{
@@ -65,13 +65,13 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 
 			fscanf(file, "%f %f %f", &vector.x, &vector.y, &vector.z);
 			// If we hit another 'v' a new vector starts and w defaults.
-			iseof = fscanf(file, "%c", &prefix);
+			iseof = fscanf(file, " %c", &prefix);
 
 			vector.w = 1.0f;
 			
 			fseek(file, -1, SEEK_CUR);
 			
-			if (IS_CHAR_NUMERIC(prefix))
+			if (iseof != EOF && IS_CHAR_NUMERIC(prefix))
 				iseof = fscanf(file, "%f", &vector.w);
 			
 
@@ -98,20 +98,26 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 					int firstindex;
 
 					fscanf(file, "%d %d", &indexitem.i1, &indexitem.i2);
+					
+					indexitem.i1 -= *vectorscount;
+					indexitem.i2 -= *vectorscount;
+					
 					firstindex = indexitem.i1;
-
+					
 					ArrayList_Add(&model.Indices, &indexitem);
 
 					// If other face-indices follow, re-scanf.
-					while (true)
+					while (iseof != EOF)
 					{
-						iseof = fscanf(file, "%c", &prefix);
+						iseof = fscanf(file, " %c", &prefix);
 						fseek(file, -1, SEEK_CUR);
 
 						if (IS_CHAR_NUMERIC(prefix))
 						{
 							indexitem.i1 = indexitem.i2;
 							iseof = fscanf(file, "%d", &indexitem.i2);
+
+							indexitem.i2 -= *vectorscount;
 
 							// Add the line to the model.
 							ArrayList_Add(&model.Indices, &indexitem);

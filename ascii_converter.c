@@ -54,9 +54,9 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			// Iterate over each vector and assign color.
 			for (int i = 0; i < count; i++)
 			{
-				int xround = (int)round(vectors[i].x);
+				int xround = (int)roundf(vectors[i].x);
 				// Map the coordinates right to our left-handed coordinate system.
-				int yround = target->Height - 1 - (int)round(vectors[i].y);
+				int yround = target->Height - 1 - (int)roundf(vectors[i].y);
 
 
 				if (vectors[i].z >= clipnear && vectors[i].z <= clipfar &&
@@ -92,10 +92,10 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 				int ystep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y ? 1 : -1;
 
 				// The integer rounded coords. Instead used for the vectors because of performance reasons.
-				int coord1x = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x);
-				int coord1y = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y);
-				int coord2x = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x);
-				int coord2y = (int)round(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y);
+				int coord1x = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x);
+				int coord1y = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y);
+				int coord2x = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x);
+				int coord2y = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y);
 				
 				// The z-component of the first line vector.
 				float z1 = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].z;
