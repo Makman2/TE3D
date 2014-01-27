@@ -149,25 +149,28 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(st
 
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-// fieldOfView: The view-angle (measured in degrees).
+// fieldOfView: The view-angle (measured in radians).
+// ratio: The aspect ratio (width / height).
 // nearPlane: The distance to the near clipping plane.
 // farPlane: The distance to the far clipping plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane);
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float ratio, float nearPlane, float farPlane);
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-// direction: The direction of the projection.
 // fieldOfView: The view-angle.
+// ratio: The aspect ratio (width / height).
 // nearPlane: The distance to the near clipping plane.
 // farPlane: The distance to the far clipping plane.
+// direction: The direction of the projection.
 // worldsup: The worlds up of the projection.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f worldsup);
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup);
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-// direction: The direction of the projection.
 // fieldOfView: The view-angle.
+// ratio: The aspect ratio (width / height).
 // nearPlane: The distance to the near clipping plane.
 // farPlane: The distance to the far clipping plane.
+// direction: The direction of the projection.
+// worldsup: The worlds up of the projection.
 // offset: The position of the projection plane.
-// worldsup: The worlds up of the projection.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup);
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup, struct TE3D_Vector3f offset);
 
 // Creates a matrix that describes a translation.
 // shiftX: The shift of the x-component.

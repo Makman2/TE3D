@@ -431,33 +431,18 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13,
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float nearPlane, float farPlane)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float ratio, float nearPlane, float farPlane)
 {
 	// The transformation matrix.
 	struct TE3D_Matrix4x4f result;
 	
-	result.m11 = 1.0f / tan(fieldOfView * 0.5f * (float)PI / 180);
-	result.m12 = 0;
-	result.m13 = 0;
-	result.m14 = 0;
-	result.m21 = 0;
-	result.m22 = 1.0f / tan(fieldOfView * 0.5f * (float)PI / 180);
-	result.m23 = 0;
-	result.m24 = 0;
-	result.m31 = 0;
-	result.m32 = 0;
-	result.m33 = - (farPlane + nearPlane) / (farPlane - nearPlane);
-	result.m34 = - 2 * farPlane * nearPlane / (farPlane - nearPlane);
-	result.m41 = 0;
-	result.m42 = 0;
-	result.m43 = -1;
-	result.m44 = 0;
+	result.m11 = 1.0f / tan(fieldOfView * 0.5f) / ratio;	result.m12 = 0;	result.m13 = 0;	result.m14 = 0;	result.m21 = 0;	result.m22 = 1.0f / tan(fieldOfView * 0.5f);	result.m23 = 0;	result.m24 = 0;	result.m31 = 0;	result.m32 = 0;	result.m33 = farPlane / (farPlane - nearPlane);	result.m34 = nearPlane * farPlane / (nearPlane - farPlane);	result.m41 = 0;	result.m42 = 0;	result.m43 = 1;	result.m44 = 0;
 	
 	return result;
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f worldsup)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
 	struct TE3D_Matrix4x4f result;
@@ -510,7 +495,7 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(struct TE3D
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(struct TE3D_Vector3f direction, double fieldOfView, float nearPlane, float farPlane, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup)
+struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup, struct TE3D_Vector3f offset)
 {
 	// The transformation matrix.
 	struct TE3D_Matrix4x4f result;
