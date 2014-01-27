@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
+//Colors for the Console
 enum ConsoleColor{
 
 	// Available for all operating systems.
@@ -123,45 +123,47 @@ enum ConsoleColor{
 */
 };
 
-// Writes a char to the underlying stream.
+/// Writes a char to the underlying stream.
+/// @param[in] chr Character to write to the Console
 int TE3D_Console_WriteChar(char chr);
 
-// Clears the console screen.
+/// Clears the console screen.
 int TE3D_Console_ClearScreen();
-// Initializes the console module.
+/// Initializes the console module.
 int TE3D_Console_Init(int w, int h);
-// Closes the module.
+/// Closes the module.
 int TE3D_Console_Close();
-//Print the consoleBuffer out to the Console
+///Print the consoleBuffer out to the Console
 int TE3D_Console_FlushBuffer();
 
-// Sets the position of the cursor.
-// x: The x-position.
-// y: The y-position.
+/// Sets the position of the cursor.
+///@param[in] x X-Position of the Cursor
+///@param[in] y Y-Position of the Cursor
 int TE3D_Console_SetPosition(int x, int y);
-// Sets the color of the following terminal chars that are printed out.
-// fg: The foreground color.
-// bg: The background color.
+
+/// Sets the color of the following terminal chars that are printed out.
+///@param[in] fg Forgroundcolor
+///@param[in] fg Backroundcolor
 int TE3D_Console_SetCurrentColor(enum ConsoleColor fg,enum ConsoleColor bg);
 
-// Moves the cursor of the console.
-// x: The x-steps to move.
-// y: The y-steps to move.
+/// Moves the cursor of the console.
+/// @param[in] x The x-steps to move.
+/// @param[in] y The y-steps to move.
 int TE3D_Console_MoveCursor(int x, int y);
 
-// Sets the position of the cursor to 0,0.
+/// Sets the position of the cursor to 0,0.
 int TE3D_Console_ResetPosition();
 
-// Writes a newline.
+/// Writes a newline.
 int TE3D_Console_NewLine();
 
-// Retrieves the output buffer.
+/// Retrieves the output buffer.
 char* TE3D_Console_GetBuffer();
-// Retrieves the underlying stream (usually stdout).
+/// Retrieves the underlying stream (usually stdout).
 FILE* TE3D_Console_GetStream();
 
-// Hides the cursor.
+/// Hides the cursor.
 int TE3D_Console_HideCursor();
 
-// Shows the cursor.
+/// Shows the cursor.
 int TE3D_Console_ShowCursor();

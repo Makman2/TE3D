@@ -1,0 +1,66 @@
+\hypertarget{console__abstraction_8h}{\section{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/console\-\_\-abstraction.h File Reference}
+\label{console__abstraction_8h}\index{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/console\-\_\-abstraction.\-h@{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/console\-\_\-abstraction.\-h}}
+}
+{\ttfamily \#include \char`\"{}graphics.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}console.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{console__abstraction_8h_aec0aba4d65264666424ec300c132ec1c}{C\-O\-N\-A\-\_\-write\-Text} (\hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} pos, \hyperlink{struct_t_e3_d___color}{T\-E3\-D\-\_\-\-Color} color, int wrap, char $\ast$text)
+\item 
+int \hyperlink{console__abstraction_8h_a1cf32f2ad472b7658cca7b70ea19b03c}{C\-O\-N\-A\-\_\-write\-Char} (\hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} pos, \hyperlink{struct_t_e3_d___color}{T\-E3\-D\-\_\-\-Color} color, char Char)
+\item 
+int \hyperlink{console__abstraction_8h_a18d58a998e14a7d131bddf8d0b536dde}{C\-O\-N\-A\-\_\-write\-Rect} (\hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} pos, \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} pos, \hyperlink{struct_t_e3_d___color}{T\-E3\-D\-\_\-\-Color}, char Char)
+\item 
+int \hyperlink{console__abstraction_8h_aca26d23556d3c982b742fbc9e014e9b4}{C\-O\-N\-A\-\_\-\-Init} (int w, int h)
+\item 
+\hyperlink{console_8h_a821042d5f30537f776ce823c5d66aada}{Console\-Color} \hyperlink{console__abstraction_8h_a60c37d2ff934718c73dca8df13d8fab6}{C\-O\-N\-A\-\_\-\-Calc\-Color} (\hyperlink{struct_t_e3_d___color}{T\-E3\-D\-\_\-\-Color} rgb\-Color)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{console__abstraction_8h_a60c37d2ff934718c73dca8df13d8fab6}{\index{console\-\_\-abstraction.\-h@{console\-\_\-abstraction.\-h}!C\-O\-N\-A\-\_\-\-Calc\-Color@{C\-O\-N\-A\-\_\-\-Calc\-Color}}
+\index{C\-O\-N\-A\-\_\-\-Calc\-Color@{C\-O\-N\-A\-\_\-\-Calc\-Color}!console_abstraction.h@{console\-\_\-abstraction.\-h}}
+\subsubsection[{C\-O\-N\-A\-\_\-\-Calc\-Color}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Console\-Color} C\-O\-N\-A\-\_\-\-Calc\-Color (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-E3\-D\-\_\-\-Color}}]{rgb\-Color}
+\end{DoxyParamCaption}
+)}}\label{console__abstraction_8h_a60c37d2ff934718c73dca8df13d8fab6}
+\hypertarget{console__abstraction_8h_aca26d23556d3c982b742fbc9e014e9b4}{\index{console\-\_\-abstraction.\-h@{console\-\_\-abstraction.\-h}!C\-O\-N\-A\-\_\-\-Init@{C\-O\-N\-A\-\_\-\-Init}}
+\index{C\-O\-N\-A\-\_\-\-Init@{C\-O\-N\-A\-\_\-\-Init}!console_abstraction.h@{console\-\_\-abstraction.\-h}}
+\subsubsection[{C\-O\-N\-A\-\_\-\-Init}]{\setlength{\rightskip}{0pt plus 5cm}int C\-O\-N\-A\-\_\-\-Init (
+\begin{DoxyParamCaption}
+\item[{int}]{w, }
+\item[{int}]{h}
+\end{DoxyParamCaption}
+)}}\label{console__abstraction_8h_aca26d23556d3c982b742fbc9e014e9b4}
+\hypertarget{console__abstraction_8h_a1cf32f2ad472b7658cca7b70ea19b03c}{\index{console\-\_\-abstraction.\-h@{console\-\_\-abstraction.\-h}!C\-O\-N\-A\-\_\-write\-Char@{C\-O\-N\-A\-\_\-write\-Char}}
+\index{C\-O\-N\-A\-\_\-write\-Char@{C\-O\-N\-A\-\_\-write\-Char}!console_abstraction.h@{console\-\_\-abstraction.\-h}}
+\subsubsection[{C\-O\-N\-A\-\_\-write\-Char}]{\setlength{\rightskip}{0pt plus 5cm}int C\-O\-N\-A\-\_\-write\-Char (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-E3\-D\-\_\-\-Vector2f}}]{pos, }
+\item[{{\bf T\-E3\-D\-\_\-\-Color}}]{color, }
+\item[{char}]{Char}
+\end{DoxyParamCaption}
+)}}\label{console__abstraction_8h_a1cf32f2ad472b7658cca7b70ea19b03c}
+\hypertarget{console__abstraction_8h_a18d58a998e14a7d131bddf8d0b536dde}{\index{console\-\_\-abstraction.\-h@{console\-\_\-abstraction.\-h}!C\-O\-N\-A\-\_\-write\-Rect@{C\-O\-N\-A\-\_\-write\-Rect}}
+\index{C\-O\-N\-A\-\_\-write\-Rect@{C\-O\-N\-A\-\_\-write\-Rect}!console_abstraction.h@{console\-\_\-abstraction.\-h}}
+\subsubsection[{C\-O\-N\-A\-\_\-write\-Rect}]{\setlength{\rightskip}{0pt plus 5cm}int C\-O\-N\-A\-\_\-write\-Rect (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-E3\-D\-\_\-\-Vector2f}}]{pos, }
+\item[{{\bf T\-E3\-D\-\_\-\-Vector2f}}]{pos, }
+\item[{{\bf T\-E3\-D\-\_\-\-Color}}]{, }
+\item[{char}]{Char}
+\end{DoxyParamCaption}
+)}}\label{console__abstraction_8h_a18d58a998e14a7d131bddf8d0b536dde}
+\hypertarget{console__abstraction_8h_aec0aba4d65264666424ec300c132ec1c}{\index{console\-\_\-abstraction.\-h@{console\-\_\-abstraction.\-h}!C\-O\-N\-A\-\_\-write\-Text@{C\-O\-N\-A\-\_\-write\-Text}}
+\index{C\-O\-N\-A\-\_\-write\-Text@{C\-O\-N\-A\-\_\-write\-Text}!console_abstraction.h@{console\-\_\-abstraction.\-h}}
+\subsubsection[{C\-O\-N\-A\-\_\-write\-Text}]{\setlength{\rightskip}{0pt plus 5cm}int C\-O\-N\-A\-\_\-write\-Text (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-E3\-D\-\_\-\-Vector2f}}]{pos, }
+\item[{{\bf T\-E3\-D\-\_\-\-Color}}]{color, }
+\item[{int}]{wrap, }
+\item[{char $\ast$}]{text}
+\end{DoxyParamCaption}
+)}}\label{console__abstraction_8h_aec0aba4d65264666424ec300c132ec1c}

@@ -1,0 +1,247 @@
+\hypertarget{models_8h}{\section{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/models.h File Reference}
+\label{models_8h}\index{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/models.\-h@{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/models.\-h}}
+}
+{\ttfamily \#include \char`\"{}arraylist.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}transformation.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}console.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_t_e3_d___vector_index2}{T\-E3\-D\-\_\-\-Vector\-Index2}
+\begin{DoxyCompactList}\small\item\em Defines a connection between two vectors (line). \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector_index3}{T\-E3\-D\-\_\-\-Vector\-Index3}
+\begin{DoxyCompactList}\small\item\em Defines a connection between three vectors (triangle). \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f}
+\begin{DoxyCompactList}\small\item\em Describes a model build up from vectors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{models_8h_aed06e4263ed93bab8eb5bd0df73db871}{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S}~(enum \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{T\-E3\-D\-\_\-\-Vector\-Format})0
+\item 
+\#define \hyperlink{models_8h_ac453f50e95086a9e1f0528f26d135c55}{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S}~(enum \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{T\-E3\-D\-\_\-\-Vector\-Format})1
+\item 
+\#define \hyperlink{models_8h_a91afd5a45f2f0997b005d566a129d77f}{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S}~(enum \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{T\-E3\-D\-\_\-\-Vector\-Format})2
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{T\-E3\-D\-\_\-\-Vector\-Format} \{ \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa80122c867cbace07a127dcb7939d6612}{Points} = 0, 
+\hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa626078fdab3350ad5436dab6d381a226}{Lines} = 1, 
+\hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa37d6318b5398d569d62adc7c460726d0}{Triangles} = 2
+ \}
+\begin{DoxyCompactList}\small\item\em Available vector formats. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_t_e3_d___vector_index2}{T\-E3\-D\-\_\-\-Vector\-Index2} \hyperlink{models_8h_a080656628058fa023fc0a1d9e5726402}{T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N} (int i1, int i2)
+\item 
+struct \hyperlink{struct_t_e3_d___vector_index3}{T\-E3\-D\-\_\-\-Vector\-Index3} \hyperlink{models_8h_addeeb6f82d8f0a0d2468de9b62a62290}{T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N} (int i1, int i2, int i3)
+\item 
+struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} \hyperlink{models_8h_afc448364b7deeb1a991d71b35170ed60}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-New} (enum \hyperlink{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{T\-E3\-D\-\_\-\-Vector\-Format} format)
+\item 
+void \hyperlink{models_8h_ae5f40052dfbddefef8124aa136b83137}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} matrix)
+\item 
+void \hyperlink{models_8h_a1328abb67f174bd5e21dfb1bf6819fd8}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} move)
+\item 
+void \hyperlink{models_8h_a77d042db1c982f8bf316809edc85f11d}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, float factor)
+\item 
+void \hyperlink{models_8h_a3123a1ecba2faf3ac1de465e940c8d34}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} axis, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} offset, double angle)
+\item 
+void \hyperlink{models_8h_a0d6ef10ceb5fc48dd67f39d5b34fa3ca}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, double angle)
+\item 
+void \hyperlink{models_8h_acc1671a9cc6c3e413f7ad4808d00dcd1}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, double angle)
+\item 
+void \hyperlink{models_8h_a5d0f8981af19db1115d610ad695ef6c9}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, double angle)
+\item 
+void \hyperlink{models_8h_a4ae788ef77d589e1f45596621485bad0}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model, char $\ast$name)
+\item 
+void \hyperlink{models_8h_a780aa3be73b325157dff672f8c33a73d}{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release} (struct \hyperlink{struct_t_e3_d___model4f}{T\-E3\-D\-\_\-\-Model4f} $\ast$model)
+\begin{DoxyCompactList}\small\item\em Releases the model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{models_8h_ac453f50e95086a9e1f0528f26d135c55}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S}}
+\index{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-L\-I\-N\-E\-S~(enum {\bf T\-E3\-D\-\_\-\-Vector\-Format})1}}\label{models_8h_ac453f50e95086a9e1f0528f26d135c55}
+\hypertarget{models_8h_aed06e4263ed93bab8eb5bd0df73db871}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S}}
+\index{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-P\-O\-I\-N\-T\-S~(enum {\bf T\-E3\-D\-\_\-\-Vector\-Format})0}}\label{models_8h_aed06e4263ed93bab8eb5bd0df73db871}
+\hypertarget{models_8h_a91afd5a45f2f0997b005d566a129d77f}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S}}
+\index{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S@{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-E3\-D\-\_\-\-V\-E\-C\-T\-O\-R\-F\-O\-R\-M\-A\-T\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E\-S~(enum {\bf T\-E3\-D\-\_\-\-Vector\-Format})2}}\label{models_8h_a91afd5a45f2f0997b005d566a129d77f}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Vector\-Format@{T\-E3\-D\-\_\-\-Vector\-Format}}
+\index{T\-E3\-D\-\_\-\-Vector\-Format@{T\-E3\-D\-\_\-\-Vector\-Format}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector\-Format}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf T\-E3\-D\-\_\-\-Vector\-Format}}}\label{models_8h_a68e3f605ef2dc9e35776b9c37f15495a}
+
+
+Available vector formats. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Points@{Points}!models.\-h@{models.\-h}}\index{models.\-h@{models.\-h}!Points@{Points}}\item[{\em 
+\hypertarget{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa80122c867cbace07a127dcb7939d6612}{Points}\label{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa80122c867cbace07a127dcb7939d6612}
+}]\index{Lines@{Lines}!models.\-h@{models.\-h}}\index{models.\-h@{models.\-h}!Lines@{Lines}}\item[{\em 
+\hypertarget{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa626078fdab3350ad5436dab6d381a226}{Lines}\label{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa626078fdab3350ad5436dab6d381a226}
+}]\index{Triangles@{Triangles}!models.\-h@{models.\-h}}\index{models.\-h@{models.\-h}!Triangles@{Triangles}}\item[{\em 
+\hypertarget{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa37d6318b5398d569d62adc7c460726d0}{Triangles}\label{models_8h_a68e3f605ef2dc9e35776b9c37f15495aa37d6318b5398d569d62adc7c460726d0}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{models_8h_afc448364b7deeb1a991d71b35170ed60}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-New@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-New}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-New@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-New}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-New}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Model4f} T\-E3\-D\-\_\-\-Model4f\-\_\-\-New (
+\begin{DoxyParamCaption}
+\item[{enum {\bf T\-E3\-D\-\_\-\-Vector\-Format}}]{format}
+\end{DoxyParamCaption}
+)}}\label{models_8h_afc448364b7deeb1a991d71b35170ed60}
+Creates a new model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em format} & The format of the model. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a780aa3be73b325157dff672f8c33a73d}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Release (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a780aa3be73b325157dff672f8c33a73d}
+
+
+Releases the model. 
+
+\hypertarget{models_8h_a3123a1ecba2faf3ac1de465e940c8d34}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{axis, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{offset, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a3123a1ecba2faf3ac1de465e940c8d34}
+Rotates the model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em axis} & The rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em offset} & The offset of the rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em angle} & The angle of the rotation to perform. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a0d6ef10ceb5fc48dd67f39d5b34fa3ca}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-X (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a0d6ef10ceb5fc48dd67f39d5b34fa3ca}
+Rotates the model over the x-\/axis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle of the rotation to perform. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_acc1671a9cc6c3e413f7ad4808d00dcd1}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Y (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{models_8h_acc1671a9cc6c3e413f7ad4808d00dcd1}
+Rotates the model over the y-\/axis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle of the rotation to perform. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a5d0f8981af19db1115d610ad695ef6c9}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Rotate\-Z (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a5d0f8981af19db1115d610ad695ef6c9}
+Rotates the model over the z-\/axis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle of the rotation to perform. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a77d042db1c982f8bf316809edc85f11d}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Scale (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{float}]{factor}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a77d042db1c982f8bf316809edc85f11d}
+Scales the model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em factor} & The factor to scale with. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a4ae788ef77d589e1f45596621485bad0}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Set\-Name (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a4ae788ef77d589e1f45596621485bad0}
+Sets the name or I\-D of the model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em name} & The name or I\-D to set. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_ae5f40052dfbddefef8124aa136b83137}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Transform (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f}}]{matrix}
+\end{DoxyParamCaption}
+)}}\label{models_8h_ae5f40052dfbddefef8124aa136b83137}
+Transforms the elements in the model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em matrix} & The matrix to transform with. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a1328abb67f174bd5e21dfb1bf6819fd8}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate}}
+\index{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate@{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Model4f\-\_\-\-Translate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Model4f} $\ast$}]{model, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{move}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a1328abb67f174bd5e21dfb1bf6819fd8}
+Translates the model. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em move} & The translation vector. \\
+\hline
+\end{DoxyParams}
+\hypertarget{models_8h_a080656628058fa023fc0a1d9e5726402}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector\-Index2} T\-E3\-D\-\_\-\-Vector\-Index2\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{int}]{i1, }
+\item[{int}]{i2}
+\end{DoxyParamCaption}
+)}}\label{models_8h_a080656628058fa023fc0a1d9e5726402}
+\hypertarget{models_8h_addeeb6f82d8f0a0d2468de9b62a62290}{\index{models.\-h@{models.\-h}!T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N}!models.h@{models.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector\-Index3} T\-E3\-D\-\_\-\-Vector\-Index3\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{int}]{i1, }
+\item[{int}]{i2, }
+\item[{int}]{i3}
+\end{DoxyParamCaption}
+)}}\label{models_8h_addeeb6f82d8f0a0d2468de9b62a62290}

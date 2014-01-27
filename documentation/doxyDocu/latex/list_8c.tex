@@ -1,0 +1,148 @@
+\hypertarget{list_8c}{\section{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/list.c File Reference}
+\label{list_8c}\index{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/list.\-c@{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/list.\-c}}
+}
+{\ttfamily \#include \char`\"{}list.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{list_8c_a996f7be338ccb40d1a2a5abc1ad61759}{A\-B\-S}(x)~(x $<$ 0 ? -\/x \-: x)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{list_8c_a40ad3ad9097c6c610ecbc75e573fac77}{Allocator} (struct \hyperlink{struct_list}{List} $\ast$list, struct \hyperlink{struct_list_memory_block_header}{List\-Memory\-Block\-Header} $\ast$$\ast$header)
+\item 
+void \hyperlink{list_8c_af020db3a46ceb918af36de3b9d8fde0d}{Releasor} (struct \hyperlink{struct_list}{List} $\ast$list, struct \hyperlink{struct_list_memory_block_header}{List\-Memory\-Block\-Header} $\ast$addr)
+\item 
+struct \hyperlink{struct_list}{List} \hyperlink{list_8c_ac8821fe3b367768592b573cdcdeec545}{List\-\_\-\-New} (size\-\_\-t typesize)
+\item 
+void \hyperlink{list_8c_a71490f8ae060c980385b7bb6ee011696}{List\-\_\-\-Release} (struct \hyperlink{struct_list}{List} $\ast$list)
+\item 
+void $\ast$ \hyperlink{list_8c_a18e066d31d3ff0c15a3796f7d275851d}{List\-\_\-\-Add} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item)
+\item 
+void $\ast$ \hyperlink{list_8c_a98f6f2c1e3286ea3708de62ceae844f9}{List\-\_\-\-Insert} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item, int index)
+\item 
+bool \hyperlink{list_8c_a43893bdf2905001ec9716172aaa1685c}{List\-\_\-\-Remove\-At} (struct \hyperlink{struct_list}{List} $\ast$list, int index)
+\item 
+bool \hyperlink{list_8c_abccee8a10f7279f7a5c94708b5201b52}{List\-\_\-\-Remove} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item)
+\item 
+bool \hyperlink{list_8c_a65565d1b01d1c44c77eb78cc06c73e02}{List\-\_\-\-Remove\-Range\-At} (struct \hyperlink{struct_list}{List} $\ast$list, int index, int count)
+\item 
+void $\ast$ \hyperlink{list_8c_abdd54888fd31e790a19c16d69151f5df}{List\-\_\-\-At} (struct \hyperlink{struct_list}{List} $\ast$list, int index)
+\item 
+int \hyperlink{list_8c_abc31364e3a738351458cfb8824731fa5}{List\-\_\-\-Find} (struct \hyperlink{struct_list}{List} $\ast$list, void $\ast$item)
+\item 
+void \hyperlink{list_8c_a706ccbf710955a4b7f262593e1ff0e15}{List\-\_\-\-Clear} (struct \hyperlink{struct_list}{List} $\ast$list)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{list_8c_a996f7be338ccb40d1a2a5abc1ad61759}{\index{list.\-c@{list.\-c}!A\-B\-S@{A\-B\-S}}
+\index{A\-B\-S@{A\-B\-S}!list.c@{list.\-c}}
+\subsubsection[{A\-B\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-B\-S(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(x $<$ 0 ? -\/x \-: x)}}\label{list_8c_a996f7be338ccb40d1a2a5abc1ad61759}
+
+
+\subsection{Function Documentation}
+\hypertarget{list_8c_a40ad3ad9097c6c610ecbc75e573fac77}{\index{list.\-c@{list.\-c}!Allocator@{Allocator}}
+\index{Allocator@{Allocator}!list.c@{list.\-c}}
+\subsubsection[{Allocator}]{\setlength{\rightskip}{0pt plus 5cm}void Allocator (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{struct {\bf List\-Memory\-Block\-Header} $\ast$$\ast$}]{header}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a40ad3ad9097c6c610ecbc75e573fac77}
+\hypertarget{list_8c_a18e066d31d3ff0c15a3796f7d275851d}{\index{list.\-c@{list.\-c}!List\-\_\-\-Add@{List\-\_\-\-Add}}
+\index{List\-\_\-\-Add@{List\-\_\-\-Add}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Add}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ List\-\_\-\-Add (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{void $\ast$}]{item}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a18e066d31d3ff0c15a3796f7d275851d}
+\hypertarget{list_8c_abdd54888fd31e790a19c16d69151f5df}{\index{list.\-c@{list.\-c}!List\-\_\-\-At@{List\-\_\-\-At}}
+\index{List\-\_\-\-At@{List\-\_\-\-At}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-At}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ List\-\_\-\-At (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{list_8c_abdd54888fd31e790a19c16d69151f5df}
+\hypertarget{list_8c_a706ccbf710955a4b7f262593e1ff0e15}{\index{list.\-c@{list.\-c}!List\-\_\-\-Clear@{List\-\_\-\-Clear}}
+\index{List\-\_\-\-Clear@{List\-\_\-\-Clear}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Clear}]{\setlength{\rightskip}{0pt plus 5cm}void List\-\_\-\-Clear (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a706ccbf710955a4b7f262593e1ff0e15}
+\hypertarget{list_8c_abc31364e3a738351458cfb8824731fa5}{\index{list.\-c@{list.\-c}!List\-\_\-\-Find@{List\-\_\-\-Find}}
+\index{List\-\_\-\-Find@{List\-\_\-\-Find}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Find}]{\setlength{\rightskip}{0pt plus 5cm}int List\-\_\-\-Find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{void $\ast$}]{item}
+\end{DoxyParamCaption}
+)}}\label{list_8c_abc31364e3a738351458cfb8824731fa5}
+\hypertarget{list_8c_a98f6f2c1e3286ea3708de62ceae844f9}{\index{list.\-c@{list.\-c}!List\-\_\-\-Insert@{List\-\_\-\-Insert}}
+\index{List\-\_\-\-Insert@{List\-\_\-\-Insert}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Insert}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ List\-\_\-\-Insert (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{void $\ast$}]{item, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a98f6f2c1e3286ea3708de62ceae844f9}
+\hypertarget{list_8c_ac8821fe3b367768592b573cdcdeec545}{\index{list.\-c@{list.\-c}!List\-\_\-\-New@{List\-\_\-\-New}}
+\index{List\-\_\-\-New@{List\-\_\-\-New}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-New}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf List} List\-\_\-\-New (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{typesize}
+\end{DoxyParamCaption}
+)}}\label{list_8c_ac8821fe3b367768592b573cdcdeec545}
+\hypertarget{list_8c_a71490f8ae060c980385b7bb6ee011696}{\index{list.\-c@{list.\-c}!List\-\_\-\-Release@{List\-\_\-\-Release}}
+\index{List\-\_\-\-Release@{List\-\_\-\-Release}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Release}]{\setlength{\rightskip}{0pt plus 5cm}void List\-\_\-\-Release (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a71490f8ae060c980385b7bb6ee011696}
+\hypertarget{list_8c_abccee8a10f7279f7a5c94708b5201b52}{\index{list.\-c@{list.\-c}!List\-\_\-\-Remove@{List\-\_\-\-Remove}}
+\index{List\-\_\-\-Remove@{List\-\_\-\-Remove}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{void $\ast$}]{item}
+\end{DoxyParamCaption}
+)}}\label{list_8c_abccee8a10f7279f7a5c94708b5201b52}
+\hypertarget{list_8c_a43893bdf2905001ec9716172aaa1685c}{\index{list.\-c@{list.\-c}!List\-\_\-\-Remove\-At@{List\-\_\-\-Remove\-At}}
+\index{List\-\_\-\-Remove\-At@{List\-\_\-\-Remove\-At}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Remove\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove\-At (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a43893bdf2905001ec9716172aaa1685c}
+\hypertarget{list_8c_a65565d1b01d1c44c77eb78cc06c73e02}{\index{list.\-c@{list.\-c}!List\-\_\-\-Remove\-Range\-At@{List\-\_\-\-Remove\-Range\-At}}
+\index{List\-\_\-\-Remove\-Range\-At@{List\-\_\-\-Remove\-Range\-At}!list.c@{list.\-c}}
+\subsubsection[{List\-\_\-\-Remove\-Range\-At}]{\setlength{\rightskip}{0pt plus 5cm}bool List\-\_\-\-Remove\-Range\-At (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{int}]{index, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a65565d1b01d1c44c77eb78cc06c73e02}
+\hypertarget{list_8c_af020db3a46ceb918af36de3b9d8fde0d}{\index{list.\-c@{list.\-c}!Releasor@{Releasor}}
+\index{Releasor@{Releasor}!list.c@{list.\-c}}
+\subsubsection[{Releasor}]{\setlength{\rightskip}{0pt plus 5cm}void Releasor (
+\begin{DoxyParamCaption}
+\item[{struct {\bf List} $\ast$}]{list, }
+\item[{struct {\bf List\-Memory\-Block\-Header} $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}}\label{list_8c_af020db3a46ceb918af36de3b9d8fde0d}

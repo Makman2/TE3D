@@ -1,0 +1,963 @@
+\hypertarget{transformation_8h}{\section{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/transformation.h File Reference}
+\label{transformation_8h}\index{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/transformation.\-h@{E\-:/\-System/\-Benutzerdaten/\-Dokumente/\-Git\-Hub/\-T\-E3\-D/transformation.\-h}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f}
+\begin{DoxyCompactList}\small\item\em Describes a 4-\/dimensional vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f}
+\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f}
+\begin{DoxyCompactList}\small\item\em Describes a 2-\/dimensional vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f}
+\begin{DoxyCompactList}\small\item\em Describes a 2x2 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f}
+\begin{DoxyCompactList}\small\item\em Describes a 3x3 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f}
+\begin{DoxyCompactList}\small\item\em Describes a 4x4 matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_a3ea1bb6f6656043565b0fcb3a4705668}{T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N} (float x, float y, float z, float w)
+\begin{DoxyCompactList}\small\item\em Returns a new 4-\/dimensional vector with predefined values. \end{DoxyCompactList}\item 
+float \hyperlink{transformation_8h_aeeafa4822a50c4c1c4eb7d0dd29988d4}{T\-E3\-D\-\_\-\-Vector4f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v1, struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v2)
+\begin{DoxyCompactList}\small\item\em Returns the scalar-\/product of two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_ab94ee50e786aea6e48c3501af52eeb10}{T\-E3\-D\-\_\-\-Vector4f\-\_\-muls} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Multiplicates a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_a5938ab849349f82686864f0eaa29367c}{T\-E3\-D\-\_\-\-Vector4f\-\_\-div} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Divides a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_a3a3578411a62b951ed2ac01a49bf7bdf}{T\-E3\-D\-\_\-\-Vector4f\-\_\-add} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v1, struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v2)
+\begin{DoxyCompactList}\small\item\em Add two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_a03a50c1bafc02ed0b6d7851619d3c299}{T\-E3\-D\-\_\-\-Vector4f\-\_\-sub} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v1, struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} v2)
+\begin{DoxyCompactList}\small\item\em Subtract two vectors. \end{DoxyCompactList}\item 
+void \hyperlink{transformation_8h_a90b7a02924464f02917cc0c48fddc17a}{T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} $\ast$vector)
+\begin{DoxyCompactList}\small\item\em Normalizes the given vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_ad9bd15c4b747b864d622a26f4f77192b}{T\-E3\-D\-\_\-\-Vector4f\-\_\-project} (struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} vector, struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} project\-On)
+\begin{DoxyCompactList}\small\item\em Returns the projection of a vector on another vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_ad33cb0f2e02e506db6f81d375c7ca878}{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N} (float x, float y, float z)
+\begin{DoxyCompactList}\small\item\em Returns a new 3-\/dimensional vector with predefined values. \end{DoxyCompactList}\item 
+float \hyperlink{transformation_8h_a665a9ace0015d4d54d0573df5cb8d7fb}{T\-E3\-D\-\_\-\-Vector3f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v1, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v2)
+\begin{DoxyCompactList}\small\item\em Returns scalar-\/product of two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_a996d14476144250573b96a50c6fe6b9d}{T\-E3\-D\-\_\-\-Vector3f\-\_\-muls} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Multiplicates a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_a30d26034803ea74e9baaf7e9da9f1441}{T\-E3\-D\-\_\-\-Vector3f\-\_\-div} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Divides a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_ae73dd9b38921fd48c4d573489dc95075}{T\-E3\-D\-\_\-\-Vector3f\-\_\-add} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v1, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v2)
+\begin{DoxyCompactList}\small\item\em Add two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_a23ca119382102c02c3ecfa0dafd63da0}{T\-E3\-D\-\_\-\-Vector3f\-\_\-sub} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v1, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v2)
+\begin{DoxyCompactList}\small\item\em Subtract two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_ab107d17aac8296f02217b8fcf3fe378c}{T\-E3\-D\-\_\-\-Vector3f\-\_\-cross} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v1, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} v2)
+\begin{DoxyCompactList}\small\item\em Returns the cross-\/product of two 3-\/dimensional vectors. \end{DoxyCompactList}\item 
+void \hyperlink{transformation_8h_a3455d9073fdbe50a0980b455edbab8c3}{T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} $\ast$vector)
+\begin{DoxyCompactList}\small\item\em Normalizes the given vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_ace773c6cb59c0cb31c109a8f52565ff1}{T\-E3\-D\-\_\-\-Vector3f\-\_\-project} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} vector, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} project\-On)
+\begin{DoxyCompactList}\small\item\em Returns the projection of a vector on another vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_aeff38675c0271175d02e1e043da89e3d}{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N} (float x, float y)
+\begin{DoxyCompactList}\small\item\em Returns a new 2-\/dimensional vector with predefined values. \end{DoxyCompactList}\item 
+float \hyperlink{transformation_8h_a204aab0a53a684a7a770bc43e0d7082c}{T\-E3\-D\-\_\-\-Vector2f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v1, struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v2)
+\begin{DoxyCompactList}\small\item\em Returns scalar-\/product of two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_a9e4f5924d7e2bc230eb52aef432079ba}{T\-E3\-D\-\_\-\-Vector2f\-\_\-muls} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Multiplicates a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_ad455ad82017ca665e8dca654767aac2c}{T\-E3\-D\-\_\-\-Vector2f\-\_\-div} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} vector, float scalar)
+\begin{DoxyCompactList}\small\item\em Divides a vector with a scalar. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_a4285180fb9d666fffdc60082d2c43cf6}{T\-E3\-D\-\_\-\-Vector2f\-\_\-add} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v1, struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v2)
+\begin{DoxyCompactList}\small\item\em Add two vectors. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_a6e2e1ec4c9ba8dd33d3ed3109de1fd23}{T\-E3\-D\-\_\-\-Vector2f\-\_\-sub} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v1, struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} v2)
+\begin{DoxyCompactList}\small\item\em Subtract two vectors. \end{DoxyCompactList}\item 
+void \hyperlink{transformation_8h_a44d4185b754c2cecaacc7de661db4fac}{T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} $\ast$vector)
+\begin{DoxyCompactList}\small\item\em Normalizes the given vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_a7e105bb22617ccc7ac1241522998adc4}{T\-E3\-D\-\_\-\-Vector2f\-\_\-project} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} vector, struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} project\-On)
+\begin{DoxyCompactList}\small\item\em Returns the projection of a vector on another vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} \hyperlink{transformation_8h_a8f98dd12c262349129cd3427d7c9710f}{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2} (struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} matrix, struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} vector)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 2x2 matrix with a 2-\/dimensional vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} \hyperlink{transformation_8h_a8e65b4c3d25f8b96fb98c493a5af13b9}{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3} (struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} matrix, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} vector)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 3x3 matrix with a 3-\/dimensional vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_a00fb3b2ae542f35c4a0461dd1f98d920}{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4} (struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} matrix, struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} vector)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 4x4 matrix with a 4-\/dimensional vector. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} \hyperlink{transformation_8h_ad8e9e92739e28be2dc87f635c9d5e00a}{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} matrix\-A, struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} matrix\-B)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 2x2 matrix with a 2x2 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a667c72dc7aac8a7dfb1c4b7dbbbb7667}{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} matrix\-A, struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} matrix\-B)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 3x3 matrix with a 3x3 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_ad688cbd412c11cc6bdb62c2ee6903bde}{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul} (struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} matrix\-A, struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} matrix\-B)
+\begin{DoxyCompactList}\small\item\em Multiplicates a 3x3 matrix with a 4x4 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_acd7cdc056b74ecb49e8adc6b336041f3}{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4} (struct \hyperlink{struct_t_e3_d___vector2f}{T\-E3\-D\-\_\-\-Vector2f} vector)
+\begin{DoxyCompactList}\small\item\em Expands a 2-\/dimensional vector to a 4-\/dimensional one. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___vector4f}{T\-E3\-D\-\_\-\-Vector4f} \hyperlink{transformation_8h_acaac6446f11930f74ec979f193391a9c}{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} vector)
+\begin{DoxyCompactList}\small\item\em Expands a 3-\/dimensional vector to a 4-\/dimensional one. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a592e31bba4c6522878660a3196470bbd}{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4} (struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} matrix)
+\begin{DoxyCompactList}\small\item\em Expands a 2x2 matrix to a 4x4 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a3a50696926482202ca08b668be160e77}{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4} (struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} matrix)
+\begin{DoxyCompactList}\small\item\em Expands a 3x3 matrix to a 4x4 matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} \hyperlink{transformation_8h_a3961c8fb92cfc09d03a195e36e9684c7}{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N} (float m11, float m12, float m21, float m2)
+\begin{DoxyCompactList}\small\item\em Returns a new 2x2 matrix with predefined values. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_acacdc2c9acc95584516e59f684d50fa3}{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N} (float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33)
+\begin{DoxyCompactList}\small\item\em Returns a new 3x3 matrix with predefined values. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a85b31becc63f5359e7c03355dfee8e8c}{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N} (float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+\begin{DoxyCompactList}\small\item\em Returns a new 4x4 matrix with predefined values. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a7978702476dcf3716a1e6ec50f4d391b}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} direction, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} worldsup)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a7db739ac79fa62e690eeff3b33169a26}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} direction, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} worldsup)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a63081b1cdaa76824ce3df490a4957004}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} direction, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} offset, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} worldsup)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a02e599d77d1dc612d16265e523668ef3}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z} (double field\-Of\-View, float ratio, float near\-Plane, float far\-Plane)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_aac0c794fb61a617e8d05500f9a86df3f}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection} (double field\-Of\-View, float ratio, float near\-Plane, float far\-Plane, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} direction, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} worldsup)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_af746ed4c0b35605e808b6662c36076ec}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset} (double field\-Of\-View, float ratio, float near\-Plane, float far\-Plane, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} direction, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} worldsup, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} offset)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a3708e3c1858c91aed16f80d12c2a69b1}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation} (float shift\-X, float shift\-Y, float shift\-Z)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_ad488d55e543af299e44600777068a734}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation} (float shift\-X, float shift\-Y)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_af41bf68e08e49e540b3fbc4216607854}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale} (float scale\-X, float scale\-Y, float scale\-Z)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a667c6a284c60d6487b5ae1ef99b4f689}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale} (float scale\-X, float scale\-Y, float scale\-Z)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a166918075879b7a9c45603e2570da068}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_afc192ba7f4e809ab3b982c9bb0895c7b}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_af0ffc5fc2b4faf3769c92b842607fd89}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_abd5824f367c1413619b1685b8c419d27}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} axis, double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a6089fe4ef146c33934da813b857f07fc}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} axis, struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} offset, double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a883442cf9b6b53d27acd88ce1fe85efb}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a70fe7cf0a7bbeda548da79b4f9b9e0c7}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_ae3d8267e4a5d0508d5d44a45c70c410a}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a8e2e32cd7be8b9548475b759cad25ad5}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} axis, double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} \hyperlink{transformation_8h_ab6f0e37b4b52aca4093ea981e625b0f1}{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin} (double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a6e2a77a1108754b58606fe85f35e0980}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate} (struct \hyperlink{struct_t_e3_d___vector3f}{T\-E3\-D\-\_\-\-Vector3f} offset, double angle)
+\item 
+struct \hyperlink{struct_t_e3_d___matrix4x4f}{T\-E3\-D\-\_\-\-Matrix4x4f} \hyperlink{transformation_8h_a7aa7458972eb711478564eddb1bcecf4}{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity} ()
+\begin{DoxyCompactList}\small\item\em Creates the identity matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_t_e3_d___matrix3x3f}{T\-E3\-D\-\_\-\-Matrix3x3f} \hyperlink{transformation_8h_a462784be61f9a3fe021434ac92f70c34}{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity} ()
+\item 
+struct \hyperlink{struct_t_e3_d___matrix2x2f}{T\-E3\-D\-\_\-\-Matrix2x2f} \hyperlink{transformation_8h_ae6394c674793e0d79cf9727001bc3798}{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{transformation_8h_a592e31bba4c6522878660a3196470bbd}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4}}
+\index{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-Expand\-To4x4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f}}]{matrix}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a592e31bba4c6522878660a3196470bbd}
+
+
+Expands a 2x2 matrix to a 4x4 matrix. 
+
+\hypertarget{transformation_8h_ad8e9e92739e28be2dc87f635c9d5e00a}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f} T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f}}]{matrix\-A, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f}}]{matrix\-B}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad8e9e92739e28be2dc87f635c9d5e00a}
+
+
+Multiplicates a 2x2 matrix with a 2x2 matrix. 
+
+\hypertarget{transformation_8h_a8f98dd12c262349129cd3427d7c9710f}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2}}
+\index{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-mul2 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f}}]{matrix, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{vector}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a8f98dd12c262349129cd3427d7c9710f}
+
+
+Multiplicates a 2x2 matrix with a 2-\/dimensional vector. 
+
+\hypertarget{transformation_8h_a3961c8fb92cfc09d03a195e36e9684c7}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f} T\-E3\-D\-\_\-\-Matrix2x2f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{m11, }
+\item[{float}]{m12, }
+\item[{float}]{m21, }
+\item[{float}]{m2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a3961c8fb92cfc09d03a195e36e9684c7}
+
+
+Returns a new 2x2 matrix with predefined values. 
+
+\hypertarget{transformation_8h_a3a50696926482202ca08b668be160e77}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4}}
+\index{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-Expand\-To4x4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f}}]{matrix}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a3a50696926482202ca08b668be160e77}
+
+
+Expands a 3x3 matrix to a 4x4 matrix. 
+
+\hypertarget{transformation_8h_a667c72dc7aac8a7dfb1c4b7dbbbb7667}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f}}]{matrix\-A, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f}}]{matrix\-B}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a667c72dc7aac8a7dfb1c4b7dbbbb7667}
+
+
+Multiplicates a 3x3 matrix with a 3x3 matrix. 
+
+\hypertarget{transformation_8h_a8e65b4c3d25f8b96fb98c493a5af13b9}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3}}
+\index{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-mul3 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f}}]{matrix, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{vector}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a8e65b4c3d25f8b96fb98c493a5af13b9}
+
+
+Multiplicates a 3x3 matrix with a 3-\/dimensional vector. 
+
+\hypertarget{transformation_8h_acacdc2c9acc95584516e59f684d50fa3}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Matrix3x3f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{m11, }
+\item[{float}]{m12, }
+\item[{float}]{m13, }
+\item[{float}]{m21, }
+\item[{float}]{m22, }
+\item[{float}]{m23, }
+\item[{float}]{m31, }
+\item[{float}]{m32, }
+\item[{float}]{m33}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_acacdc2c9acc95584516e59f684d50fa3}
+
+
+Returns a new 3x3 matrix with predefined values. 
+
+\hypertarget{transformation_8h_ad688cbd412c11cc6bdb62c2ee6903bde}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f}}]{matrix\-A, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f}}]{matrix\-B}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad688cbd412c11cc6bdb62c2ee6903bde}
+
+
+Multiplicates a 3x3 matrix with a 4x4 matrix. 
+
+\hypertarget{transformation_8h_a00fb3b2ae542f35c4a0461dd1f98d920}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4}}
+\index{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-mul4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f}}]{matrix, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{vector}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a00fb3b2ae542f35c4a0461dd1f98d920}
+
+
+Multiplicates a 4x4 matrix with a 4-\/dimensional vector. 
+
+\hypertarget{transformation_8h_a85b31becc63f5359e7c03355dfee8e8c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N@{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Matrix4x4f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{m11, }
+\item[{float}]{m12, }
+\item[{float}]{m13, }
+\item[{float}]{m14, }
+\item[{float}]{m21, }
+\item[{float}]{m22, }
+\item[{float}]{m23, }
+\item[{float}]{m24, }
+\item[{float}]{m31, }
+\item[{float}]{m32, }
+\item[{float}]{m33, }
+\item[{float}]{m34, }
+\item[{float}]{m41, }
+\item[{float}]{m42, }
+\item[{float}]{m43, }
+\item[{float}]{m44}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a85b31becc63f5359e7c03355dfee8e8c}
+
+
+Returns a new 4x4 matrix with predefined values. 
+
+\hypertarget{transformation_8h_ae6394c674793e0d79cf9727001bc3798}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity}}
+\index{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f} T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ae6394c674793e0d79cf9727001bc3798}
+\hypertarget{transformation_8h_ab6f0e37b4b52aca4093ea981e625b0f1}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin}}
+\index{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix2x2f} T\-E3\-D\-\_\-\-Transformation2x2f\-\_\-\-Rotate\-Origin (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ab6f0e37b4b52aca4093ea981e625b0f1}
+Creates a rotation matrix in 2\-D-\/space for any axis through the origin. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a462784be61f9a3fe021434ac92f70c34}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a462784be61f9a3fe021434ac92f70c34}
+\hypertarget{transformation_8h_a7db739ac79fa62e690eeff3b33169a26}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Orthogonal\-Projection (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{direction, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{worldsup}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a7db739ac79fa62e690eeff3b33169a26}
+\hypertarget{transformation_8h_a6e2a77a1108754b58606fe85f35e0980}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{offset, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a6e2a77a1108754b58606fe85f35e0980}
+Creates a rotation matrix in 2\-D-\/space for any axis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em offset} & The offset of the rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a8e2e32cd7be8b9548475b759cad25ad5}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Origin (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{axis, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a8e2e32cd7be8b9548475b759cad25ad5}
+Creates a rotation matrix for any axis through the origin. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em axis} & The rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a883442cf9b6b53d27acd88ce1fe85efb}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-X (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a883442cf9b6b53d27acd88ce1fe85efb}
+Creates a rotation matrix (for x-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a70fe7cf0a7bbeda548da79b4f9b9e0c7}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Y (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a70fe7cf0a7bbeda548da79b4f9b9e0c7}
+Creates a rotation matrix (for y-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_ae3d8267e4a5d0508d5d44a45c70c410a}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Rotate\-Z (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ae3d8267e4a5d0508d5d44a45c70c410a}
+Creates a rotation matrix (for z-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a667c6a284c60d6487b5ae1ef99b4f689}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Scale (
+\begin{DoxyParamCaption}
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{scale\-Z}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a667c6a284c60d6487b5ae1ef99b4f689}
+\hypertarget{transformation_8h_ad488d55e543af299e44600777068a734}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation}}
+\index{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation@{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix3x3f} T\-E3\-D\-\_\-\-Transformation3x3f\-\_\-\-Translation (
+\begin{DoxyParamCaption}
+\item[{float}]{shift\-X, }
+\item[{float}]{shift\-Y}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad488d55e543af299e44600777068a734}
+Creates a matrix that describes a translation in 2\-D. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em shift\-X} & The shift of the x-\/component. \\
+\hline
+\mbox{\tt in}  & {\em shift\-Y} & The shift of the y-\/component. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a7aa7458972eb711478564eddb1bcecf4}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a7aa7458972eb711478564eddb1bcecf4}
+
+
+Creates the identity matrix. 
+
+\hypertarget{transformation_8h_a7978702476dcf3716a1e6ec50f4d391b}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{direction, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{worldsup}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a7978702476dcf3716a1e6ec50f4d391b}
+Creates a matrix that describes an orthogonal projection of 3-\/dimensional vectors onto a 2-\/dimensional plane. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em direction} & A normal vector, that defines the plane to project on. \\
+\hline
+\mbox{\tt in}  & {\em worldsup} & A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is). \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a63081b1cdaa76824ce3df490a4957004}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Orthogonal\-Projection\-With\-Offset (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{direction, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{offset, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{worldsup}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a63081b1cdaa76824ce3df490a4957004}
+Creates a matrix that describes an orthogonal projection of 3-\/dimensional vectors onto a 2-\/dimensional plane. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em direction} & A normal vector, that defines the plane to project on. \\
+\hline
+\mbox{\tt in}  & {\em offset} & The position of the projection plane. \\
+\hline
+\mbox{\tt in}  & {\em worldsup} & A vector that describes the orientation/rotation of the plane (Like the variable says, where the world's top is). \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_aac0c794fb61a617e8d05500f9a86df3f}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection (
+\begin{DoxyParamCaption}
+\item[{double}]{field\-Of\-View, }
+\item[{float}]{ratio, }
+\item[{float}]{near\-Plane, }
+\item[{float}]{far\-Plane, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{direction, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{worldsup}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_aac0c794fb61a617e8d05500f9a86df3f}
+\hypertarget{transformation_8h_af746ed4c0b35605e808b6662c36076ec}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-With\-Offset (
+\begin{DoxyParamCaption}
+\item[{double}]{field\-Of\-View, }
+\item[{float}]{ratio, }
+\item[{float}]{near\-Plane, }
+\item[{float}]{far\-Plane, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{direction, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{worldsup, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{offset}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_af746ed4c0b35605e808b6662c36076ec}
+Creates a matrix that describes a perspective projection of 3-\/dimensional vectors onto a 2-\/dimensional plane. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em field\-Of\-View} & The view-\/angle. \\
+\hline
+\mbox{\tt in}  & {\em ratio} & The aspect ratio (width / height). \\
+\hline
+\mbox{\tt in}  & {\em near\-Plane} & The distance to the near clipping plane. \\
+\hline
+\mbox{\tt in}  & {\em far\-Plane} & The distance to the far clipping plane. \\
+\hline
+\mbox{\tt in}  & {\em direction} & The direction of the projection. \\
+\hline
+\mbox{\tt in}  & {\em worldsup} & The worlds up of the projection. \\
+\hline
+\mbox{\tt in}  & {\em offset} & The position of the projection plane. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a02e599d77d1dc612d16265e523668ef3}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Perspective\-Projection\-Z (
+\begin{DoxyParamCaption}
+\item[{double}]{field\-Of\-View, }
+\item[{float}]{ratio, }
+\item[{float}]{near\-Plane, }
+\item[{float}]{far\-Plane}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a02e599d77d1dc612d16265e523668ef3}
+Creates a matrix that describes a perspective projection of 3-\/dimensional vectors onto a 2-\/dimensional plane. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em field\-Of\-View} & The view-\/angle (measured in radians). \\
+\hline
+\mbox{\tt in}  & {\em } & The aspect ratio (width / height). \\
+\hline
+\mbox{\tt in}  & {\em near\-Plane} & The distance to the near clipping plane. \\
+\hline
+\mbox{\tt in}  & {\em far\-Plane} & The distance to the far clipping plane. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a6089fe4ef146c33934da813b857f07fc}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{axis, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{offset, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a6089fe4ef146c33934da813b857f07fc}
+Creates a rotation matrix for any axis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em axis} & The rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em offset} & The offset of the rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_abd5824f367c1413619b1685b8c419d27}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Origin (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{axis, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_abd5824f367c1413619b1685b8c419d27}
+Creates a rotation matrix for any axis through the origin. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em axis} & The rotation axis. \\
+\hline
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a166918075879b7a9c45603e2570da068}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-X (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a166918075879b7a9c45603e2570da068}
+Creates a rotation matrix (for x-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_afc192ba7f4e809ab3b982c9bb0895c7b}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Y (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_afc192ba7f4e809ab3b982c9bb0895c7b}
+Creates a rotation matrix (for y-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_af0ffc5fc2b4faf3769c92b842607fd89}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Rotate\-Z (
+\begin{DoxyParamCaption}
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_af0ffc5fc2b4faf3769c92b842607fd89}
+Creates a rotation matrix (for z-\/axis rotation). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em angle} & The angle. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_af41bf68e08e49e540b3fbc4216607854}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Scale (
+\begin{DoxyParamCaption}
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{scale\-Z}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_af41bf68e08e49e540b3fbc4216607854}
+Creates a matrix that describes a scale. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em scale\-X} & The scale of the x-\/component. \\
+\hline
+\mbox{\tt in}  & {\em scale\-Y} & The scale of the y-\/component. \\
+\hline
+\mbox{\tt in}  & {\em scale\-Z} & The scale of the z-\/component. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a3708e3c1858c91aed16f80d12c2a69b1}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation}}
+\index{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation@{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Matrix4x4f} T\-E3\-D\-\_\-\-Transformation4x4f\-\_\-\-Translation (
+\begin{DoxyParamCaption}
+\item[{float}]{shift\-X, }
+\item[{float}]{shift\-Y, }
+\item[{float}]{shift\-Z}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a3708e3c1858c91aed16f80d12c2a69b1}
+Creates a matrix that describes a translation. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em shift\-X} & The shift of the x-\/component. \\
+\hline
+\mbox{\tt in}  & {\em shift\-Y} & The shift of the y-\/component. \\
+\hline
+\mbox{\tt in}  & {\em shift\-Z} & The shift of the z-\/component. \\
+\hline
+\end{DoxyParams}
+\hypertarget{transformation_8h_a4285180fb9d666fffdc60082d2c43cf6}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-add@{T\-E3\-D\-\_\-\-Vector2f\-\_\-add}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-add@{T\-E3\-D\-\_\-\-Vector2f\-\_\-add}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a4285180fb9d666fffdc60082d2c43cf6}
+
+
+Add two vectors. 
+
+\hypertarget{transformation_8h_ad455ad82017ca665e8dca654767aac2c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-div@{T\-E3\-D\-\_\-\-Vector2f\-\_\-div}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-div@{T\-E3\-D\-\_\-\-Vector2f\-\_\-div}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-div}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-div (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad455ad82017ca665e8dca654767aac2c}
+
+
+Divides a vector with a scalar. 
+
+\hypertarget{transformation_8h_acd7cdc056b74ecb49e8adc6b336041f3}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4@{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4@{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector2f\-\_\-\-Expand\-To4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{vector}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_acd7cdc056b74ecb49e8adc6b336041f3}
+
+
+Expands a 2-\/dimensional vector to a 4-\/dimensional one. 
+
+\hypertarget{transformation_8h_a204aab0a53a684a7a770bc43e0d7082c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector2f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector2f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}float T\-E3\-D\-\_\-\-Vector2f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_a204aab0a53a684a7a770bc43e0d7082c}
+
+
+Returns scalar-\/product of two vectors. 
+
+\hypertarget{transformation_8h_a9e4f5924d7e2bc230eb52aef432079ba}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector2f\-\_\-muls}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector2f\-\_\-muls}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-muls}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-muls (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a9e4f5924d7e2bc230eb52aef432079ba}
+
+
+Multiplicates a vector with a scalar. 
+
+\hypertarget{transformation_8h_aeff38675c0271175d02e1e043da89e3d}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{x, }
+\item[{float}]{y}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_aeff38675c0271175d02e1e043da89e3d}
+
+
+Returns a new 2-\/dimensional vector with predefined values. 
+
+\hypertarget{transformation_8h_a44d4185b754c2cecaacc7de661db4fac}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Vector2f\-\_\-normalize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f} $\ast$}]{vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_a44d4185b754c2cecaacc7de661db4fac}
+
+
+Normalizes the given vector. 
+
+\hypertarget{transformation_8h_a7e105bb22617ccc7ac1241522998adc4}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-project@{T\-E3\-D\-\_\-\-Vector2f\-\_\-project}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-project@{T\-E3\-D\-\_\-\-Vector2f\-\_\-project}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-project}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-project (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{vector, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{project\-On}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a7e105bb22617ccc7ac1241522998adc4}
+
+
+Returns the projection of a vector on another vector. 
+
+\hypertarget{transformation_8h_a6e2e1ec4c9ba8dd33d3ed3109de1fd23}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector2f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector2f\-\_\-sub}}
+\index{T\-E3\-D\-\_\-\-Vector2f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector2f\-\_\-sub}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector2f\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector2f} T\-E3\-D\-\_\-\-Vector2f\-\_\-sub (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector2f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a6e2e1ec4c9ba8dd33d3ed3109de1fd23}
+
+
+Subtract two vectors. 
+
+\hypertarget{transformation_8h_ae73dd9b38921fd48c4d573489dc95075}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-add@{T\-E3\-D\-\_\-\-Vector3f\-\_\-add}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-add@{T\-E3\-D\-\_\-\-Vector3f\-\_\-add}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ae73dd9b38921fd48c4d573489dc95075}
+
+
+Add two vectors. 
+
+\hypertarget{transformation_8h_ab107d17aac8296f02217b8fcf3fe378c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-cross@{T\-E3\-D\-\_\-\-Vector3f\-\_\-cross}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-cross@{T\-E3\-D\-\_\-\-Vector3f\-\_\-cross}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-cross}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-cross (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ab107d17aac8296f02217b8fcf3fe378c}
+
+
+Returns the cross-\/product of two 3-\/dimensional vectors. 
+
+\hypertarget{transformation_8h_a30d26034803ea74e9baaf7e9da9f1441}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-div@{T\-E3\-D\-\_\-\-Vector3f\-\_\-div}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-div@{T\-E3\-D\-\_\-\-Vector3f\-\_\-div}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-div}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-div (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a30d26034803ea74e9baaf7e9da9f1441}
+
+
+Divides a vector with a scalar. 
+
+\hypertarget{transformation_8h_acaac6446f11930f74ec979f193391a9c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4@{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4@{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector3f\-\_\-\-Expand\-To4 (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{vector}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_acaac6446f11930f74ec979f193391a9c}
+
+
+Expands a 3-\/dimensional vector to a 4-\/dimensional one. 
+
+\hypertarget{transformation_8h_a665a9ace0015d4d54d0573df5cb8d7fb}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector3f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector3f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}float T\-E3\-D\-\_\-\-Vector3f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_a665a9ace0015d4d54d0573df5cb8d7fb}
+
+
+Returns scalar-\/product of two vectors. 
+
+\hypertarget{transformation_8h_a996d14476144250573b96a50c6fe6b9d}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector3f\-\_\-muls}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector3f\-\_\-muls}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-muls}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-muls (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a996d14476144250573b96a50c6fe6b9d}
+
+
+Multiplicates a vector with a scalar. 
+
+\hypertarget{transformation_8h_ad33cb0f2e02e506db6f81d375c7ca878}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{x, }
+\item[{float}]{y, }
+\item[{float}]{z}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad33cb0f2e02e506db6f81d375c7ca878}
+
+
+Returns a new 3-\/dimensional vector with predefined values. 
+
+\hypertarget{transformation_8h_a3455d9073fdbe50a0980b455edbab8c3}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Vector3f\-\_\-normalize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f} $\ast$}]{vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_a3455d9073fdbe50a0980b455edbab8c3}
+
+
+Normalizes the given vector. 
+
+\hypertarget{transformation_8h_ace773c6cb59c0cb31c109a8f52565ff1}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-project@{T\-E3\-D\-\_\-\-Vector3f\-\_\-project}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-project@{T\-E3\-D\-\_\-\-Vector3f\-\_\-project}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-project}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-project (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{vector, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{project\-On}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ace773c6cb59c0cb31c109a8f52565ff1}
+
+
+Returns the projection of a vector on another vector. 
+
+\hypertarget{transformation_8h_a23ca119382102c02c3ecfa0dafd63da0}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector3f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector3f\-\_\-sub}}
+\index{T\-E3\-D\-\_\-\-Vector3f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector3f\-\_\-sub}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector3f\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector3f} T\-E3\-D\-\_\-\-Vector3f\-\_\-sub (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector3f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a23ca119382102c02c3ecfa0dafd63da0}
+
+
+Subtract two vectors. 
+
+\hypertarget{transformation_8h_a3a3578411a62b951ed2ac01a49bf7bdf}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-add@{T\-E3\-D\-\_\-\-Vector4f\-\_\-add}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-add@{T\-E3\-D\-\_\-\-Vector4f\-\_\-add}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a3a3578411a62b951ed2ac01a49bf7bdf}
+
+
+Add two vectors. 
+
+\hypertarget{transformation_8h_a5938ab849349f82686864f0eaa29367c}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-div@{T\-E3\-D\-\_\-\-Vector4f\-\_\-div}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-div@{T\-E3\-D\-\_\-\-Vector4f\-\_\-div}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-div}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-div (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a5938ab849349f82686864f0eaa29367c}
+
+
+Divides a vector with a scalar. 
+
+\hypertarget{transformation_8h_aeeafa4822a50c4c1c4eb7d0dd29988d4}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector4f\-\_\-mul}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-mul@{T\-E3\-D\-\_\-\-Vector4f\-\_\-mul}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}float T\-E3\-D\-\_\-\-Vector4f\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_aeeafa4822a50c4c1c4eb7d0dd29988d4}
+
+
+Returns the scalar-\/product of two vectors. 
+
+\hypertarget{transformation_8h_ab94ee50e786aea6e48c3501af52eeb10}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector4f\-\_\-muls}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-muls@{T\-E3\-D\-\_\-\-Vector4f\-\_\-muls}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-muls}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-muls (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{vector, }
+\item[{float}]{scalar}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ab94ee50e786aea6e48c3501af52eeb10}
+
+
+Multiplicates a vector with a scalar. 
+
+\hypertarget{transformation_8h_a3ea1bb6f6656043565b0fcb3a4705668}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N@{T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-\-N (
+\begin{DoxyParamCaption}
+\item[{float}]{x, }
+\item[{float}]{y, }
+\item[{float}]{z, }
+\item[{float}]{w}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a3ea1bb6f6656043565b0fcb3a4705668}
+
+
+Returns a new 4-\/dimensional vector with predefined values. 
+
+\hypertarget{transformation_8h_a90b7a02924464f02917cc0c48fddc17a}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize@{T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize}]{\setlength{\rightskip}{0pt plus 5cm}void T\-E3\-D\-\_\-\-Vector4f\-\_\-normalize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f} $\ast$}]{vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{transformation_8h_a90b7a02924464f02917cc0c48fddc17a}
+
+
+Normalizes the given vector. 
+
+\hypertarget{transformation_8h_ad9bd15c4b747b864d622a26f4f77192b}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-project@{T\-E3\-D\-\_\-\-Vector4f\-\_\-project}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-project@{T\-E3\-D\-\_\-\-Vector4f\-\_\-project}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-project}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-project (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{vector, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{project\-On}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_ad9bd15c4b747b864d622a26f4f77192b}
+
+
+Returns the projection of a vector on another vector. 
+
+\hypertarget{transformation_8h_a03a50c1bafc02ed0b6d7851619d3c299}{\index{transformation.\-h@{transformation.\-h}!T\-E3\-D\-\_\-\-Vector4f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector4f\-\_\-sub}}
+\index{T\-E3\-D\-\_\-\-Vector4f\-\_\-sub@{T\-E3\-D\-\_\-\-Vector4f\-\_\-sub}!transformation.h@{transformation.\-h}}
+\subsubsection[{T\-E3\-D\-\_\-\-Vector4f\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\-E3\-D\-\_\-\-Vector4f} T\-E3\-D\-\_\-\-Vector4f\-\_\-sub (
+\begin{DoxyParamCaption}
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v1, }
+\item[{struct {\bf T\-E3\-D\-\_\-\-Vector4f}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{transformation_8h_a03a50c1bafc02ed0b6d7851619d3c299}
+
+
+Subtract two vectors. 
+
