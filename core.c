@@ -274,14 +274,14 @@ void TE3D_Pipeline_ResizeVectorIndexOutputBuffer(struct TE3D_Pipeline* pipe, int
 	if (pipe->VectorFormat == TE3D_VECTORFORMAT_LINES)
 	{
 		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex2);
-		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorIndexOutput, pipe->VectorIndexOutputCapacity);
+		pipe->VectorIndexOutput = realloc(pipe->VectorIndexOutput, pipe->VectorIndexOutputCapacity);
 
 		pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, newcount * sizeof(enum ConsoleColor));
 	}
 	else if(pipe->VectorFormat == TE3D_VECTORFORMAT_TRIANGLES)
 	{
 		pipe->VectorIndexOutputCapacity = newcount * sizeof(struct TE3D_VectorIndex3);
-		pipe->VectorIndexOutput = (int*)realloc(pipe->VectorIndexOutput, pipe->VectorIndexOutputCapacity);
+		pipe->VectorIndexOutput = realloc(pipe->VectorIndexOutput, pipe->VectorIndexOutputCapacity);
 
 		pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, newcount * sizeof(enum ConsoleColor));
 	}
