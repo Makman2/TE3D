@@ -4,10 +4,11 @@
 	#define INFINITY (1.0 / 0.0)
 #endif
 
-#define THRESHOLD_HORIZONTAL_45 0.92387953251128675612818318939679f //cos(45/2 °)
-#define THRESHOLD_VERTICAL_45 0.3826834323650897717284599840304f //cos(45 + 45/2 °)
-
+#define ABS(x) (x < 0 ? -x : x)
+#define MIN(x,y) (x < y ? x : y)
 #define MAX(x,y) (x > y ? x : y)
+#define PI 3.1415926535897932384626433832795f
+
 
 /*
 static void memsetd(double* dst, double value, int count)
@@ -85,9 +86,7 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 			{
 				// The precomputed char for the 45° angle.				
 				char char45;
-				// Holds the current angle.
-				float angle;
-				
+								
 				// The steps to go in x- and y-direction after processing a pixel.
 				int xstep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x ? 1 : -1;
 				int ystep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y ? 1 : -1;
@@ -115,61 +114,111 @@ bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Su
 				float linelen = sqrtf(difvecx * difvecx + difvecy * difvecy);
 				// The factor to increment clen. This variable holds the step-width for the line when processing z.
 				float clenfactor = linelen / MAX(difvecx, difvecy);
-				
 
-				char45 = ((difvecx < 0 && difvecy < 0) || (difvecx > 0 && difvecy > 0)) ? '\\' : '/';
+				// The gradients of the dif-vector and of the thresholds.
+				float gradient = ABS((float)difvecy / (float)difvecx);
+				float threshold_horizontal_45 = gradient * 0.9f;
+				float threshold_vertical_45 = gradient * 1.1f;
+
+				char45 = ((difvecx < 0 && difvecy < 0) || (difvecx > 0 && difvecy > 0)) ? '/' : '\\';
 
 				// The current processing coordinates.
 				int linex = coord1x;
 				int liney = coord1y;
 
-				while (linex != coord2x || liney != coord2y)
+				while (difvecx * xstep > 0 || difvecy * ystep > 0)
 				{
 					// Calculate z.
 					cz = z1 + dz * clen / linelen;
-									
-					// Calculate angle.
-					angle = linex / sqrtf(linex * linex + liney * liney);
 
 					// Select char.
-					if (angle > THRESHOLD_HORIZONTAL_45)
+					if (difvecy == 0)
+						// Horizontal lines.
+						goto HORIZONTAL_LINE;
+					else if (difvecx == 0)
+						// Vertical lines.
+						goto VERTICAL_LINE;
+				
+				
+					// Calculate gradient.
+					gradient = ABS((float)difvecy / (float)difvecx);
+					
+											
+					if (gradient <= threshold_horizontal_45)
 					{
+HORIZONTAL_LINE:
+						
 						// Char: _
-						if (zBuffer[linex + liney * target->Width] >= cz)
+						if (cz >= clipnear && cz <= clipfar &&
+							linex >= 0 && linex < target->Width &&
+							liney >= 0 && liney < target->Height)
 						{
-							target->Pixels[linex + liney * target->Width].Char = '_';
-							zBuffer[linex + liney * target->Width] = cz;
+							if (zBuffer[linex + (target->Height - liney - 1) * target->Width] >= cz)
+							{
+								target->Pixels[linex + (target->Height - liney - 1) * target->Width].Char = '_';
+								target->Pixels[linex + (target->Height - liney - 1) * target->Width].Color = colormap[i];
+								zBuffer[linex + (target->Height - liney - 1) * target->Width] = cz;
+							}
 						}
 
 						linex += xstep;
+						// Update difference vector.
+						difvecx -= xstep;
 					}
-					else if (angle < THRESHOLD_VERTICAL_45)
+					else if (gradient >= threshold_vertical_45)
 					{
-						// Char: |
-						if (zBuffer[linex + liney * target->Width] >= cz)
-						{
-							target->Pixels[linex + liney * target->Width].Char = '|';
-							zBuffer[linex + liney * target->Width] = cz;
-						}
+VERTICAL_LINE:
 
+						// Char: |
+						if (cz >= clipnear && cz <= clipfar &&
+							linex >= 0 && linex < target->Width &&
+							liney >= 0 && liney < target->Height)
+						{
+							if (zBuffer[linex + (target->Height - liney - 1) * target->Width] >= cz)
+							{
+								target->Pixels[linex + (target->Height - liney - 1) * target->Width].Char = '|';
+								target->Pixels[linex + (target->Height - liney - 1) * target->Width].Color = colormap[i];
+								zBuffer[linex + (target->Height - liney - 1) * target->Width] = cz;
+							}
+						}
 						liney += ystep;
+						// Update difference vector.
+						difvecy -= ystep;
 					}
 					else
 					{
 						// Char: \ or /
-						if (zBuffer[linex + liney * target->Width] >= cz)
+						if (cz >= clipnear && cz <= clipfar &&
+							linex >= 0 && linex < target->Width &&
+							liney >= 0 && liney < target->Height)
 						{
-							target->Pixels[linex + liney * target->Width].Char = char45;
-							zBuffer[linex + liney * target->Width] = cz;
+							if (zBuffer[linex + (target->Height - liney - 1) * target->Width] >= cz)
+							{
+								// When backslash appears the moves change a bit because the underscore doesn't match the backslash in the next right field.
+								if (char45 == '\\')
+								{
+									target->Pixels[linex + (target->Height - liney) * target->Width].Char = char45;
+									target->Pixels[linex + (target->Height - liney) * target->Width].Color = colormap[i];
+									zBuffer[linex + (target->Height - liney) * target->Width] = cz;
+								}
+								else
+								{
+									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Char = char45;
+									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Color = colormap[i];
+									zBuffer[linex + (target->Height - liney - 1) * target->Width] = cz;
+								}
+							}
 						}
 
 						linex += xstep;
 						liney += ystep;
+						// Update difference vector.
+						difvecx -= xstep;
+						difvecy -= ystep;
 					}
 
 					clen += clenfactor;
-					target->Pixels[linex + liney * target->Width].Color = colormap[i];
-					
+																
 				}
 
 			}

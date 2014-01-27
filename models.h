@@ -16,12 +16,16 @@ struct TE3D_VectorIndex2
 	int i1, i2;
 };
 
+struct TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2);
+
 // Defines a connection between three vectors (triangle).
 struct TE3D_VectorIndex3
 {
 	// The indices of the vectors to connect.
 	int i1, i2, i3;
 };
+
+struct TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3);
 
 // Available vector formats.
 enum TE3D_VectorFormat

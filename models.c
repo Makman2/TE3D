@@ -1,5 +1,21 @@
 #include "models.h"
 
+struct TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2)
+{
+	struct TE3D_VectorIndex2 result;
+	result.i1 = i1;
+	result.i2 = i2;
+	return result;
+}
+
+struct TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3)
+{
+	struct TE3D_VectorIndex3 result;
+	result.i1 = i1;
+	result.i2 = i2;
+	result.i3 = i3;
+	return result;
+}
 
 // Creates a new model.
 struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
@@ -18,11 +34,11 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 			break;
 		
 		case TE3D_VECTORFORMAT_LINES:
-			result.Vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
+			result.Indices = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
 			break;
 			
 		case TE3D_VECTORFORMAT_TRIANGLES:
-			result.Vectors = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
+			result.Indices = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
 			break;
 	}
 	
