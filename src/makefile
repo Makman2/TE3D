@@ -97,6 +97,7 @@ endif
 	@echo "Done."
 
 
+# TODO split this up into cleanobj, cleanrelease, cleantmp, cleandoxy
 clean:
 ifneq ($(wildcard $(OBJECTDIR)/*.o),)
 	@rm $(wildcard $(OBJECTDIR)/*.o)
@@ -111,6 +112,9 @@ ifneq ($(wildcard *~),)
 	@echo "Deleted temporary files."
 endif
 	@echo "Cleaned up."
+
+doxy:
+	@ cd ../doc ; doxygen Doxyfile
 
 
 
