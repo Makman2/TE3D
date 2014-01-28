@@ -132,6 +132,9 @@ ifneq ($(wildcard *~),)
 endif
 	@echo "Cleaned up."
 
+codecheck:
+	@ cd ../build-helper/codechecker/ && ./codeChecker.py
+
 doxy:
 	@ cd ../doc && doxygen Doxyfile
 
