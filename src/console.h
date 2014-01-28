@@ -29,14 +29,14 @@ Version 1.0
 
 Momentan noch vorhandene Bugs:
 [Linux]
-- Die Hintergrundfarbe wird nicht richtig übernommen, die Vordergrundfarbe sollte jedoch stimmen
+- BUG Die Hintergrundfarbe wird nicht richtig übernommen, die Vordergrundfarbe sollte jedoch stimmen
 [Windows]
-- Die Hintergrundfarbe wird zur Hintergrundfarbe der Konsole.
+- BUG Die Hintergrundfarbe wird zur Hintergrundfarbe der Konsole.
 	Ziel: Verhindern und durch eine extra Funktion ermöglichen wenn dieses Verhalten vom Benutzer gewünscht
 [Alle]
-- Umlaute und Sonderzeichen in der Textausgabe funktionieren nicht
-- Es sind noch nicht alle Farben implementiert
-- Farben sind noch nicht getestet, sollte ein Farbwert nicht stimmen, müsste er noch korrigiert werden
+- BUG Umlaute und Sonderzeichen in der Textausgabe funktionieren nicht
+- BUG Es sind noch nicht alle Farben implementiert
+- BUG Farben sind noch nicht getestet, sollte ein Farbwert nicht stimmen, müsste er noch korrigiert werden
 */
 
 #pragma once
@@ -73,7 +73,7 @@ Momentan noch vorhandene Bugs:
 #define CONSOLECOLOR_BROWN (enum ConsoleColor)11
 
 // Extended operating system specific colors for the moment not supported.
-/*
+/* FIXME commented code is not allowed
 #ifdef LINUX
 	#define CONSOLECOLOR_LIGHTBLUE (enum ConsoleColor)11
 	#define CONSOLECOLOR_LIGHTGREEN (enum ConsoleColor)12
@@ -107,7 +107,7 @@ enum ConsoleColor{
 	DarkGray = 10,
 	Brown = 11,
 
-/*
+/* FIXME commented code is not allowed
 #ifdef LINUX
 	//Only avaiable under Unix
 	LightBlue = 12,

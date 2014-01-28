@@ -39,7 +39,6 @@ LIBS = -lm
 OUTPUT_FULLNAME = $(strip $(OUTPUT)).$(strip $(VERSION))
 
 CC = gcc
-LDFLAGS = $(LIBS)
 CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c -g
 CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -g -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 DEPENDFILE = $(OBJECTDIR)/.depend
@@ -58,6 +57,7 @@ else
 	UNAME_S = $(strip $(shell uname -s))
 	ifeq ($(UNAME_S),Linux)
 		OS = LINUX
+		LIBS += -lncurses
 	endif
 	ifeq ($(UNAME_S),Darwin)
 		OS = OSX
@@ -81,12 +81,13 @@ ifneq ($(CPU),)
 endif
 CFLAGS += -D VERSION=$(VERSION)
 CFLAGS += -o
+LDFLAGS = $(LIBS)
 
+# default target - builds the project
+default: dep build
 
-
-all: dep
-	make build
-#	make header
+# all target - force recompilation of all units
+all: clean build
 
 build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 	@echo "Build up to date."
@@ -151,6 +152,7 @@ endif
 ifneq ($(wildcard $(DEPENDFILE)/),)
 	@rm $(DEPENDFILE)
 endif
+	# FIXME this line is far too long!
 	@printf "Reading and updating dependencies... "
 	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf "Compiling $$(notdir $$@)... "' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@echo "Done."' >> $(DEPENDFILE);)
 	@echo "Done."

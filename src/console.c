@@ -21,6 +21,11 @@
 
 #include "console.h"
 
+// TODO reorganize includes for whole project. What are our guidelines here?
+#ifdef LINUX
+#include <ncurses.h>
+#endif
+
 #define GET_2D_INDEX(x, y) (x + y * width)
 #define BUFFER_CONTROLCHAR_FACTOR 64
 
@@ -28,13 +33,16 @@
 	static HANDLE   hConsole;
 	//static COORD    ConsoleCoords;
 	static int      ConsoleColorTableWin[] = { 0x00, 0x0F, 0x09, 0x0A, 0x0C, 0x0E, 0x0B, 0x0D, 0x05, 0x08, 0x06 };
-
+#else
+  #ifdef LINUX
+      static char     ConsoleColorTableLinuxFore[][5] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
+      static char     ConsoleColorTableLinuxBack[][5] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
+  #else
+// TODO write a filter for detecting tab and space inconsistencies and solve
+      //them automatically
+      //#error "No valid system detected."
+  #endif
 #endif
-#ifdef LINUX
-	static char     ConsoleColorTableLinuxFore[][5] = {"0;30","1;37","0;34","0;32","0;31","1;33","0;36","1;35","0;35","1;30","0;33"};
-	static char     ConsoleColorTableLinuxBack[][5] = {"0;40","1;47","0;44","0;42","0;41","1;43","0;46","1;45","0;45","1;40","0;43"};
-#endif
-
 
 static char *ConsoleBuffer;
 static int height, width;
