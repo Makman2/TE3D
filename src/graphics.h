@@ -86,8 +86,3 @@ void TE3D_ReleaseSurface(struct TE3D_Surface* surface);
 /// Clears the surface with the given value.
 /// @param[in] val The colorized char to clear buffer with.
 void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val);
-
-
-
-
-

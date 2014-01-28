@@ -1,0 +1,16 @@
+Copyright (C) 2013 Fabian Neuschmidt. All Rights Reserved.
+Written by Fabian Neuschmidt (fabian.neuschmidt@googlemail.com)
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+Erstellung von CodeChecker - Filtern:
+
+- Die Funktion filter(queue, name, lineList) muss vorhanden sein.
+- lineList ist eine Liste mit Strings, jeder String entspricht einer Zeile der Datei
+- errorMessages[] ist iene Liste, deren erster Eintrag der an die Funktion übergebene 
+  'name' ist. angehängt werden die Fehlermeldungen.
+- die Rückgabe erfolgt über "queue.put(errorMessages)"
+  
