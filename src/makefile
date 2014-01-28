@@ -78,7 +78,7 @@ build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 dep: $(DEPENDFILE)
 	@echo "Dependencies up to date."
 
-install:
+install: build
 ifeq ($(wildcard $(INSTALLATION_PATH)),)
 	@mkdir $(INSTALLATION_PATH)
 endif
