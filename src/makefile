@@ -114,7 +114,7 @@ endif
 	@echo "Cleaned up."
 
 doxy:
-	@ cd ../doc ; doxygen Doxyfile
+	@ cd ../doc && doxygen Doxyfile
 
 
 

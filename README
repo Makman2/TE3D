@@ -8,6 +8,7 @@ A software-based 3D terminal engine.
 You can...
 -	present 3D-graphics.
 -	also present 2D-graphics with the right settings (See documentation for this purpose).
+-	load .obj models
 -	just do a bit vector math and work with 3D-models.
 -	everything that comes in your mind.
 
@@ -23,8 +24,7 @@ LINUX
 
 	2.	Open the terminal and switch into the extracted folder.
 
-	3.	Run these three commands:
-		make build
+	3.	Run:
 		sudo make install
 
 	4.	You did it!
