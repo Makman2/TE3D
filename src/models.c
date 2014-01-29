@@ -21,6 +21,8 @@
 
 #include "models.h"
 
+// TODO define a vector index type via typedef (dont use this static int)
+
 struct TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2)
 {
 	struct TE3D_VectorIndex2 result;
@@ -38,8 +40,9 @@ struct TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3)
 	return result;
 }
 
-// Creates a new model.
+/// Creates a new model.
 struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
+// I think the enum can be omitted, else make a typedef to omit it.
 {
 	struct TE3D_Model4f result;
 	result.Name = NULL;

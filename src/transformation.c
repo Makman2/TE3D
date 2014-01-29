@@ -21,6 +21,8 @@
 
 #include "transformation.h"
 
+/* TODO put this into some more generic files so that everyone can have fun
+ * with it */
 #define PI 3.1415926535897932384626433832795
 #define ABS(x) (x < 0 ? -x : x)
 

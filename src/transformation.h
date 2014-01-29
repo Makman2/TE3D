@@ -28,7 +28,12 @@
 		#include <stdbool.h>
 #endif
 
+/* TODO define an own type to get independent from float and be able to switch
+ * to double fast if needed
+ */
 
+// FIXME isnt it better to use arrays for this?
+// TODO use typedef with the structs. This is ugly.
 
 /// Describes a 4-dimensional vector.
 struct TE3D_Vector4f

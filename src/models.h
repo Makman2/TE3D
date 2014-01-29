@@ -39,6 +39,9 @@ struct TE3D_VectorIndex2
 
 struct TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2);
 
+// FIXME why do you use indices instead of pointers? And one more thing:
+// I've never seen negative indices in my life.
+
 /// Defines a connection between three vectors (triangle).
 struct TE3D_VectorIndex3
 {
