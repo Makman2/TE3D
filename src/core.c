@@ -13,7 +13,7 @@
 // count: The number of ints in the memory to add the value to.
 static void memadd(int* dst, int val, int count)
 {
-	if (!val)
+	if (val != 0)
 		for(int i = 0; i < count; i++)
 		{
 			*dst += val;
