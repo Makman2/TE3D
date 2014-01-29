@@ -77,8 +77,10 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 
 			// At least at the vector to the model...
 			ArrayList_Add(&model.Vectors, &vector);
-			// and set default color, because MTL (Material Template Library) is not supported.
-			ArrayList_Add(&model.Colors, &defaultcolor);
+
+			if (format == TE3D_VECTORFORMAT_POINTS)
+				// and set default color, because MTL (Material Template Library) is not supported.
+				ArrayList_Add(&model.Colors, &defaultcolor);
 
 		}
 		else if (prefix == 'f')
@@ -99,12 +101,16 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 
 					fscanf(file, "%d %d", &indexitem.i1, &indexitem.i2);
 					
-					indexitem.i1 -= *vectorscount;
-					indexitem.i2 -= *vectorscount;
+					indexitem.i1 -= *vectorscount + 1;
+					indexitem.i2 -= *vectorscount + 1;
 					
 					firstindex = indexitem.i1;
 					
 					ArrayList_Add(&model.Indices, &indexitem);
+
+					
+					// Add color because now they are index-assigned, not vertex-assigned.
+					ArrayList_Add(&model.Colors, &defaultcolor);
 
 					// If other face-indices follow, re-scanf.
 					while (iseof != EOF)
@@ -112,15 +118,21 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 						iseof = fscanf(file, " %c", &prefix);
 						fseek(file, -1, SEEK_CUR);
 
+						if (iseof == EOF)
+							break;
+
 						if (IS_CHAR_NUMERIC(prefix))
 						{
 							indexitem.i1 = indexitem.i2;
 							iseof = fscanf(file, "%d", &indexitem.i2);
 
-							indexitem.i2 -= *vectorscount;
+							indexitem.i2 -= *vectorscount + 1;
 
 							// Add the line to the model.
 							ArrayList_Add(&model.Indices, &indexitem);
+
+							// And add again.
+							ArrayList_Add(&model.Colors, &defaultcolor);
 
 							facecount++;
 						}

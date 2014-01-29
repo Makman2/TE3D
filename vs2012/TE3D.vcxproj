@@ -37,7 +37,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);$(SolutionDir)\..;</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);$(SolutionDir)\..\src;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
@@ -45,30 +45,30 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\arraylist.c" />
-    <ClCompile Include="..\ascii_converter.c" />
-    <ClCompile Include="..\console.c" />
-    <ClCompile Include="..\core.c" />
-    <ClCompile Include="..\graphics.c" />
-    <ClCompile Include="..\list.c" />
-    <ClCompile Include="..\modelloader_obj.c" />
-    <ClCompile Include="..\models.c" />
+    <ClCompile Include="..\src\arraylist.c" />
+    <ClCompile Include="..\src\ascii_converter.c" />
+    <ClCompile Include="..\src\console.c" />
+    <ClCompile Include="..\src\core.c" />
+    <ClCompile Include="..\src\graphics.c" />
+    <ClCompile Include="..\src\list.c" />
+    <ClCompile Include="..\src\modelloader_obj.c" />
+    <ClCompile Include="..\src\models.c" />
     <ClCompile Include="..\test\cube\main.c" />
     <ClCompile Include="..\test\modelloader\main.c" />
-    <ClCompile Include="..\transformation.c" />
+    <ClCompile Include="..\src\transformation.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\arraylist.h" />
-    <ClInclude Include="..\ascii_converter.h" />
-    <ClInclude Include="..\console.h" />
-    <ClInclude Include="..\core.h" />
-    <ClInclude Include="..\graphics.h" />
-    <ClInclude Include="..\interface.h" />
-    <ClInclude Include="..\list.h" />
-    <ClInclude Include="..\modelloader_obj.h" />
-    <ClInclude Include="..\models.h" />
-    <ClInclude Include="..\TE3D.h" />
-    <ClInclude Include="..\transformation.h" />
+    <ClInclude Include="..\src\arraylist.h" />
+    <ClInclude Include="..\src\ascii_converter.h" />
+    <ClInclude Include="..\src\console.h" />
+    <ClInclude Include="..\src\core.h" />
+    <ClInclude Include="..\src\graphics.h" />
+    <ClInclude Include="..\src\interface.h" />
+    <ClInclude Include="..\src\list.h" />
+    <ClInclude Include="..\src\modelloader_obj.h" />
+    <ClInclude Include="..\src\models.h" />
+    <ClInclude Include="..\src\TE3D.h" />
+    <ClInclude Include="..\src\transformation.h" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="..\test\modelloader\church.obj" />

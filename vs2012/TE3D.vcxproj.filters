@@ -24,72 +24,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\arraylist.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ascii_converter.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\console.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\core.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\list.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\models.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\transformation.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\graphics.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\test\cube\main.c">
       <Filter>Test\Cube</Filter>
     </ClCompile>
     <ClCompile Include="..\test\modelloader\main.c">
       <Filter>Test\Modelloader</Filter>
     </ClCompile>
-    <ClCompile Include="..\modelloader_obj.c">
+    <ClCompile Include="..\src\arraylist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ascii_converter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\console.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\models.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\transformation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\modelloader_obj.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\arraylist.h">
+    <ClInclude Include="..\src\arraylist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ascii_converter.h">
+    <ClInclude Include="..\src\ascii_converter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\console.h">
+    <ClInclude Include="..\src\console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\graphics.h">
+    <ClInclude Include="..\src\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\interface.h">
+    <ClInclude Include="..\src\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\list.h">
+    <ClInclude Include="..\src\interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\models.h">
+    <ClInclude Include="..\src\list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\core.h">
+    <ClInclude Include="..\src\modelloader_obj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\transformation.h">
+    <ClInclude Include="..\src\models.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TE3D.h">
+    <ClInclude Include="..\src\TE3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\modelloader_obj.h">
+    <ClInclude Include="..\src\transformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
