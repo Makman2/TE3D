@@ -259,7 +259,7 @@ void TE3D_Pipeline_ChangeVectorFormat(struct TE3D_Pipeline* pipe, enum TE3D_Vect
 			// Also adjust the colormap.
 			if (format == TE3D_VECTORFORMAT_LINES)
 				pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, STANDARD_COLORMAP_SIZE_VI2);
-			else
+			else if (format == TE3D_VECTORFORMAT_TRIANGLES)
 				pipe->Colormap = (enum ConsoleColor*)realloc(pipe->Colormap, STANDARD_COLORMAP_SIZE_VI3);
 		}	
 	
@@ -322,4 +322,10 @@ void TE3D_Pipeline_SetClippingFar(struct TE3D_Pipeline* pipe, float clipfar)
 void TE3D_Pipeline_SetTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix)
 {
 	pipe->Transformation = matrix;
+}
+
+// Adds a model to the pipeline.
+void TE3D_Pipeline_AddModel(struct TE3D_Pipeline* pipe, struct TE3D_Model4f* model)
+{
+	List_Add(&pipe->Models, &model);
 }

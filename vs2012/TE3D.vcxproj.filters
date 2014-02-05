@@ -57,6 +57,9 @@
     <ClCompile Include="..\src\modelloader_obj.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\geometry.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\arraylist.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\transformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

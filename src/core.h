@@ -138,3 +138,7 @@ void TE3D_Pipeline_SetClippingFar(struct TE3D_Pipeline* pipe, float clipfar);
 /// Sets and overrides the transformation matrix.
 /// @param[in]  matrix: The matrix to set.
 void TE3D_Pipeline_SetTransformation(struct TE3D_Pipeline* pipe, struct TE3D_Matrix4x4f matrix);
+
+/// Adds a model to the pipeline.
+/// @param[in]	model: The model to add.
+void TE3D_Pipeline_AddModel(struct TE3D_Pipeline* pipe, const struct TE3D_Model4f* model);

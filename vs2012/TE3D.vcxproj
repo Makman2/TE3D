@@ -49,6 +49,7 @@
     <ClCompile Include="..\src\ascii_converter.c" />
     <ClCompile Include="..\src\console.c" />
     <ClCompile Include="..\src\core.c" />
+    <ClCompile Include="..\src\geometry.c" />
     <ClCompile Include="..\src\graphics.c" />
     <ClCompile Include="..\src\list.c" />
     <ClCompile Include="..\src\modelloader_obj.c" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\src\ascii_converter.h" />
     <ClInclude Include="..\src\console.h" />
     <ClInclude Include="..\src\core.h" />
+    <ClInclude Include="..\src\geometry.h" />
     <ClInclude Include="..\src\graphics.h" />
     <ClInclude Include="..\src\interface.h" />
     <ClInclude Include="..\src\list.h" />
