@@ -29,7 +29,7 @@
 
 #include <stdlib.h>
 
-#define STANDARD_VECTOR_OUTPUTBUFFER_SIZE (256 * sizeof(struct TE3D_Vector4f))
+#define STANDARD_VECTOR_OUTPUTBUFFER_SIZE (256 * sizeof(TE3D_Vector4f))
 #define STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE 1056
 #define STANDARD_COLORMAP_SIZE_VI2 (STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE / \
 			sizeof(struct TE3D_VectorIndex2) * sizeof(enum ConsoleColor))
@@ -69,7 +69,7 @@ struct TE3D_Pipeline
 	/// The number of vectors in the vector output buffer.
 	int VectorOutputCount;
 	/// The vector output buffer.
-	struct TE3D_Vector4f* VectorOutput;
+	TE3D_Vector4f* VectorOutput;
 	/// The vector index output buffer.
 	void* VectorIndexOutput;
 	/// The number of vector indices in the vector index output buffer.

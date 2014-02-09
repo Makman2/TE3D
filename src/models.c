@@ -47,7 +47,7 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 	struct TE3D_Model4f result;
 	result.Name = NULL;
 	
-	result.Vectors = ArrayList_New(sizeof(struct TE3D_Vector4f));
+	result.Vectors = ArrayList_New(sizeof(TE3D_Vector4f));
 	
 	switch (format)
 	{
@@ -80,7 +80,7 @@ void TE3D_Model4f_Transform(struct TE3D_Model4f* model, struct TE3D_Matrix4x4f m
 	// Iterate over each vector and transform it.
 	for(int i = 0; i < model->Vectors.count; i++)
 	{
-		((struct TE3D_Vector4f*)model->Vectors.items)[i] = TE3D_Matrix4x4f_mul4(matrix, ((struct TE3D_Vector4f*)model->Vectors.items)[i]);
+		((TE3D_Vector4f*)model->Vectors.items)[i] = TE3D_Matrix4x4f_mul4(matrix, ((TE3D_Vector4f*)model->Vectors.items)[i]);
 	}
 }
 

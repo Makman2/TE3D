@@ -3,7 +3,7 @@
 // Constructs a cube mesh and adds it to the specified model.
 void TE3D_Geometry_ConstructCube(struct TE3D_Model4f* model, float cubesize, struct TE3D_Vector3f cubeoffset)
 {
-	struct TE3D_Vector4f cube[] = {TE3D_Vector4f_N(cubeoffset.x - cubesize / 2, cubeoffset.y - cubesize / 2, cubeoffset.z - cubesize / 2, 1),
+	TE3D_Vector4f cube[] = {TE3D_Vector4f_N(cubeoffset.x - cubesize / 2, cubeoffset.y - cubesize / 2, cubeoffset.z - cubesize / 2, 1),
 								   TE3D_Vector4f_N(cubeoffset.x + cubesize / 2, cubeoffset.y - cubesize / 2, cubeoffset.z - cubesize / 2, 1),
 								   TE3D_Vector4f_N(cubeoffset.x - cubesize / 2, cubeoffset.y + cubesize / 2, cubeoffset.z - cubesize / 2, 1),
 								   TE3D_Vector4f_N(cubeoffset.x + cubesize / 2, cubeoffset.y + cubesize / 2, cubeoffset.z - cubesize / 2, 1),

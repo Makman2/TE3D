@@ -36,10 +36,10 @@
 // TODO use typedef with the structs. This is ugly.
 
 /// Describes a 4-dimensional vector.
-struct TE3D_Vector4f
+typedef struct
 {
 	float x, y, z, w;
-};
+} TE3D_Vector4f;
 
 //( Describes a 3-dimensional Vector
 struct TE3D_Vector3f{
@@ -76,21 +76,21 @@ struct TE3D_Matrix4x4f
 // Some vector functions.
 
 /// Returns a new 4-dimensional vector with predefined values.
-struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w);
+TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w);
 /// Returns the scalar-product of two vectors.
-float TE3D_Vector4f_mul(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2);
+float TE3D_Vector4f_mul(TE3D_Vector4f v1, TE3D_Vector4f v2);
 /// Multiplicates a vector with a scalar.
-struct TE3D_Vector4f TE3D_Vector4f_muls(struct TE3D_Vector4f vector, float scalar);
+TE3D_Vector4f TE3D_Vector4f_muls(TE3D_Vector4f vector, float scalar);
 /// Divides a vector with a scalar.
-struct TE3D_Vector4f TE3D_Vector4f_div(struct TE3D_Vector4f vector, float scalar);
+TE3D_Vector4f TE3D_Vector4f_div(TE3D_Vector4f vector, float scalar);
 /// Add two vectors.
-struct TE3D_Vector4f TE3D_Vector4f_add(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2);
+TE3D_Vector4f TE3D_Vector4f_add(TE3D_Vector4f v1, TE3D_Vector4f v2);
 /// Subtract two vectors.
-struct TE3D_Vector4f TE3D_Vector4f_sub(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2);
+TE3D_Vector4f TE3D_Vector4f_sub(TE3D_Vector4f v1, TE3D_Vector4f v2);
 /// Normalizes the given vector.
-void TE3D_Vector4f_normalize(struct TE3D_Vector4f* vector);
+void TE3D_Vector4f_normalize(TE3D_Vector4f* vector);
 /// Returns the projection of a vector on another vector.
-struct TE3D_Vector4f TE3D_Vector4f_project(struct TE3D_Vector4f vector, struct TE3D_Vector4f projectOn);
+TE3D_Vector4f TE3D_Vector4f_project(TE3D_Vector4f vector, TE3D_Vector4f projectOn);
 
 /// Returns a new 3-dimensional vector with predefined values.
 struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z);
@@ -133,7 +133,7 @@ struct TE3D_Vector2f TE3D_Matrix2x2f_mul2(struct TE3D_Matrix2x2f matrix, struct 
 /// Multiplicates a 3x3 matrix with a 3-dimensional vector.
 struct TE3D_Vector3f TE3D_Matrix3x3f_mul3(struct TE3D_Matrix3x3f matrix, struct TE3D_Vector3f vector);
 /// Multiplicates a 4x4 matrix with a 4-dimensional vector.
-struct TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, struct TE3D_Vector4f vector);
+TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, TE3D_Vector4f vector);
 /// Multiplicates a 2x2 matrix with a 2x2 matrix.
 struct TE3D_Matrix2x2f TE3D_Matrix2x2f_mul(struct TE3D_Matrix2x2f matrixA, struct TE3D_Matrix2x2f matrixB);
 /// Multiplicates a 3x3 matrix with a 3x3 matrix.
@@ -142,9 +142,9 @@ struct TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(struct TE3D_Matrix3x3f matrixA, struc
 struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA, struct TE3D_Matrix4x4f matrixB);
 
 /// Expands a 2-dimensional vector to a 4-dimensional one.
-struct TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector);
+TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector);
 /// Expands a 3-dimensional vector to a 4-dimensional one.
-struct TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector);
+TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector);
 
 /// Expands a 2x2 matrix to a 4x4 matrix.
 struct TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(struct TE3D_Matrix2x2f matrix);

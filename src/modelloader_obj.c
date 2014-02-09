@@ -37,7 +37,7 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 	char name[50];
 
 	struct TE3D_Model4f model;
-	struct TE3D_Vector4f vector;
+	TE3D_Vector4f vector;
 
 	bool modelcreated = false;
 

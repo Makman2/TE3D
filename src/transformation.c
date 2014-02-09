@@ -27,9 +27,9 @@
 #define ABS(x) (x < 0 ? -x : x)
 
 // Returns a new 4-dimensional vector with predefined values.
-inline struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
+inline TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = x;
 	result.y = y;
 	result.z = z;
@@ -38,15 +38,16 @@ inline struct TE3D_Vector4f TE3D_Vector4f_N(float x, float y, float z, float w)
 }
 
 // Returns the scalar-product of two vectors.
-inline float TE3D_Vector4f_mul(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+inline float TE3D_Vector4f_mul(TE3D_Vector4f v1, TE3D_Vector4f v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 }
 
 // Multiplicates a vector with a scalar.
-inline struct TE3D_Vector4f TE3D_Vector4f_muls(struct TE3D_Vector4f vector, float scalar)
+inline TE3D_Vector4f TE3D_Vector4f_muls(TE3D_Vector4f vector,
+											   float scalar)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
 	result.z = vector.z * scalar;
@@ -55,9 +56,10 @@ inline struct TE3D_Vector4f TE3D_Vector4f_muls(struct TE3D_Vector4f vector, floa
 }
 
 // Divides a vector with a scalar.
-inline struct TE3D_Vector4f TE3D_Vector4f_div(struct TE3D_Vector4f vector, float scalar)
+inline TE3D_Vector4f TE3D_Vector4f_div(TE3D_Vector4f vector,
+											  float scalar)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
 	result.z = vector.z / scalar;
@@ -66,9 +68,10 @@ inline struct TE3D_Vector4f TE3D_Vector4f_div(struct TE3D_Vector4f vector, float
 }
 
 // Add two vectors.
-inline struct TE3D_Vector4f TE3D_Vector4f_add(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+inline TE3D_Vector4f TE3D_Vector4f_add(TE3D_Vector4f v1,
+											  TE3D_Vector4f v2)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = v1.x / v2.x;
 	result.y = v1.y / v2.y;
 	result.z = v1.z / v2.z;
@@ -77,9 +80,10 @@ inline struct TE3D_Vector4f TE3D_Vector4f_add(struct TE3D_Vector4f v1, struct TE
 }
 
 // Subtract two vectors.
-inline struct TE3D_Vector4f TE3D_Vector4f_sub(struct TE3D_Vector4f v1, struct TE3D_Vector4f v2)
+inline TE3D_Vector4f TE3D_Vector4f_sub(TE3D_Vector4f v1,
+											  TE3D_Vector4f v2)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
 	result.z = v1.z - v2.z;
@@ -88,7 +92,7 @@ inline struct TE3D_Vector4f TE3D_Vector4f_sub(struct TE3D_Vector4f v1, struct TE
 }
 
 // Normalizes the given vector.
-inline void TE3D_Vector4f_normalize(struct TE3D_Vector4f* vector)
+inline void TE3D_Vector4f_normalize(TE3D_Vector4f* vector)
 {
 	float norm = sqrt(TE3D_Vector4f_mul((*vector), (*vector)));
 	vector->x /= norm;
@@ -98,7 +102,8 @@ inline void TE3D_Vector4f_normalize(struct TE3D_Vector4f* vector)
 }
 
 // Returns the projection of a vector on another vector.
-inline struct TE3D_Vector4f TE3D_Vector4f_project(struct TE3D_Vector4f vector, struct TE3D_Vector4f projectOn)
+inline TE3D_Vector4f TE3D_Vector4f_project(TE3D_Vector4f vector,
+												  TE3D_Vector4f projectOn)
 {
 	return TE3D_Vector4f_muls(projectOn, (TE3D_Vector4f_mul(vector, projectOn) / TE3D_Vector4f_mul(projectOn, projectOn)));
 }
@@ -272,9 +277,9 @@ inline struct TE3D_Vector3f TE3D_Matrix3x3f_mul3(struct TE3D_Matrix3x3f matrix, 
 }
 
 // Multiplicates a 4x4 matrix with a 4-dimensional vector.
-inline struct TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, struct TE3D_Vector4f vector)
+inline TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, TE3D_Vector4f vector)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = vector.x * matrix.m11 + vector.y * matrix.m12 + vector.z * matrix.m13 + vector.w * matrix.m14;
 	result.y = vector.x * matrix.m21 + vector.y * matrix.m22 + vector.z * matrix.m23 + vector.w * matrix.m24;
 	result.z = vector.x * matrix.m31 + vector.y * matrix.m32 + vector.z * matrix.m33 + vector.w * matrix.m34;
@@ -334,9 +339,9 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA
 
 
 // Expands a 2-dimensional vector to a 4-dimensional one.
-inline struct TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
+inline TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = vector.x;
 	result.y = vector.y;
 	result.z = 0;
@@ -345,9 +350,9 @@ inline struct TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
 }
 
 // Expands a 3-dimensional vector to a 4-dimensional one.
-inline struct TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
+inline TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
 {
-	struct TE3D_Vector4f result;
+	TE3D_Vector4f result;
 	result.x = vector.x;
 	result.y = vector.y;
 	result.z = vector.z;

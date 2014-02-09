@@ -54,7 +54,7 @@ static void memsetf(float* dst, float value, int count)
 
 
 // Converts vectors to an ASCII-art-representation and writes them to the target TE3D_Surface.
-bool TE3D_ASCII_Convert(struct TE3D_Vector4f* vectors, int count, struct TE3D_Surface* target, enum TE3D_VectorFormat format, void* indices, float* zBuffer, float clipnear, float clipfar, enum ConsoleColor* colormap)
+bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, struct TE3D_Surface* target, enum TE3D_VectorFormat format, void* indices, float* zBuffer, float clipnear, float clipfar, enum ConsoleColor* colormap)
 {
 	// If z-Buffer is NULL, create own one.
 	if (!zBuffer)
