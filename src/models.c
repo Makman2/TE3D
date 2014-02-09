@@ -23,17 +23,17 @@
 
 // TODO define a vector index type via typedef (dont use this static int)
 
-struct TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2)
+TE3D_VectorIndex2 TE3D_VectorIndex2_N(int i1, int i2)
 {
-	struct TE3D_VectorIndex2 result;
+	TE3D_VectorIndex2 result;
 	result.i1 = i1;
 	result.i2 = i2;
 	return result;
 }
 
-struct TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3)
+TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3)
 {
-	struct TE3D_VectorIndex3 result;
+	TE3D_VectorIndex3 result;
 	result.i1 = i1;
 	result.i2 = i2;
 	result.i3 = i3;
@@ -41,10 +41,9 @@ struct TE3D_VectorIndex3 TE3D_VectorIndex3_N(int i1, int i2, int i3)
 }
 
 /// Creates a new model.
-struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
-// I think the enum can be omitted, else make a typedef to omit it.
+TE3D_Model4f TE3D_Model4f_New(TE3D_VectorFormat format)
 {
-	struct TE3D_Model4f result;
+	TE3D_Model4f result;
 	result.Name = NULL;
 	
 	result.Vectors = ArrayList_New(sizeof(TE3D_Vector4f));
@@ -58,15 +57,15 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 			break;
 		
 		case TE3D_VECTORFORMAT_LINES:
-			result.Indices = ArrayList_New(sizeof(struct TE3D_VectorIndex2));
+			result.Indices = ArrayList_New(sizeof(TE3D_VectorIndex2));
 			break;
 			
 		case TE3D_VECTORFORMAT_TRIANGLES:
-			result.Indices = ArrayList_New(sizeof(struct TE3D_VectorIndex3));
+			result.Indices = ArrayList_New(sizeof(TE3D_VectorIndex3));
 			break;
 	}
 	
-	result.Colors = ArrayList_New(sizeof(enum ConsoleColor));
+	result.Colors = ArrayList_New(sizeof(ConsoleColor));
 	
 	result.IsActive = true;
 	result.Format = format;
@@ -75,7 +74,7 @@ struct TE3D_Model4f TE3D_Model4f_New(enum TE3D_VectorFormat format)
 }
 
 // Transforms the elements in the model.
-void TE3D_Model4f_Transform(struct TE3D_Model4f* model, struct TE3D_Matrix4x4f matrix)
+void TE3D_Model4f_Transform(TE3D_Model4f* model, TE3D_Matrix4x4f matrix)
 {
 	// Iterate over each vector and transform it.
 	for(int i = 0; i < model->Vectors.count; i++)
@@ -85,43 +84,43 @@ void TE3D_Model4f_Transform(struct TE3D_Model4f* model, struct TE3D_Matrix4x4f m
 }
 
 // Translates the model.
-void TE3D_Model4f_Translate(struct TE3D_Model4f* model, struct TE3D_Vector3f move)
+void TE3D_Model4f_Translate(TE3D_Model4f* model, TE3D_Vector3f move)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_Translation(move.x, move.y, move.z));
 }
 
 // Scales the model.
-void TE3D_Model4f_Scale(struct TE3D_Model4f* model, float factor)
+void TE3D_Model4f_Scale(TE3D_Model4f* model, float factor)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_Scale(factor, factor, factor));
 }
 
 // Rotates the model.
-void TE3D_Model4f_Rotate(struct TE3D_Model4f* model, struct TE3D_Vector3f axis, struct TE3D_Vector3f offset, double angle)
+void TE3D_Model4f_Rotate(TE3D_Model4f* model, TE3D_Vector3f axis, TE3D_Vector3f offset, double angle)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_Rotate(axis, offset, angle));
 }
 
 // Rotates the model over the x-axis.
-void TE3D_Model4f_RotateX(struct TE3D_Model4f* model, double angle)
+void TE3D_Model4f_RotateX(TE3D_Model4f* model, double angle)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_RotateX(angle));
 }
 
 // Rotates the model over the y-axis.
-void TE3D_Model4f_RotateY(struct TE3D_Model4f* model, double angle)
+void TE3D_Model4f_RotateY(TE3D_Model4f* model, double angle)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_RotateY(angle));
 }
 
 // Rotates the model over the z-axis.
-void TE3D_Model4f_RotateZ(struct TE3D_Model4f* model, double angle)
+void TE3D_Model4f_RotateZ(TE3D_Model4f* model, double angle)
 {
 	TE3D_Model4f_Transform(model, TE3D_Transformation4x4f_RotateZ(angle));
 }
 
 // Sets the name or ID of the model.
-void TE3D_Model4f_SetName(struct TE3D_Model4f* model, char* name)
+void TE3D_Model4f_SetName(TE3D_Model4f* model, char* name)
 {
 	size_t len = strlen(name);
 	model->Name = (char*)malloc(len);
@@ -129,7 +128,7 @@ void TE3D_Model4f_SetName(struct TE3D_Model4f* model, char* name)
 }
 
 // Releases the model.
-void TE3D_Model4f_Release(struct TE3D_Model4f* model)
+void TE3D_Model4f_Release(TE3D_Model4f* model)
 {
 	if (model->Name)
 		free(model->Name);

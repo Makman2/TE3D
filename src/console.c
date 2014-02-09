@@ -111,8 +111,9 @@ int TE3D_Console_FlushBuffer(){
 	return 0;
 }
 
+// TODO commented code is not allowed
 /* Not supported
-int CON_writeChar(char data,int posX, int posY, enum ConsoleColor fg,enum ConsoleColor bg){
+int CON_writeChar(char data,int posX, int posY, ConsoleColor fg,ConsoleColor bg){
 	if(posX > width || posY > height){
 		return -1;
 	}
@@ -128,7 +129,7 @@ int CON_writeChar(char data,int posX, int posY, enum ConsoleColor fg,enum Consol
 }*/
 
 /* Not supported
-int CON_writeText(char *text, int posX, int posY,enum ConsoleColor fg,enum ConsoleColor bg, int wrap){
+int CON_writeText(char *text, int posX, int posY,ConsoleColor fg,ConsoleColor bg, int wrap){
 	int pos = GET_2D_INDEX(posX, posY);
 
 	while(*text != 0){
@@ -161,7 +162,7 @@ int TE3D_Console_SetPosition(int x, int y){
 	return 0;
 
 }
-int TE3D_Console_SetCurrentColor(enum ConsoleColor fg, enum ConsoleColor bg){
+int TE3D_Console_SetCurrentColor(ConsoleColor fg, ConsoleColor bg){
 
 	#ifdef WIN32 //Operating system is Windows32
 

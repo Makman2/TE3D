@@ -42,10 +42,10 @@
 ///			reasons at least to create one. The function automatically creates a buffer if no one specified, but that causes a performance penalty.
 bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors,
 						int count,
-						struct TE3D_Surface* target,
-						enum TE3D_VectorFormat format,
+						TE3D_Surface* target,
+						TE3D_VectorFormat format,
 						void* indices,
 						float* zBuffer,
 						float clipnear,
 						float clipfar,
-						enum ConsoleColor* colormap);
+						ConsoleColor* colormap);

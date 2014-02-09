@@ -110,9 +110,9 @@ inline TE3D_Vector4f TE3D_Vector4f_project(TE3D_Vector4f vector,
 
 
 // Returns a new 3-dimensional vector with predefined values.
-inline struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
+inline TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = x;
 	result.y = y;
 	result.z = z;
@@ -120,15 +120,15 @@ inline struct TE3D_Vector3f TE3D_Vector3f_N(float x, float y, float z)
 }
 
 // Returns scalar-product of two vectors.
-inline float TE3D_Vector3f_mul(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
+inline float TE3D_Vector3f_mul(TE3D_Vector3f v1, TE3D_Vector3f v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
 // Multiplicates a vector with a scalar.
-inline struct TE3D_Vector3f TE3D_Vector3f_muls(struct TE3D_Vector3f vector, float scalar)
+inline TE3D_Vector3f TE3D_Vector3f_muls(TE3D_Vector3f vector, float scalar)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
 	result.z = vector.z * scalar;
@@ -136,9 +136,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_muls(struct TE3D_Vector3f vector, floa
 }
 
 // Divides a vector with a scalar.
-inline struct TE3D_Vector3f TE3D_Vector3f_div(struct TE3D_Vector3f vector, float scalar)
+inline TE3D_Vector3f TE3D_Vector3f_div(TE3D_Vector3f vector, float scalar)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
 	result.z = vector.z / scalar;
@@ -146,9 +146,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_div(struct TE3D_Vector3f vector, float
 }
 
 // Add two vectors.
-inline struct TE3D_Vector3f TE3D_Vector3f_add(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
+inline TE3D_Vector3f TE3D_Vector3f_add(TE3D_Vector3f v1, TE3D_Vector3f v2)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
 	result.z = v1.z + v2.z;
@@ -156,9 +156,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_add(struct TE3D_Vector3f v1, struct TE
 }
 
 // Subtract two vectors.
-inline struct TE3D_Vector3f TE3D_Vector3f_sub(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
+inline TE3D_Vector3f TE3D_Vector3f_sub(TE3D_Vector3f v1, TE3D_Vector3f v2)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
 	result.z = v1.z - v2.z;
@@ -166,9 +166,9 @@ inline struct TE3D_Vector3f TE3D_Vector3f_sub(struct TE3D_Vector3f v1, struct TE
 }
 
 // Returns the cross-product of two 3-dimensional vectors.
-inline struct TE3D_Vector3f TE3D_Vector3f_cross(struct TE3D_Vector3f v1, struct TE3D_Vector3f v2)
+inline TE3D_Vector3f TE3D_Vector3f_cross(TE3D_Vector3f v1, TE3D_Vector3f v2)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;
 	result.z = v1.x * v2.y - v1.y * v2.x;
@@ -176,7 +176,7 @@ inline struct TE3D_Vector3f TE3D_Vector3f_cross(struct TE3D_Vector3f v1, struct 
 }
 
 // Normalizes the given vector.
-inline void TE3D_Vector3f_normalize(struct TE3D_Vector3f *vector)
+inline void TE3D_Vector3f_normalize(TE3D_Vector3f *vector)
 {
 	float norm = sqrt(TE3D_Vector3f_mul((*vector), (*vector)));
 	vector->x /= norm;
@@ -185,65 +185,65 @@ inline void TE3D_Vector3f_normalize(struct TE3D_Vector3f *vector)
 }
 
 // Returns the projection of a vector on another vector.
-inline struct TE3D_Vector3f TE3D_Vector3f_project(struct TE3D_Vector3f vector, struct TE3D_Vector3f projectOn)
+inline TE3D_Vector3f TE3D_Vector3f_project(TE3D_Vector3f vector, TE3D_Vector3f projectOn)
 {
 	return TE3D_Vector3f_muls(projectOn, (TE3D_Vector3f_mul(vector, projectOn) / TE3D_Vector3f_mul(projectOn, projectOn)));
 }
 
 
 // Returns a new 2-dimensional vector with predefined values.
-inline struct TE3D_Vector2f TE3D_Vector2f_N(float x, float y)
+inline TE3D_Vector2f TE3D_Vector2f_N(float x, float y)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = x;
 	result.y = y;
 	return result;
 }
 
 // Returns scalar-product of two vectors.
-inline float TE3D_Vector2f_mul(struct TE3D_Vector2f v1, struct TE3D_Vector2f v2)
+inline float TE3D_Vector2f_mul(TE3D_Vector2f v1, TE3D_Vector2f v2)
 {
 	return v1.x * v2.x + v1.y * v2.y;
 }
 
 // Multiplicates a vector with a scalar.
-inline struct TE3D_Vector2f TE3D_Vector2f_muls(struct TE3D_Vector2f vector, float scalar)
+inline TE3D_Vector2f TE3D_Vector2f_muls(TE3D_Vector2f vector, float scalar)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = vector.x * scalar;
 	result.y = vector.y * scalar;
 	return result;
 }
 
 // Divides a vector with a scalar.
-inline struct TE3D_Vector2f TE3D_Vector2f_div(struct TE3D_Vector2f vector, float scalar)
+inline TE3D_Vector2f TE3D_Vector2f_div(TE3D_Vector2f vector, float scalar)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = vector.x / scalar;
 	result.y = vector.y / scalar;
 	return result;
 }
 
 // Add two vectors.
-inline struct TE3D_Vector2f TE3D_Vector2f_add(struct TE3D_Vector2f v1, struct TE3D_Vector2f v2)
+inline TE3D_Vector2f TE3D_Vector2f_add(TE3D_Vector2f v1, TE3D_Vector2f v2)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
 	return result;
 }
 
 // Subtract two vectors.
-inline struct TE3D_Vector2f TE3D_Vector2f_sub(struct TE3D_Vector2f v1, struct TE3D_Vector2f v2)
+inline TE3D_Vector2f TE3D_Vector2f_sub(TE3D_Vector2f v1, TE3D_Vector2f v2)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
 	return result;
 }
 
 // Normalizes the given vector.
-inline void TE3D_Vector2f_normalize(struct TE3D_Vector2f* vector)
+inline void TE3D_Vector2f_normalize(TE3D_Vector2f* vector)
 {
 	float norm = sqrt(TE3D_Vector2f_mul((*vector), (*vector)));
 	vector->x /= norm;
@@ -251,25 +251,25 @@ inline void TE3D_Vector2f_normalize(struct TE3D_Vector2f* vector)
 }
 
 // Returns the projection of a vector on another vector.
-inline struct TE3D_Vector2f TE3D_Vector2f_project(struct TE3D_Vector2f vector, struct TE3D_Vector2f projectOn)
+inline TE3D_Vector2f TE3D_Vector2f_project(TE3D_Vector2f vector, TE3D_Vector2f projectOn)
 {
 	return TE3D_Vector2f_muls(projectOn, (TE3D_Vector2f_mul(vector, projectOn) / TE3D_Vector2f_mul(projectOn, projectOn)));
 }
 
 
 // Multiplicates a 2x2 matrix with a 2-dimensional vector.
-inline struct TE3D_Vector2f TE3D_Matrix2x2f_mul2(struct TE3D_Matrix2x2f matrix, struct TE3D_Vector2f vector)
+inline TE3D_Vector2f TE3D_Matrix2x2f_mul2(TE3D_Matrix2x2f matrix, TE3D_Vector2f vector)
 {
-	struct TE3D_Vector2f result;
+	TE3D_Vector2f result;
 	result.x = vector.x * matrix.m11 + vector.y * matrix.m12;
 	result.y = vector.x * matrix.m21 + vector.y * matrix.m22;
 	return result;
 }
 
 // Multiplicates a 3x3 matrix with a 3-dimensional vector.
-inline struct TE3D_Vector3f TE3D_Matrix3x3f_mul3(struct TE3D_Matrix3x3f matrix, struct TE3D_Vector3f vector)
+inline TE3D_Vector3f TE3D_Matrix3x3f_mul3(TE3D_Matrix3x3f matrix, TE3D_Vector3f vector)
 {
-	struct TE3D_Vector3f result;
+	TE3D_Vector3f result;
 	result.x = vector.x * matrix.m11 + vector.y * matrix.m12 + vector.z * matrix.m13;
 	result.y = vector.x * matrix.m21 + vector.y * matrix.m22 + vector.z * matrix.m23;
 	result.z = vector.x * matrix.m31 + vector.y * matrix.m32 + vector.z * matrix.m33;
@@ -277,7 +277,7 @@ inline struct TE3D_Vector3f TE3D_Matrix3x3f_mul3(struct TE3D_Matrix3x3f matrix, 
 }
 
 // Multiplicates a 4x4 matrix with a 4-dimensional vector.
-inline TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, TE3D_Vector4f vector)
+inline TE3D_Vector4f TE3D_Matrix4x4f_mul4(TE3D_Matrix4x4f matrix, TE3D_Vector4f vector)
 {
 	TE3D_Vector4f result;
 	result.x = vector.x * matrix.m11 + vector.y * matrix.m12 + vector.z * matrix.m13 + vector.w * matrix.m14;
@@ -288,9 +288,9 @@ inline TE3D_Vector4f TE3D_Matrix4x4f_mul4(struct TE3D_Matrix4x4f matrix, TE3D_Ve
 }
 
 // Multiplicates a 2x2 matrix with a 2x2 matrix.
-inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_mul(struct TE3D_Matrix2x2f matrixA, struct TE3D_Matrix2x2f matrixB)
+inline TE3D_Matrix2x2f TE3D_Matrix2x2f_mul(TE3D_Matrix2x2f matrixA, TE3D_Matrix2x2f matrixB)
 {
-	struct TE3D_Matrix2x2f result;
+	TE3D_Matrix2x2f result;
 	result.m11 = matrixA.m11 * matrixB.m11 + matrixA.m12 * matrixB.m21;
 	result.m12 = matrixA.m11 * matrixB.m12 + matrixA.m12 * matrixB.m22;
 	result.m21 = matrixA.m21 * matrixB.m11 + matrixA.m22 * matrixB.m21;
@@ -299,9 +299,9 @@ inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_mul(struct TE3D_Matrix2x2f matrixA
 }
 
 // Multiplicates a 3x3 matrix with a 3x3 matrix.
-inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(struct TE3D_Matrix3x3f matrixA, struct TE3D_Matrix3x3f matrixB)
+inline TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(TE3D_Matrix3x3f matrixA, TE3D_Matrix3x3f matrixB)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = matrixA.m11 * matrixB.m11 + matrixA.m12 * matrixB.m21 + matrixA.m13 * matrixB.m31;
 	result.m12 = matrixA.m11 * matrixB.m12 + matrixA.m12 * matrixB.m22 + matrixA.m13 * matrixB.m32;
 	result.m13 = matrixA.m11 * matrixB.m13 + matrixA.m12 * matrixB.m23 + matrixA.m13 * matrixB.m33;
@@ -315,9 +315,9 @@ inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_mul(struct TE3D_Matrix3x3f matrixA
 }
 
 // Multiplicates a 3x3 matrix with a 4x4 matrix.
-inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA, struct TE3D_Matrix4x4f matrixB)
+inline TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(TE3D_Matrix4x4f matrixA, TE3D_Matrix4x4f matrixB)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = matrixA.m11 * matrixB.m11 + matrixA.m12 * matrixB.m21 + matrixA.m13 * matrixB.m31 + matrixA.m14 * matrixB.m41;
 	result.m12 = matrixA.m11 * matrixB.m12 + matrixA.m12 * matrixB.m22 + matrixA.m13 * matrixB.m32 + matrixA.m14 * matrixB.m42;
 	result.m13 = matrixA.m11 * matrixB.m13 + matrixA.m12 * matrixB.m23 + matrixA.m13 * matrixB.m33 + matrixA.m14 * matrixB.m43;
@@ -339,7 +339,7 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_mul(struct TE3D_Matrix4x4f matrixA
 
 
 // Expands a 2-dimensional vector to a 4-dimensional one.
-inline TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
+inline TE3D_Vector4f TE3D_Vector2f_ExpandTo4(TE3D_Vector2f vector)
 {
 	TE3D_Vector4f result;
 	result.x = vector.x;
@@ -350,7 +350,7 @@ inline TE3D_Vector4f TE3D_Vector2f_ExpandTo4(struct TE3D_Vector2f vector)
 }
 
 // Expands a 3-dimensional vector to a 4-dimensional one.
-inline TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
+inline TE3D_Vector4f TE3D_Vector3f_ExpandTo4(TE3D_Vector3f vector)
 {
 	TE3D_Vector4f result;
 	result.x = vector.x;
@@ -362,9 +362,9 @@ inline TE3D_Vector4f TE3D_Vector3f_ExpandTo4(struct TE3D_Vector3f vector)
 
 
 // Expands a 2x2 matrix to a 4x4 matrix.
-inline struct TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(struct TE3D_Matrix2x2f matrix)
+inline TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(TE3D_Matrix2x2f matrix)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = matrix.m11;
 	result.m12 = matrix.m12;
 	result.m13 = 0;
@@ -385,9 +385,9 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix2x2f_ExpandTo4x4(struct TE3D_Matrix2x2f
 }
 
 // Expands a 3x3 matrix to a 4x4 matrix.
-inline struct TE3D_Matrix4x4f TE3D_Matrix3x3f_ExpandTo4x4(struct TE3D_Matrix3x3f matrix)
+inline TE3D_Matrix4x4f TE3D_Matrix3x3f_ExpandTo4x4(TE3D_Matrix3x3f matrix)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = matrix.m11;
 	result.m12 = matrix.m12;
 	result.m13 = matrix.m13;
@@ -409,9 +409,9 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix3x3f_ExpandTo4x4(struct TE3D_Matrix3x3f
 
 
 // Returns a new 2x2 matrix with predefined values.
-inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_N(float m11, float m12, float m21, float m22)
+inline TE3D_Matrix2x2f TE3D_Matrix2x2f_N(float m11, float m12, float m21, float m22)
 {
-	struct TE3D_Matrix2x2f result;
+	TE3D_Matrix2x2f result;
 	result.m11 = m11;
 	result.m12 = m12;
 	result.m21 = m21;
@@ -420,9 +420,9 @@ inline struct TE3D_Matrix2x2f TE3D_Matrix2x2f_N(float m11, float m12, float m21,
 }
 
 // Returns a new 3x3 matrix with predefined values.
-inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_N(float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33)
+inline TE3D_Matrix3x3f TE3D_Matrix3x3f_N(float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = m11;
 	result.m12 = m12;
 	result.m13 = m13;
@@ -436,9 +436,9 @@ inline struct TE3D_Matrix3x3f TE3D_Matrix3x3f_N(float m11, float m12, float m13,
 }
 
 // Returns a new 4x4 matrix with predefined values.
-inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+inline TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = m11;
 	result.m12 = m12;
 	result.m13 = m13;
@@ -459,10 +459,10 @@ inline struct TE3D_Matrix4x4f TE3D_Matrix4x4f_N(float m11, float m12, float m13,
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float ratio, float nearPlane, float farPlane)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfView, float ratio, float nearPlane, float farPlane)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	
 	result.m11 = 1.0f / tan(fieldOfView * 0.5f) / ratio;
 	result.m12 = 0;
@@ -485,25 +485,25 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fie
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView, float ratio, float nearPlane, float farPlane, TE3D_Vector3f direction, TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	
 	// Translate back the vectors and rotate the camera (Z-axis: worldsup, X-Y-axis: direction).
 		
 	// Project on x-z and y-z plane to get angles.
-	struct TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
-	struct TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
-	struct TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
+	TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
+	TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
+	TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
 	
 	TE3D_Vector3f_normalize(&direction);
-	struct TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
+	TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
 	TE3D_Vector3f_normalize(&xzproj);
 	double angleY = ABS(acos((double)TE3D_Vector3f_mul(unitZ, xzproj)));
 	double angleXZ = ABS(acos((double)TE3D_Vector3f_mul(unitY, direction))); //X-Z is an axis anywhere in the X-Z plane. It's the cross-product of Y and the direction.
 	angleXZ = PI / 2 - angleXZ;
-	struct TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
+	TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
 	
 	if (direction.x < 0)
 		angleY *= -1;
@@ -538,25 +538,25 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fiel
 }
 
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView, float ratio, float nearPlane, float farPlane, struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup, struct TE3D_Vector3f offset)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView, float ratio, float nearPlane, float farPlane, TE3D_Vector3f direction, TE3D_Vector3f worldsup, TE3D_Vector3f offset)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	
 	// Translate back the vectors and rotate the camera (Z-axis: worldsup, X-Y-axis: direction).
 		
 	// Project on x-z and y-z plane to get angles.
-	struct TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
-	struct TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
-	struct TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
+	TE3D_Vector3f unitX = TE3D_Vector3f_N(1, 0, 0);
+	TE3D_Vector3f unitY = TE3D_Vector3f_N(0, 1, 0);
+	TE3D_Vector3f unitZ = TE3D_Vector3f_N(0, 0, 1);
 	
 	TE3D_Vector3f_normalize(&direction);
-	struct TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
+	TE3D_Vector3f xzproj = TE3D_Vector3f_add(TE3D_Vector3f_muls(unitX, TE3D_Vector3f_mul(direction, unitX)), TE3D_Vector3f_muls(unitZ, TE3D_Vector3f_mul(direction, unitZ)));
 	TE3D_Vector3f_normalize(&xzproj);
 	double angleY = ABS(acos((double)TE3D_Vector3f_mul(unitZ, xzproj)));
 	double angleXZ = ABS(acos((double)TE3D_Vector3f_mul(unitY, direction))); //X-Z is an axis anywhere in the X-Z plane. It's the cross-product of Y and the direction.
 	angleXZ = PI / 2 - angleXZ;
-	struct TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
+	TE3D_Vector3f XZaxis = TE3D_Vector3f_cross(unitY, direction);
 	if (direction.x < 0)
 		angleY *= -1;
 	if (direction.y > 0)
@@ -590,12 +590,12 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(d
 }
 
 // Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(struct TE3D_Vector3f direction, struct TE3D_Vector3f offset, struct TE3D_Vector3f worldsup)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(TE3D_Vector3f direction, TE3D_Vector3f offset, TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	// The ortho-normal span-vectors of the direction.
-	struct TE3D_Vector3f xvec, yvec;
+	TE3D_Vector3f xvec, yvec;
 
 	// Normalize direction vector.
 	TE3D_Vector3f_normalize(&direction);
@@ -628,12 +628,12 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjectionWithOffset(st
 }
 
 // Creates a matrix that describes an orthogonal projection of 3-dimensional vectors onto a 2-dimensional plane.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(TE3D_Vector3f direction, TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	// The ortho-normal span-vectors of the direction.
-	struct TE3D_Vector3f xvec, yvec;
+	TE3D_Vector3f xvec, yvec;
 
 	// Normalize direction vector.
 	TE3D_Vector3f_normalize(&direction);
@@ -664,12 +664,12 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_OrthogonalProjection(struct TE3D_
 	
 	return result;
 }
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_Vector3f direction, struct TE3D_Vector3f worldsup)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(TE3D_Vector3f direction, TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	// The ortho-normal span-vectors of the direction.
-	struct TE3D_Vector3f xvec, yvec;
+	TE3D_Vector3f xvec, yvec;
 
 	// Normalize direction vector.
 	TE3D_Vector3f_normalize(&direction);
@@ -698,9 +698,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_OrthogonalProjection(struct TE3D_
 // shiftX: The shift of the x-component.
 // shiftY: The shift of the y-component.
 // shiftZ: The shift of the z-component.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float shiftY, float shiftZ)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float shiftY, float shiftZ)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -722,9 +722,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Translation(float shiftX, float s
 // Creates a matrix that describes a translation in 2D.
 // shiftX: The shift of the x-component.
 // shiftY: The shift of the y-component.
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float shiftY)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float shiftY)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -742,9 +742,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Translation(float shiftX, float s
 // scaleX: The scale of the x-component.
 // scaleY: The scale of the y-component.
 // scaleZ: The scale of the z-component.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY, float scaleZ)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY, float scaleZ)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = scaleX;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -763,9 +763,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Scale(float scaleX, float scaleY,
 	result.m44 = 1;
 	return result;
 }
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY, float scaleZ)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY, float scaleZ)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = scaleX;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -779,9 +779,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Scale(float scaleX, float scaleY,
 }
 
 // Creates the identity matrix.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
+TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -800,9 +800,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Identity()
 	result.m44 = 1;
 	return result;
 }
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
+TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -814,9 +814,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Identity()
 	result.m33 = 1;
 	return result;
 }
-struct TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
+TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
 {
-	struct TE3D_Matrix2x2f result;
+	TE3D_Matrix2x2f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m21 = 0;
@@ -825,11 +825,11 @@ struct TE3D_Matrix2x2f TE3D_Transformation2x2f_Identity()
 }
 
 // Creates a rotation matrix for any axis.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(struct TE3D_Vector3f axis, struct TE3D_Vector3f offset, double angle)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(TE3D_Vector3f axis, TE3D_Vector3f offset, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 	
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -850,11 +850,11 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_Rotate(struct TE3D_Vector3f axis,
 }
 
 // Create a rotation matrix for any axis through the origin.
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(struct TE3D_Vector3f axis, double angle)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(TE3D_Vector3f axis, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -875,9 +875,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateOrigin(struct TE3D_Vector3f
 }
 
 // Creates a rotation matrix (for x-axis rotation).
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -898,9 +898,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateX(double angle)
 }
 
 // Creates a rotation matrix (for y-axis rotation).
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = (float)sin(angle);
@@ -921,9 +921,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateY(double angle)
 }
 
 // Creates a rotation matrix (for z-axis rotation).
-struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
+TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
 {
-	struct TE3D_Matrix4x4f result;
+	TE3D_Matrix4x4f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m13 = 0;
@@ -944,9 +944,9 @@ struct TE3D_Matrix4x4f TE3D_Transformation4x4f_RotateZ(double angle)
 }
 
 // Creates a rotation matrix (for x-axis rotation).
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = 1;
 	result.m12 = 0;
 	result.m13 = 0;
@@ -959,9 +959,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateX(double angle)
 	return result;
 }
 // Creates a rotation matrix (for y-axis rotation).
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = (float)sin(angle);
@@ -974,9 +974,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateY(double angle)
 	return result;
 }
 // Creates a rotation matrix (for z-axis rotation).
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
 {
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m13 = 0;
@@ -989,11 +989,11 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateZ(double angle)
 	return result;	
 }
 // Creates a rotation matrix (for z-axis rotation).
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(struct TE3D_Vector3f axis, double angle)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(TE3D_Vector3f axis, double angle)
 {
 	TE3D_Vector3f_normalize(&axis);
 	
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = axis.x * axis.x * (1 - (float)cos(angle)) + (float)cos(angle);
 	result.m12 = axis.x * axis.y * (1 - (float)cos(angle)) - axis.z * (float)sin(angle);
 	result.m13 = axis.x * axis.z * (1 - (float)cos(angle)) + axis.y * (float)sin(angle);
@@ -1007,9 +1007,9 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_RotateOrigin(struct TE3D_Vector3f
 }
 
 // Creates a rotation matrix in 2D-space for any axis through the origin.
-struct TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
+TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 {	
-	struct TE3D_Matrix2x2f result;
+	TE3D_Matrix2x2f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = -(float)sin(angle);
 	result.m21 = (float)sin(angle);
@@ -1022,10 +1022,10 @@ struct TE3D_Matrix2x2f TE3D_Transformation2x2f_RotateOrigin(double angle)
 // Creates a rotation matrix in 2D-space for any axis.
 // offset: The offset of the rotation axis.
 // angle: The angle.
-struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offset, double angle)
+TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(TE3D_Vector3f offset, double angle)
 {
 
-	struct TE3D_Matrix3x3f result;
+	TE3D_Matrix3x3f result;
 	result.m11 = (float)cos(angle);
 	result.m12 = 0;
 	result.m13 = offset.x * (-(float)cos(angle) * offset.x + (float)sin(angle) * offset.y);

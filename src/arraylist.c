@@ -25,9 +25,9 @@
 #include <string.h>
 
 // Creates and sets up a new array list.
-struct ArrayList ArrayList_New(size_t typesize)
+ArrayList ArrayList_New(size_t typesize)
 {
-	struct ArrayList result;
+	ArrayList result;
 	
 	result.typesize = typesize;
 	result.count = 0;
@@ -38,14 +38,14 @@ struct ArrayList ArrayList_New(size_t typesize)
 }
 
 // Safely releases the list.
-void ArrayList_Release(struct ArrayList* list)
+void ArrayList_Release(ArrayList* list)
 {
 	// Only free memory.
 	free(list->items);
 }
 
 // Clears all items from the stack.
-void ArrayList_Clear(struct ArrayList* list)
+void ArrayList_Clear(ArrayList* list)
 {
 	// Reallocate memory and reset count.
 	list->items = realloc(list->items, list->typesize);
@@ -53,7 +53,7 @@ void ArrayList_Clear(struct ArrayList* list)
 }
 
 // Adds an item at the end of the list.
-void* ArrayList_Add(struct ArrayList* list, void* item)
+void* ArrayList_Add(ArrayList* list, void* item)
 {
 	// Realloc and copy.
 	list->count++;
@@ -63,7 +63,7 @@ void* ArrayList_Add(struct ArrayList* list, void* item)
 }
 
 // Adds a range of items at the end of the list.
-void* ArrayList_AddRange(struct ArrayList* list, void* items, int itemscount)
+void* ArrayList_AddRange(ArrayList* list, void* items, int itemscount)
 {
 	if (itemscount <= 0)
 		return NULL;
@@ -75,7 +75,7 @@ void* ArrayList_AddRange(struct ArrayList* list, void* items, int itemscount)
 }
 
 // Inserts an item at the specified index.
-void* ArrayList_Insert(struct ArrayList* list, void* item, int index)
+void* ArrayList_Insert(ArrayList* list, void* item, int index)
 {
 	// If index out of range, exit.
 	if (index < 0 || index >= list->count)
@@ -90,7 +90,7 @@ void* ArrayList_Insert(struct ArrayList* list, void* item, int index)
 }
 
 // Inserts a range of items at the specified index.
-void* ArrayList_InsertRange(struct ArrayList* list, void* items, int itemscount, int index)
+void* ArrayList_InsertRange(ArrayList* list, void* items, int itemscount, int index)
 {
 	// If index out of range, exit.
 	if (index < 0 || index >= list->count || itemscount <= 0)
@@ -105,7 +105,7 @@ void* ArrayList_InsertRange(struct ArrayList* list, void* items, int itemscount,
 }
 
 // Removes the first item found.
-bool ArrayList_Remove(struct ArrayList* list, void* item)
+bool ArrayList_Remove(ArrayList* list, void* item)
 {
 	// Search, remove with copy-back.
 	for(int i = 0; i < list->count; i++)
@@ -128,7 +128,7 @@ bool ArrayList_Remove(struct ArrayList* list, void* item)
 }
 
 // Removes an item at the specified index.
-bool ArrayList_RemoveAt(struct ArrayList* list, int index)
+bool ArrayList_RemoveAt(ArrayList* list, int index)
 {
 	// If index out of range, exit.
 	if (index < 0 || index >= list->count)
@@ -146,7 +146,7 @@ bool ArrayList_RemoveAt(struct ArrayList* list, int index)
 }
 
 // Removes the given number of elements in the list at the specified index.
-bool ArrayList_RemoveRangeAt(struct ArrayList* list, int index, int count)
+bool ArrayList_RemoveRangeAt(ArrayList* list, int index, int count)
 {
 	// If index out of range, exit.
 	if (index < 0 || index + count > list->count || count <= 0)
@@ -164,13 +164,13 @@ bool ArrayList_RemoveRangeAt(struct ArrayList* list, int index, int count)
 }
 
 // Returns the item at the specified index.
-void* ArrayList_At(struct ArrayList* list, int index)
+void* ArrayList_At(ArrayList* list, int index)
 {
 	return (char*)list->items + list->typesize * index;
 }
 
 // Returns the index of the first specified item found.
-int ArrayList_Find(struct ArrayList* list, void* item)
+int ArrayList_Find(ArrayList* list, void* item)
 {
 	for (int i = 0; i < list->count; i++)
 	{
@@ -185,7 +185,7 @@ int ArrayList_Find(struct ArrayList* list, void* item)
 }
 
 // Returns the index of the first specified range found.
-int ArrayList_FindRange(struct ArrayList* list, void* items, int itemscount)
+int ArrayList_FindRange(ArrayList* list, void* items, int itemscount)
 {
 	for (int i = 0; i < list->count; i++)
 	{

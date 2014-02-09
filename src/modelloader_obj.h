@@ -33,7 +33,8 @@
 //		   Note: If TE3D_VECTORFORMAT_PIXELS or TE3D_VECTORFORMAT_LINES is specified, the faces of the wavefront file are automatically converted.
 // vectorscount: The number of vertices loaded.
 // indicescount: The number of indices loaded. When TE3D_VECTORFORMAT_PIXELS is specified, this parameter should be NULL.
-struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vectorscount, int* indicescount);
+List LoadWavefront(FILE* file, TE3D_VectorFormat format,
+				   int* vectorscount, int* indicescount);
 
 // Loads a Wavefront OBJ from file.
 // path: The path of the file.
@@ -41,4 +42,5 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 //		   Note: If TE3D_VECTORFORMAT_PIXELS or TE3D_VECTORFORMAT_LINES is specified, the faces of the wavefront file are automatically converted.
 // vectorscount: The number of vertices loaded.
 // indicescount: The number of indices loaded. When TE3D_VECTORFORMAT_PIXELS is specified, this parameter should be NULL.
-struct List LoadWavefrontFromFile(char* path, enum TE3D_VectorFormat format, int* vectorscount, int* indicescount);
+List LoadWavefrontFromFile(char* path, TE3D_VectorFormat format,
+						   int* vectorscount, int* indicescount);

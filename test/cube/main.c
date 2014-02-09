@@ -19,16 +19,16 @@
 int main()
 {
 	// Initialize the pipeline.
-	struct TE3D_Pipeline pipe = TE3D_InitializePipeline(OUTPUT_WIDTH, OUTPUT_HEIGHT);
+	TE3D_Pipeline pipe = TE3D_InitializePipeline(OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
 	// Change the vector-format, because we want to render points. The default vector format on initialization is TRIANGLES.
 	TE3D_Pipeline_ChangeVectorFormat(&pipe, TE3D_VECTORFORMAT_POINTS);
 
 	// Construct the cube.
-	struct TE3D_Model4f cube = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
-	struct TE3D_Model4f cube2 = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
+	TE3D_Model4f cube = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
+	TE3D_Model4f cube2 = TE3D_Model4f_New(TE3D_VECTORFORMAT_POINTS);
 	
-	struct TE3D_Vector4f cubeverts[] = {TE3D_Vector4f_N(0,0,0,1),		// Bottom border
+	TE3D_Vector4f cubeverts[] = {TE3D_Vector4f_N(0,0,0,1),		// Bottom border
 										
 										TE3D_Vector4f_N(2,0,0,1),
 										TE3D_Vector4f_N(4,0,0,1),
@@ -104,8 +104,8 @@ int main()
 	ArrayList_AddRange(&cube2.Vectors, cubeverts, 56);
 	
 	// Add colors for each vertex.
-	enum ConsoleColor vertcolor = CONSOLECOLOR_WHITE;
-	enum ConsoleColor vertcolor2 = CONSOLECOLOR_CYAN;
+	ConsoleColor vertcolor = CONSOLECOLOR_WHITE;
+	ConsoleColor vertcolor2 = CONSOLECOLOR_CYAN;
 	for (int i = 0; i < cube.Vectors.count; i++)
 	{
 		ArrayList_Add(&cube.Colors, &vertcolor);

@@ -31,12 +31,12 @@
 
 // The allocator routine.
 // header: Returns a reference to the header of the newly created memory block.
-void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
+void Allocator(List* list, ListMemoryBlockHeader** header)
 {
-	struct ListMemoryBlockHeader* block;
-	block = (struct ListMemoryBlockHeader*)malloc(sizeof(struct ListMemoryBlockHeader) + list->typesize);
+	ListMemoryBlockHeader* block;
+	block = (ListMemoryBlockHeader*)malloc(sizeof(ListMemoryBlockHeader) + list->typesize);
 
-	// memset(block, 0, sizeof(struct ListMemoryBlockHeader));
+	// memset(block, 0, sizeof(ListMemoryBlockHeader));
 
 	// If there are no memory blocks in the list, set the initial first and last pointers.
 	if (list->count == 0)
@@ -53,7 +53,7 @@ void Allocator(struct List* list, struct ListMemoryBlockHeader** header)
 
 // The release routine.
 // addr: The address of the memory block to release.
-void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
+void Releasor(List* list, ListMemoryBlockHeader* addr)
 {
 	// Set new pointers.
 	if (addr == list->last)
@@ -97,9 +97,9 @@ void Releasor(struct List* list, struct ListMemoryBlockHeader* addr)
 }
 
 // Creates and sets up a new list.
-struct List List_New(size_t typesize)
+List List_New(size_t typesize)
 {
-	struct List thislist;
+	List thislist;
 
 	thislist.typesize = typesize;
 	thislist.first = NULL;
@@ -112,14 +112,14 @@ struct List List_New(size_t typesize)
 }
 
 // Safely releases the list.
-void List_Release(struct List* list)
+void List_Release(List* list)
 {
 	// Only release if we have something to release.
 	if (list->count == 0)
 		return;
 
-	struct ListMemoryBlockHeader* before;
-	struct ListMemoryBlockHeader* next = list->first;
+	ListMemoryBlockHeader* before;
+	ListMemoryBlockHeader* next = list->first;
 	for(int i = 0; i < list->count; i++)
 	{
 		before = next;
@@ -130,9 +130,9 @@ void List_Release(struct List* list)
 }
 
 // Adds an item at the end of the list.
-void* List_Add(struct List* list, void* item)
+void* List_Add(List* list, void* item)
 {
-	struct ListMemoryBlockHeader* header;
+	ListMemoryBlockHeader* header;
 	Allocator(list, &header);
 
 	// Copy to the newly created memory block after the header.
@@ -152,20 +152,20 @@ void* List_Add(struct List* list, void* item)
 }
 
 // Inserts an item at the specified index.
-void* List_Insert(struct List* list, void* item, int index)
+void* List_Insert(List* list, void* item, int index)
 {
 	// If index is out of bounds, return.
 	if (index > list->count)
 		return NULL;
 
-	struct ListMemoryBlockHeader* header;
+	ListMemoryBlockHeader* header;
 	Allocator(list, &header);
 
 	// Copy to the newly created memory memory block after the header.
 	memcpy(header + 1, item, list->typesize);
 
 	// Find the element at the specified index.
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 
 	// Handling for special cases like 0 and list->count:
 	if (index == 0 && list->count == 0)
@@ -257,13 +257,13 @@ void* List_Insert(struct List* list, void* item, int index)
 }
 
 // Removes an item at the specified index.
-bool List_RemoveAt(struct List* list, int index)
+bool List_RemoveAt(List* list, int index)
 {
 	// If index is out of bounds, return.
 	if (index >= list->count || index < 0)
 		return false;
 
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 
 	// Check whether the index is near the end, the beginning or the last found item of the list.
 	if (index < list->count - index - 1 && index < ABS(index - list->foundindex))
@@ -321,9 +321,9 @@ bool List_RemoveAt(struct List* list, int index)
 }
 
 // Removes the first item found.
-bool List_Remove(struct List* list, void* item)
+bool List_Remove(List* list, void* item)
 {
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 	element = list->first;
 
 	for(int i = 0; i < list->count; i++)
@@ -347,7 +347,7 @@ bool List_Remove(struct List* list, void* item)
 }
 
 // Removes the given number of elements in the list at the specified index.
-bool List_RemoveRangeAt(struct List* list, int index, int count)
+bool List_RemoveRangeAt(List* list, int index, int count)
 {
 	// If index with count is out of bounds, return.
 	if (index < 0 || count < 1 || index + count > list->count)
@@ -360,7 +360,7 @@ bool List_RemoveRangeAt(struct List* list, int index, int count)
 		return true;
 	}
 
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 
 	// Check whether the index is near the end, the beginning or the last found item of the list.
 	if (index < list->count - index - 1 && index < ABS(index - list->foundindex))
@@ -409,14 +409,14 @@ bool List_RemoveRangeAt(struct List* list, int index, int count)
 	}
 
 
-	struct ListMemoryBlockHeader* rangestart = element->prev;
+	ListMemoryBlockHeader* rangestart = element->prev;
 
 	// If the last item gets deleted, link the 'last'-pointer to the element before our current found, because everythin after it gets removed.
 	if (index + count == list->count)
 		list->last = rangestart;
 
 	// free() elements.
-	struct ListMemoryBlockHeader* before;
+	ListMemoryBlockHeader* before;
 	for(int i = 0; i < count; i++)
 	{
 		before = element;
@@ -449,13 +449,13 @@ bool List_RemoveRangeAt(struct List* list, int index, int count)
 }
 
 // Returns the item at the specified index.
-void* List_At(struct List* list, int index)
+void* List_At(List* list, int index)
 {
 	// If index is out of bounds, return.
 	if (index >= list->count || index < 0)
 		return NULL;
 
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 
 	// Check whether the index is near the end, the beginning or the last found item of the list.
 	if (index < list->count - index - 1 && index < ABS(index - list->foundindex))
@@ -510,9 +510,9 @@ void* List_At(struct List* list, int index)
 }
 
 // Returns the index of the first specified item found.
-int List_Find(struct List* list, void* item)
+int List_Find(List* list, void* item)
 {
-	struct ListMemoryBlockHeader* element;
+	ListMemoryBlockHeader* element;
 	element = list->first;
 
 	for(int i = 0; i < list->count; i++)
@@ -535,7 +535,7 @@ int List_Find(struct List* list, void* item)
 }
 
 // Clears all items from the list.
-void List_Clear(struct List* list)
+void List_Clear(List* list)
 {
 
 	// You can release the list and set the members to default values, like we have a new list.

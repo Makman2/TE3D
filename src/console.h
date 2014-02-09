@@ -59,40 +59,40 @@ Momentan noch vorhandene Bugs:
 #define CON_LAYER_TOP    256
 
 
-#define CONSOLECOLOR_DEFAULT (enum ConsoleColor)0
-#define CONSOLECOLOR_BLACK (enum ConsoleColor)1
-#define CONSOLECOLOR_WHITE (enum ConsoleColor)2
-#define CONSOLECOLOR_BLUE (enum ConsoleColor)3
-#define CONSOLECOLOR_GREEN (enum ConsoleColor)4
-#define CONSOLECOLOR_RED (enum ConsoleColor)5
-#define CONSOLECOLOR_YELLOW (enum ConsoleColor)6
-#define CONSOLECOLOR_CYAN (enum ConsoleColor)7
-#define CONSOLECOLOR_MAGENTA (enum ConsoleColor)8
-#define CONSOLECOLOR_PURPLE (enum ConsoleColor)9
-#define CONSOLECOLOR_DARKGRAY (enum ConsoleColor)10
-#define CONSOLECOLOR_BROWN (enum ConsoleColor)11
+#define CONSOLECOLOR_DEFAULT (ConsoleColor)0
+#define CONSOLECOLOR_BLACK (ConsoleColor)1
+#define CONSOLECOLOR_WHITE (ConsoleColor)2
+#define CONSOLECOLOR_BLUE (ConsoleColor)3
+#define CONSOLECOLOR_GREEN (ConsoleColor)4
+#define CONSOLECOLOR_RED (ConsoleColor)5
+#define CONSOLECOLOR_YELLOW (ConsoleColor)6
+#define CONSOLECOLOR_CYAN (ConsoleColor)7
+#define CONSOLECOLOR_MAGENTA (ConsoleColor)8
+#define CONSOLECOLOR_PURPLE (ConsoleColor)9
+#define CONSOLECOLOR_DARKGRAY (ConsoleColor)10
+#define CONSOLECOLOR_BROWN (ConsoleColor)11
 
 // Extended operating system specific colors for the moment not supported.
 /* FIXME commented code is not allowed
 #ifdef LINUX
-	#define CONSOLECOLOR_LIGHTBLUE (enum ConsoleColor)11
-	#define CONSOLECOLOR_LIGHTGREEN (enum ConsoleColor)12
-	#define CONSOLECOLOR_LIGHTCYAN (enum ConsoleColor)13
-	#define CONSOLECOLOR_LIGHTRED (enum ConsoleColor)14
-	#define CONSOLECOLOR_LIGHTPURPLE (enum ConsoleColor)15
+	#define CONSOLECOLOR_LIGHTBLUE (ConsoleColor)11
+	#define CONSOLECOLOR_LIGHTGREEN (ConsoleColor)12
+	#define CONSOLECOLOR_LIGHTCYAN (ConsoleColor)13
+	#define CONSOLECOLOR_LIGHTRED (ConsoleColor)14
+	#define CONSOLECOLOR_LIGHTPURPLE (ConsoleColor)15
 #endif
 #ifdef WIN32
-	#define CONSOLECOLOR_DARKBLUE (enum ConsoleColor)11
-	#define CONSOLECOLOR_DARKGREEN (enum ConsoleColor)12
-	#define CONSOLECOLOR_BLUEGREEN (enum ConsoleColor)13
-	#define CONSOLECOLOR_DARKRED (enum ConsoleColor)14
+	#define CONSOLECOLOR_DARKBLUE (ConsoleColor)11
+	#define CONSOLECOLOR_DARKGREEN (ConsoleColor)12
+	#define CONSOLECOLOR_BLUEGREEN (ConsoleColor)13
+	#define CONSOLECOLOR_DARKRED (ConsoleColor)14
 #endif
 */
 
 
 //Colors for the Console
-enum ConsoleColor{
-
+typedef enum
+{
 	// Available for all operating systems.
 	Default  = 0,
 	Black = 1,
@@ -125,7 +125,7 @@ enum ConsoleColor{
 	DarkRed = 15
 #endif
 */
-};
+} ConsoleColor;
 
 /// Writes a char to the underlying stream.
 /// @param[in] chr Character to write to the Console
@@ -148,7 +148,7 @@ int TE3D_Console_SetPosition(int x, int y);
 /// Sets the color of the following terminal chars that are printed out.
 ///@param[in] fg Forgroundcolor
 ///@param[in] fg Backroundcolor
-int TE3D_Console_SetCurrentColor(enum ConsoleColor fg,enum ConsoleColor bg);
+int TE3D_Console_SetCurrentColor(ConsoleColor fg,ConsoleColor bg);
 
 /// Moves the cursor of the console.
 /// @param[in] x The x-steps to move.

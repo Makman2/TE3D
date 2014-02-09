@@ -29,14 +29,14 @@
 #define IS_CHAR_NUMERIC(expr) ((expr) == '-' || ((expr) >= '0' && (expr) <= '9'))
 
 // Loads a Wavefront OBJ from stream.
-struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vectorscount, int* indicescount)
+List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int* indicescount)
 {
-	struct List modellist = List_New(sizeof(struct TE3D_Model4f));
+	List modellist = List_New(sizeof(TE3D_Model4f));
 	
 	char prefix = 0;
 	char name[50];
 
-	struct TE3D_Model4f model;
+	TE3D_Model4f model;
 	TE3D_Vector4f vector;
 
 	bool modelcreated = false;
@@ -83,7 +83,7 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 		}
 		else if (prefix == 'v')
 		{
-			enum ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
+			ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
 			
 			// Vector
 			fscanf(file, "%f %f %f", &vector.x, &vector.y, &vector.z);
@@ -117,8 +117,8 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 			
 				case TE3D_VECTORFORMAT_LINES:
 				{	
-					enum ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
-					struct TE3D_VectorIndex2 indexitem;
+					ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
+					TE3D_VectorIndex2 indexitem;
 					int facecount = 0;
 					int firstindex;
 
@@ -204,7 +204,7 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 }
 
 // Loads a Wavefront OBJ from file.
-struct List LoadWavefrontFromFile(char* path, enum TE3D_VectorFormat format, int* vectorscount, int* indicescount)
+List LoadWavefrontFromFile(char* path, TE3D_VectorFormat format, int* vectorscount, int* indicescount)
 {
 	FILE* file = fopen(path, "r");
 	return LoadWavefront(file, format, vectorscount, indicescount);

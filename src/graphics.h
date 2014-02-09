@@ -29,7 +29,7 @@
 
 
 /// Describes a color with red, green and blue components.
-struct TE3D_Color
+typedef struct
 {
 	/// The red portion of the color.
 	char R;
@@ -37,52 +37,52 @@ struct TE3D_Color
 	char G;
 	/// The blue portion of the color.
 	char B;
-};
+} TE3D_Color;
 
 // Describes a colorized char.
-struct TE3D_ColorChar
+typedef struct
 {
 	/// The char.
 	char Char;
 	/// The color of the char.
-	enum ConsoleColor Color;
-};
+	ConsoleColor Color;
+} TE3D_ColorChar;
 
 /// Describes a surface of colorized chars.
-struct TE3D_Surface
+typedef struct
 {
 	/// A pointer to the array of colorized chars.
-	struct TE3D_ColorChar* Pixels; 
+	TE3D_ColorChar* Pixels; 
 	/// The background of the surface.
-	enum ConsoleColor Background;
+	ConsoleColor Background;
 	/// The width and height of the surface.
 	int Width;
 	int Height;
 	/// The stride of the surface.
 	int Stride;
-};
+} TE3D_Surface;
 
 ///Describes a colored Pixel
 ///(Depreacted)
-struct TE3D_Pixel{
+typedef struct
+{
 	///Red
 	int r;
 	///Green
 	int g;
 	///Blue
 	int b;
-
-};
+} TE3D_Pixel;
 
 
 /// Creates a char surface.
 /// @param[in] width The width of the surface.
 /// @param[in] height The height of the Surface.
-struct TE3D_Surface TE3D_CreateSurface(int width, int height);
+TE3D_Surface TE3D_CreateSurface(int width, int height);
 
 /// Releases a char surface.
-void TE3D_ReleaseSurface(struct TE3D_Surface* surface);
+void TE3D_ReleaseSurface(TE3D_Surface* surface);
 
 /// Clears the surface with the given value.
 /// @param[in] val The colorized char to clear buffer with.
-void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val);
+void TE3D_ClearSurface(TE3D_Surface* surface, TE3D_ColorChar val);

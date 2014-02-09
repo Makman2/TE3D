@@ -22,16 +22,16 @@
 #include "graphics.h"
 
 // Creates a char surface.
-struct TE3D_Surface TE3D_CreateSurface(int width, int height)
+TE3D_Surface TE3D_CreateSurface(int width, int height)
 {
 	// Initialize surface.
-	struct TE3D_Surface surface;
+	TE3D_Surface surface;
 	surface.Width = width;
 	surface.Height = height;
-	surface.Stride = sizeof(struct TE3D_ColorChar) * width;
+	surface.Stride = sizeof(TE3D_ColorChar) * width;
 	
-	surface.Pixels = (struct TE3D_ColorChar*)malloc(sizeof(struct TE3D_ColorChar) * width * height);
-	memset(surface.Pixels, 0, sizeof(struct TE3D_ColorChar) * width * height);
+	surface.Pixels = (TE3D_ColorChar*)malloc(sizeof(TE3D_ColorChar) * width * height);
+	memset(surface.Pixels, 0, sizeof(TE3D_ColorChar) * width * height);
 	
 	surface.Background = CONSOLECOLOR_DEFAULT;
 
@@ -39,7 +39,7 @@ struct TE3D_Surface TE3D_CreateSurface(int width, int height)
 }
 
 // Releases a char surface.
-void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
+void TE3D_ReleaseSurface(TE3D_Surface* surface)
 {
 	free(surface->Pixels);
 	
@@ -52,7 +52,7 @@ void TE3D_ReleaseSurface(struct TE3D_Surface* surface)
 }
 
 // Clears the surface with the given value.
-void TE3D_ClearSurface(struct TE3D_Surface* surface, struct TE3D_ColorChar val)
+void TE3D_ClearSurface(TE3D_Surface* surface, TE3D_ColorChar val)
 {
 	for (int i = 0; i < surface->Width * surface->Height; i++)
 	{

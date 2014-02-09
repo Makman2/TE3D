@@ -30,7 +30,7 @@
 #define MAX(x,y) (x > y ? x : y)
 #define PI 3.1415926535897932384626433832795f
 
-
+// FIXME commented code is not allowed
 /*
 static void memsetd(double* dst, double value, int count)
 {
@@ -54,7 +54,9 @@ static void memsetf(float* dst, float value, int count)
 
 
 // Converts vectors to an ASCII-art-representation and writes them to the target TE3D_Surface.
-bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, struct TE3D_Surface* target, enum TE3D_VectorFormat format, void* indices, float* zBuffer, float clipnear, float clipfar, enum ConsoleColor* colormap)
+bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, TE3D_Surface* target,
+						TE3D_VectorFormat format, void* indices, float* zBuffer,
+						float clipnear, float clipfar, ConsoleColor* colormap)
 {
 	// If z-Buffer is NULL, create own one.
 	if (!zBuffer)
@@ -109,19 +111,19 @@ bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, struct TE3D_Surface* 
 				char char45;
 								
 				// The steps to go in x- and y-direction after processing a pixel.
-				int xstep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x ? 1 : -1;
-				int ystep = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y < vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y ? 1 : -1;
+				int xstep = vectors[((TE3D_VectorIndex2*)indices)[i].i1].x < vectors[((TE3D_VectorIndex2*)indices)[i].i2].x ? 1 : -1;
+				int ystep = vectors[((TE3D_VectorIndex2*)indices)[i].i1].y < vectors[((TE3D_VectorIndex2*)indices)[i].i2].y ? 1 : -1;
 
 				// The integer rounded coords. Instead used for the vectors because of performance reasons.
-				int coord1x = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].x);
-				int coord1y = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].y);
-				int coord2x = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].x);
-				int coord2y = (int)roundf(vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].y);
+				int coord1x = (int)roundf(vectors[((TE3D_VectorIndex2*)indices)[i].i1].x);
+				int coord1y = (int)roundf(vectors[((TE3D_VectorIndex2*)indices)[i].i1].y);
+				int coord2x = (int)roundf(vectors[((TE3D_VectorIndex2*)indices)[i].i2].x);
+				int coord2y = (int)roundf(vectors[((TE3D_VectorIndex2*)indices)[i].i2].y);
 				
 				// The z-component of the first line vector.
-				float z1 = vectors[((struct TE3D_VectorIndex2*)indices)[i].i1].z;
+				float z1 = vectors[((TE3D_VectorIndex2*)indices)[i].i1].z;
 				// The difference of the z-components from v1 and v2.
-				float dz = vectors[((struct TE3D_VectorIndex2*)indices)[i].i2].z - z1;
+				float dz = vectors[((TE3D_VectorIndex2*)indices)[i].i2].z - z1;
 				// Holds the current z-value of processed vector.
 				float cz;
 				// Holds the current line length of the processing step (needed for calculating z-buffer).

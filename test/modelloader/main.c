@@ -8,14 +8,14 @@
 int main()
 {
 	// Initialize the pipeline.
-	struct TE3D_Pipeline pipe = TE3D_InitializePipeline(OUTPUT_WIDTH, OUTPUT_HEIGHT);
+	TE3D_Pipeline pipe = TE3D_InitializePipeline(OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
 	// Change the vector-format, because we want to render points. The default vector format on initialization is TRIANGLES.
 	TE3D_Pipeline_ChangeVectorFormat(&pipe, TE3D_VECTORFORMAT_POINTS);
 
 	// Load the model.
 	int newvectors, newindices;
-	struct List inputmodels;
+	List inputmodels;
 	inputmodels = LoadWavefrontFromFile("church.obj", TE3D_VECTORFORMAT_POINTS, &newvectors, &newindices);
 		
 	for (int i = 0; i < inputmodels.count; i++)
