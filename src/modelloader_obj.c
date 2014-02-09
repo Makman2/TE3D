@@ -23,7 +23,10 @@
 
 #define WAVEFRONT_MAX_NAMELEN 50
 
-#define IS_CHAR_NUMERIC(expr) (expr == '-' || expr == '0' || expr == '1' || expr == '2' || expr == '3' || expr == '4' || expr == '5' || expr == '6' || expr == '7' || expr == '8' || expr == '9')
+// FIXME I think there is a std macro for this
+// and I think an inline function would do better - try IS_CHAR_NUMERIC(i++)
+// i will be incremented three times
+#define IS_CHAR_NUMERIC(expr) ((expr) == '-' || ((expr) >= '0' && (expr) <= '9'))
 
 // Loads a Wavefront OBJ from stream.
 struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vectorscount, int* indicescount)
@@ -32,8 +35,6 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 	
 	char prefix = 0;
 	char name[50];
-
-	enum ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
 
 	struct TE3D_Model4f model;
 	struct TE3D_Vector4f vector;
@@ -82,8 +83,9 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 		}
 		else if (prefix == 'v')
 		{
+			enum ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
+			
 			// Vector
-
 			fscanf(file, "%f %f %f", &vector.x, &vector.y, &vector.z);
 			// If we hit another 'v' a new vector starts and w defaults.
 			iseof = fscanf(file, " %c", &prefix);
@@ -100,7 +102,6 @@ struct List LoadWavefront(FILE* file, enum TE3D_VectorFormat format, int* vector
 			ArrayList_Add(&model.Vectors, &vector);
 			// and set default color, because MTL (Material Template Library) is not supported.
 			ArrayList_Add(&model.Colors, &defaultcolor);
-
 		}
 		else if (prefix == 'f')
 		{
@@ -194,5 +195,6 @@ struct List LoadWavefrontFromFile(char* path, enum TE3D_VectorFormat format, int
 {
 	FILE* file = fopen(path, "r");
 	return LoadWavefront(file, format, vectorscount, indicescount);
+	// FIXME FIXME FIXME !!! This is never executed
 	fclose(file);
 }
