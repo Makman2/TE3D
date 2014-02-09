@@ -120,15 +120,15 @@ endif
 # TODO split this up into cleanobj, cleanrelease, cleantmp, cleandoxy
 clean:
 ifneq ($(wildcard $(OBJECTDIR)/*.o),)
-	@rm $(wildcard $(OBJECTDIR)/*.o)
+	@rm -rf $(wildcard $(OBJECTDIR)/*.o)
 	@echo "Deleted object files."
 endif
 ifneq ($(wildcard $(RELEASEDIR)/$(OUTPUT)),)
-	@-rm $(RELEASEDIR)/$(OUTPUT)
+	@-rm -rf $(RELEASEDIR)/$(OUTPUT)
 	@echo "Deleted library."
 endif
 ifneq ($(wildcard *~),)
-	@-rm $(wildcard *~)
+	@-rm -rf $(wildcard *~)
 	@echo "Deleted temporary files."
 endif
 	@echo "Cleaned up."

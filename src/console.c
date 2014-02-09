@@ -92,7 +92,7 @@ int TE3D_Console_Close(){
 	TE3D_Console_ShowCursor();
 
 	// And additionally set the cursor at the end:
-	TE3D_Console_SetPosition(0, height);
+	TE3D_Console_SetPosition(0, height + 1);
 
 	TE3D_Console_FlushBuffer();
 		
