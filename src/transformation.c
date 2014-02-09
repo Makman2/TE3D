@@ -1032,7 +1032,3 @@ struct TE3D_Matrix3x3f TE3D_Transformation3x3f_Rotate(struct TE3D_Vector3f offse
 	result.m33 = 1;
 	return result;
 }
-
-
-
-

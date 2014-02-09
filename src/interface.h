@@ -60,5 +60,3 @@ extern int TE3D_Draw_Flush();
 
 
 extern int getErrorText(int errorCode);
-
-

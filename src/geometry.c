@@ -51,6 +51,4 @@ void TE3D_Geometry_ConstructCube(struct TE3D_Model4f* model, float cubesize, str
 		ArrayList_AddRange(&model->Indices, indices, sizeof(indices) / sizeof(indices[0]));
 
 	}
-
-
 }

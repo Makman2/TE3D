@@ -167,4 +167,3 @@ ifeq ($(wildcard $(RELEASEDIR)),)
 endif
 	@$(CC) $(CFLAGS_SO) $(OBJ) $(LDFLAGS)
 	@echo "Done."
-
