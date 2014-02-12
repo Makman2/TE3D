@@ -83,67 +83,68 @@ CFLAGS += -D VERSION=$(VERSION)
 CFLAGS += -o
 LDFLAGS = $(LIBS)
 
+# Colors
+GREEN      = \033[1;32m
+RED        = \033[1;31m
+YELLOW     = \033[1;33m
+BLUE       = \033[1;34m
+CYAN       = \033[1;36m
+NORMAL     = \033[0m
+
 # default target - builds the project
 default: dep build
 
 # all target - force recompilation of all units
 all: clean build
 
-build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
-	@echo "Build up to date."
+build: dep $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 
 #header: $(EXPORTHEADER)
 #	@echo "Export header up to date."
 
 dep: $(DEPENDFILE)
-	@echo "Dependencies up to date."
 
 install: build
 ifeq ($(wildcard $(INSTALLATION_PATH)),)
 	@mkdir $(INSTALLATION_PATH)
 endif
-	@printf "Copying shared library... "
+	@printf " INST: $(BLUE)Copying shared library... $(NORMAL)"
 	@cp $(RELEASEDIR)/$(OUTPUT_FULLNAME) $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
 	@chmod 0755 $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
-	@echo "Done."
-	@printf "Configuring link... "
+	@printf "$(GREEN)Done.$(NORMAL)\n"
+	@printf " INST: $(BLUE)Configuring link... $(NORMAL)"
 	@ldconfig -l $(INSTALLATION_PATH)/$(OUTPUT_FULLNAME)
-	@echo "Done."
+	@printf "$(GREEN)Done.$(NORMAL)\n"
 ifeq ($(wildcard $(INSTALLATION_PATH_HEADER)),)
 	@mkdir $(INSTALLATION_PATH_HEADER)
 endif
-	@printf "Installing headers... "
+	@printf " INST: $(BLUE)Installing headers... $(NORMAL)"
 	@$(foreach header,$(wildcard *.h),cp $(header) $(INSTALLATION_PATH_HEADER)/$(header);chmod 0755 $(INSTALLATION_PATH_HEADER)/$(header);)
-	@echo "Done."
+	@printf "$(GREEN)Done.$(NORMAL)\n"
 
 
 # TODO split this up into cleanobj, cleanrelease, cleantmp, cleandoxy
 clean:
-ifneq ($(wildcard $(OBJECTDIR)/*.o),)
+	@printf " RM  : $(RED)Removing object files...$(NORMAL)"
 	@rm -rf $(wildcard $(OBJECTDIR)/*.o)
-	@echo "Deleted object files."
-endif
-ifneq ($(wildcard $(RELEASEDIR)/$(OUTPUT)),)
-	@-rm -rf $(RELEASEDIR)/$(OUTPUT)
-	@echo "Deleted library."
-endif
-ifneq ($(wildcard *~),)
-	@-rm -rf $(wildcard *~)
-	@echo "Deleted temporary files."
-endif
-	@echo "Cleaned up."
+	@printf " $(GREEN)Done.$(NORMAL)\n"
+	@printf " RM  : $(RED)Removing library...$(NORMAL)"
+	@-rm -rf $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+	@printf " $(GREEN)Done.$(NORMAL)\n"
+	@printf " RM  : $(RED)Removing temporary files...$(NORMAL)"
+	@-rm -rf $(wildcard *~) $(DEPENDFILE)
+	@printf " $(GREEN)Done.$(NORMAL)\n"
+	@printf " RM  : $(GREEN)Cleaned up.$(NORMAL)\n"
 
 codecheck:
+	@printf " DOC : $(CYAN)Invoking codechecker... $(NORMAL)"
 	@ cd ../build-helper/codechecker/ && ./codeChecker.py
+	@printf " DOC : $(GREEN)Done.$(NORMAL)\n"
 
 doxy:
+	@printf " DOXY: $(CYAN)Invoking doxygen... $(NORMAL)\n"
 	@ cd ../doc && doxygen Doxyfile
-
-
-
-#$(EXPORTHEADER): $(HEAD)
-#	@echo "" >> $(EXPORTHEADER)
-#	gcc -E
+	@printf " DOXY: $(GREEN)Done.$(NORMAL)\n"
 
 $(DEPENDFILE): $(SRC)
 ifeq ($(wildcard $(OBJECTDIR)/),)
@@ -152,18 +153,18 @@ endif
 ifneq ($(wildcard $(DEPENDFILE)/),)
 	@rm $(DEPENDFILE)
 endif
-	# FIXME this line is far too long!
-	@printf "Reading and updating dependencies... "
-	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf "Compiling $$(notdir $$@)... "' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@echo "Done."' >> $(DEPENDFILE);)
-	@echo "Done."
+	@# FIXME this line is far too long!
+	@printf " DEP : $(CYAN)Reading and updating dependencies... $(NORMAL)"
+	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf " CC  : $(YELLOW)Compiling $$(notdir $$@)... $(NORMAL)"' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@printf "$(GREEN)Done.$(NORMAL)\n"' >> $(DEPENDFILE);)
+	@printf "$(GREEN)Done.$(NORMAL)\n"
 
 
 -include $(DEPENDFILE)
 	
 $(RELEASEDIR)/$(OUTPUT_FULLNAME): $(OBJ)
-	@printf "Creating shared object... "
+	@printf " SO  : $(BLUE)Creating shared object... $(NORMAL)"
 ifeq ($(wildcard $(RELEASEDIR)),)
 	@mkdir $(RELEASEDIR)
 endif
 	@$(CC) $(CFLAGS_SO) $(OBJ) $(LDFLAGS)
-	@echo "Done."
+	@printf "$(GREEN)Done.$(NORMAL)\n"
