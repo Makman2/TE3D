@@ -41,7 +41,6 @@ OUTPUT_FULLNAME = $(strip $(OUTPUT)).$(strip $(VERSION))
 CC = gcc
 CFLAGS = -std=c99 -pedantic -Wall -Wextra -fpic -c -g
 CFLAGS_SO = -shared -Wl,-soname,$(OUTPUT) -g -o $(RELEASEDIR)/$(OUTPUT_FULLNAME)
-DEPENDFILE = $(OBJECTDIR)/.depend
 INSTALLATION_PATH = /usr/lib
 INSTALLATION_PATH_HEADER = /usr/include
 
@@ -80,7 +79,6 @@ ifneq ($(CPU),)
 	CFLAGS += -D $(CPU)
 endif
 CFLAGS += -D VERSION=$(VERSION)
-CFLAGS += -o
 LDFLAGS = $(LIBS)
 
 # Colors
@@ -92,17 +90,15 @@ CYAN       = \033[1;36m
 NORMAL     = \033[0m
 
 # default target - builds the project
-default: dep build
+default: build
 
 # all target - force recompilation of all units
 all: clean build
 
-build: dep $(RELEASEDIR)/$(OUTPUT_FULLNAME)
+build: $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 
 #header: $(EXPORTHEADER)
 #	@echo "Export header up to date."
-
-dep: $(DEPENDFILE)
 
 install: build
 ifeq ($(wildcard $(INSTALLATION_PATH)),)
@@ -132,7 +128,7 @@ clean:
 	@-rm -rf $(RELEASEDIR)/$(OUTPUT_FULLNAME)
 	@printf " $(GREEN)Done.$(NORMAL)\n"
 	@printf " RM  : $(RED)Removing temporary files...$(NORMAL)"
-	@-rm -rf $(wildcard *~) $(DEPENDFILE)
+	@-rm -rf $(wildcard *~)
 	@printf " $(GREEN)Done.$(NORMAL)\n"
 	@printf " RM  : $(GREEN)Cleaned up.$(NORMAL)\n"
 
@@ -146,21 +142,11 @@ doxy:
 	@ cd ../doc && doxygen Doxyfile
 	@printf " DOXY: $(GREEN)Done.$(NORMAL)\n"
 
-$(DEPENDFILE): $(SRC)
-ifeq ($(wildcard $(OBJECTDIR)/),)
-	@mkdir $(OBJECTDIR)
-endif
-ifneq ($(wildcard $(DEPENDFILE)/),)
-	@rm $(DEPENDFILE)
-endif
-	@# FIXME this line is far too long!
-	@printf " DEP : $(CYAN)Reading and updating dependencies... $(NORMAL)"
-	@$(foreach src,$(SRC),printf '$$(OBJECTDIR)/' >> $(DEPENDFILE);$(CC) -MM $(src) >> $(DEPENDFILE);echo '	@printf " CC  : $(YELLOW)Compiling $$(notdir $$@)... $(NORMAL)"' >> $(DEPENDFILE);echo '	@$$(CC) $$(CFLAGS) $$@ $$(filter %.c,$$^) $$(LDFLAGS)' >> $(DEPENDFILE);echo '	@printf "$(GREEN)Done.$(NORMAL)\n"' >> $(DEPENDFILE);)
-	@printf "$(GREEN)Done.$(NORMAL)\n"
+$(OBJECTDIR)/%.o: %.c
+	@printf " CC  : $(YELLOW)Compiling $@ from $<...$(NORMAL)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
+	@printf " $(GREEN)Done.$(NORMAL)\n"
 
-
--include $(DEPENDFILE)
-	
 $(RELEASEDIR)/$(OUTPUT_FULLNAME): $(OBJ)
 	@printf " SO  : $(BLUE)Creating shared object... $(NORMAL)"
 ifeq ($(wildcard $(RELEASEDIR)),)
