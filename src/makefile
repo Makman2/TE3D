@@ -31,6 +31,7 @@ RELEASEDIR = release
 SRC = $(wildcard *.c)
 HEAD = $(wildcard *.h)
 OBJ = $(patsubst %.c,$(OBJECTDIR)/%.o,$(SRC))
+DEPS := $(OBJ:.o=.d)
 
 # Linker switches
 LIBS = -lm
@@ -118,11 +119,10 @@ endif
 	@$(foreach header,$(wildcard *.h),cp $(header) $(INSTALLATION_PATH_HEADER)/$(header);chmod 0755 $(INSTALLATION_PATH_HEADER)/$(header);)
 	@printf "$(GREEN)Done.$(NORMAL)\n"
 
-
 # TODO split this up into cleanobj, cleanrelease, cleantmp, cleandoxy
 clean:
 	@printf " RM  : $(RED)Removing object files...$(NORMAL)"
-	@rm -rf $(wildcard $(OBJECTDIR)/*.o)
+	@rm -rf $(OBJECTDIR)/
 	@printf " $(GREEN)Done.$(NORMAL)\n"
 	@printf " RM  : $(RED)Removing library...$(NORMAL)"
 	@-rm -rf $(RELEASEDIR)/$(OUTPUT_FULLNAME)
@@ -130,7 +130,6 @@ clean:
 	@printf " RM  : $(RED)Removing temporary files...$(NORMAL)"
 	@-rm -rf $(wildcard *~)
 	@printf " $(GREEN)Done.$(NORMAL)\n"
-	@printf " RM  : $(GREEN)Cleaned up.$(NORMAL)\n"
 
 codecheck:
 	@printf " DOC : $(CYAN)Invoking codechecker... $(NORMAL)"
@@ -142,7 +141,18 @@ doxy:
 	@ cd ../doc && doxygen Doxyfile
 	@printf " DOXY: $(GREEN)Done.$(NORMAL)\n"
 
-$(OBJECTDIR)/%.o: %.c
+#$(OBJECTDIR)/%.d: %.c
+#	@# Create directory if it does not exist
+#	@mkdir -p $(OBJECTDIR)
+#	@printf " CC  : $(YELLOW)Recalculating dependencies for $^...$(NORMAL)"
+#	@$(CC) $(CFLAGS) -c $< $(LDFLAGS) -MM -MF $@
+#	@printf " $(GREEN)Done.$(NORMAL)\n"
+#
+#-include $(DEPS)
+
+$(OBJECTDIR)/%.o: %.c %.h
+	@# Create directory if it does not exist
+	@mkdir -p $(OBJECTDIR)
 	@printf " CC  : $(YELLOW)Compiling $@ from $<...$(NORMAL)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
 	@printf " $(GREEN)Done.$(NORMAL)\n"

@@ -34,10 +34,8 @@ typedef struct
 {
 	/// The size of the type. Needed for memory allocation.
 	size_t typesize;
-
 	/// Number of items in this list.
 	int count;
-
 	/// A pointer to the items of the list.
 	void* items;
 } ArrayList;

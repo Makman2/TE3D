@@ -484,8 +484,14 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionZ(double fieldOfVie
 	return result;
 }
 
+// FIXME this function is not finished yet
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView, float ratio, float nearPlane, float farPlane, TE3D_Vector3f direction, TE3D_Vector3f worldsup)
+TE3D_Matrix4x4f
+TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView,
+											 __attribute__((unused))float ratio,
+											  float nearPlane, float farPlane,
+											  TE3D_Vector3f direction,
+											  TE3D_Vector3f worldsup)
 {
 	// The transformation matrix.
 	TE3D_Matrix4x4f result;
@@ -537,8 +543,12 @@ TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjection(double fieldOfView
 	return result;
 }
 
+// FIXME this function is not finished yet
 // Creates a matrix that describes a perspective projection of 3-dimensional vectors onto a 2-dimensional plane.
-TE3D_Matrix4x4f TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView, float ratio, float nearPlane, float farPlane, TE3D_Vector3f direction, TE3D_Vector3f worldsup, TE3D_Vector3f offset)
+TE3D_Matrix4x4f
+TE3D_Transformation4x4f_PerspectiveProjectionWithOffset(double fieldOfView,
+														__attribute__((unused))float ratio,
+														float nearPlane, float farPlane, TE3D_Vector3f direction, TE3D_Vector3f worldsup, TE3D_Vector3f offset)
 {
 	// The transformation matrix.
 	TE3D_Matrix4x4f result;
