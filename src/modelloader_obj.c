@@ -36,11 +36,13 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 	List modellist = List_New(sizeof(TE3D_Model4f));
 	
 	// Manage an array of strings and the corresponding files.
-	ArrayList MTLs = ArrayList_New(sizeof(char*));
-	ArrayList MTLfiles = ArrayList_New(sizeof(FILE));
+	List MTLs = List_New(sizeof(MTLMaterial));
 	
 	char prefix = 0;
 	char name[WAVEFRONT_MAX_NAMELEN + 1];
+
+	char mtlID[WAVEFRONT_MTL_MAX_ID + 1];
+	ConsoleColor mtlcolor = CONSOLECOLOR_DEFAULT;
 
 	TE3D_Model4f model;
 	TE3D_Vector4f vector;
@@ -71,17 +73,55 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 		}
 		else if (prefix == 'm')
 		{
-			fscanf(file, "%6s", name);
+			fscanf(file, "%5s", name);
 			if (strcmp(name, "tllib") == 0)
 			{
 				// MTL library import.
 				// Use 'name' as placeholder.
 				fscanf(file, "%" STRINGIZE_EXPAND(WAVEFRONT_MAX_NAMELEN) "s", name);
 				
-				// Open and import the materials.
-				fopen(name, "r");
+				// Append materials to current list.
+				List fileMTLs = LoadMTLFromFile(name);
+				for(int i = 0; i < fileMTLs.count; i++)
+				{
+					List_Add(&MTLs, List_At(&fileMTLs, i));
+				}
+				List_Release(&fileMTLs);
+			}
+		}
+		else if (prefix == 'u')
+		{
+			fscanf(file, "%5s", name);
+			if (strcmp(name, "semtl") == 0)
+			{
+				// MTL material usage.
+				fscanf(file, "%" STRINGIZE_EXPAND(WAVEFRONT_MTL_MAX_ID) "s", mtlID);
+				int index = -1;
 
-				// Open the mtl file.
+				// Search for material in current imported MTL-materials.
+				for (int i = 0; i < MTLs.count; i++)
+				{
+					if (strcmp(mtlID, ((MTLMaterial*)List_At(&MTLs, i))->ID) == 0)
+					{
+						index = i;
+						break;
+					}
+				}
+
+				if (index == -1)
+				{
+					// Material not found.
+					mtlcolor = CONSOLECOLOR_DEFAULT;
+				}
+				else
+				{
+					// Material found.
+					// Using diffuse color for console color interpolation.
+					((MTLMaterial*)List_At(&MTLs, index))->diffuse;
+					
+////// ################# MAKE HER THE COLOR CONVERTER ############### ///////////////////
+
+				}
 			}
 		}
 		else if (prefix == 'o')
@@ -104,8 +144,6 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 		}
 		else if (prefix == 'v')
 		{
-			ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
-			
 			// Vector
 			fscanf(file, "%f %f %f", &vector.x, &vector.y, &vector.z);
 			// If we hit another 'v' a new vector starts and w defaults.
@@ -124,7 +162,7 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 
 			if (format == TE3D_VECTORFORMAT_POINTS)
 				// and set default color, because MTL (Material Template Library) is not supported.
-				ArrayList_Add(&model.Colors, &defaultcolor);
+				ArrayList_Add(&model.Colors, &mtlcolor);
 		}
 		else if (prefix == 'f')
 		{
@@ -138,7 +176,6 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 			
 				case TE3D_VECTORFORMAT_LINES:
 				{	
-					ConsoleColor defaultcolor = CONSOLECOLOR_DEFAULT;
 					TE3D_VectorIndex2 indexitem;
 					int facecount = 0;
 					int firstindex;
@@ -154,7 +191,7 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 
 					
 					// Add color because now they are index-assigned, not vertex-assigned.
-					ArrayList_Add(&model.Colors, &defaultcolor);
+					ArrayList_Add(&model.Colors, &mtlcolor);
 
 					// If other face-indices follow, re-scanf.
 					while (iseof != EOF)
@@ -176,7 +213,7 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 							ArrayList_Add(&model.Indices, &indexitem);
 
 							// And add again.
-							ArrayList_Add(&model.Colors, &defaultcolor);
+							ArrayList_Add(&model.Colors, &mtlcolor);
 
 							facecount++;
 						}
@@ -221,16 +258,8 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 		*indicescount += model.Indices.count;
 	}
 
-	while (MTLs.count > 0)
-	{
-		// Delete file name...
-		free(ArrayList_At(&MTLs, MTLs.count - 1));
-		ArrayList_RemoveAt(&MTLs, MTLs.count - 1);
-		// ... and the stream.
-		fclose((FILE*)ArrayList_At(&MTLfiles, MTLfiles.count - 1));
-		ArrayList_RemoveAt(&MTLfiles, MTLfiles.count - 1);
-	}
 
+	List_Release(&MTLs);
 
 	return modellist;
 }
@@ -299,7 +328,7 @@ List LoadMTL(FILE* file)
 				// Proceed reading the material values.
 				while (iseof != EOF)
 				{
-					iseof = fscanf(file, "%5s", name);
+					iseof = fscanf(file, "%6s", name);
 					if (strcmp(name, "Ns") == 0)
 					{
 						// specular coefficient
@@ -333,18 +362,20 @@ List LoadMTL(FILE* file)
 					else if (strcmp(name, "illum") == 0)
 					{
 						// illumination mode
-						iseof = fscanf(file, "%d", &newmaterial.illum);
-						if (newmaterial.illum > 10 || newmaterial.illum < 0)
+						int illummode;
+						iseof = fscanf(file, "%d", &illummode);
+						if (illummode > 10 || illummode < 0)
 							// Invalid illumination mode, set to standard.
 							newmaterial.illum = MTLILLUMINATION_COLOR_ON_AMBIENT_OFF;
+						else
+							newmaterial.illum = (MTLIllumination)illummode;
 					}
 					else if (strcmp(name, "newmtl") == 0)
 					{
 						// No other value: add to the material list, reset cursor and goto next material.
-						List_Add(&materials, &newmaterial);
 						if (iseof != EOF)
 							fseek(file, -6, SEEK_CUR);
-						continue;
+						goto MATERIAL_END;
 					}
 					else
 					{
@@ -356,8 +387,12 @@ List LoadMTL(FILE* file)
 						}
 					}
 
+
 				}
 
+				MATERIAL_END:
+
+				List_Add(&materials, &newmaterial);
 			}
 		}
 
