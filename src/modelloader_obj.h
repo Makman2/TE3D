@@ -26,6 +26,7 @@
 #include "list.h"
 
 #include <stdio.h>
+#include <math.h>
 
 // Contains the available illumination modes for an MTL-Material.
 typedef enum

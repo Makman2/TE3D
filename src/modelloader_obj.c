@@ -30,6 +30,47 @@
 // i will be incremented three times
 #define IS_CHAR_NUMERIC(expr) ((expr) == '-' || ((expr) >= '0' && (expr) <= '9'))
 
+#define SQR(x) ((x) * (x))
+// Helper function. Snaps the given color to the nearest console color.
+// r: The red portion. Ranges from 0 to 1.
+// g: The green portion. Ranges from 0 to 1.
+// b: The blue portion. Ranges from 0 to 1.
+inline ConsoleColor SnapToConsoleColor(float r, float g, float b)
+{
+	const float colors[][3] = {{0, 0, 0}, // Black
+							   {1, 1, 1}, // White
+							   {0.0f, 0.0f, 1}, // Blue
+							   {0, 1, 0}, // Green
+							   {1, 0, 0}, // Red
+							   {1, 1, 0}, // Yellow
+							   {0, 1, 1}, // Cyan
+							   {1, 0, 1}, // Magenta
+							   {0.5, 0, 0.5}, // Purple
+							   {0.65f, 0.65f, 0.65f}, // Dark Gray,
+							   {0.65f, 0.165f, 0.165f} // Brown
+							   };
+
+	
+	int nearestindex;
+	float nearestdist = 2; // The maximum distance in the color space is sqrt(3) < 2.
+	float thisdist;
+
+	// Check the distance to each color.
+	for (int i = 0; i < sizeof(colors) / sizeof(colors[0]); i++)
+	{
+		thisdist = sqrtf(SQR(colors[i][0] - r) + SQR(colors[i][1] - g) + SQR(colors[i][2] - b));
+		if (thisdist < nearestdist)
+		{
+			// We found a color that is nearer.
+			nearestindex = i;
+			nearestdist = thisdist;
+		}
+	}
+
+	// Now return the correspondent color.
+	return (ConsoleColor)nearestindex;
+}
+
 // Loads a Wavefront OBJ from stream.
 List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int* indicescount)
 {
@@ -117,10 +158,7 @@ List LoadWavefront(FILE* file, TE3D_VectorFormat format, int* vectorscount, int*
 				{
 					// Material found.
 					// Using diffuse color for console color interpolation.
-					((MTLMaterial*)List_At(&MTLs, index))->diffuse;
-					
-////// ################# MAKE HER THE COLOR CONVERTER ############### ///////////////////
-
+					mtlcolor = SnapToConsoleColor(((MTLMaterial*)List_At(&MTLs, index))->diffuse[0], ((MTLMaterial*)List_At(&MTLs, index))->diffuse[1], ((MTLMaterial*)List_At(&MTLs, index))->diffuse[2]);				
 				}
 			}
 		}
