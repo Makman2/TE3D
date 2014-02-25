@@ -31,6 +31,7 @@
 #define IS_CHAR_NUMERIC(expr) ((expr) == '-' || ((expr) >= '0' && (expr) <= '9'))
 
 #define SQR(x) ((x) * (x))
+
 // Helper function. Snaps the given color to the nearest console color.
 // r: The red portion. Ranges from 0 to 1.
 // g: The green portion. Ranges from 0 to 1.

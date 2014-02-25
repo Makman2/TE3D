@@ -30,18 +30,6 @@
 #define MAX(x,y) (x > y ? x : y)
 #define PI 3.1415926535897932384626433832795f
 
-// FIXME commented code is not allowed
-/*
-static void memsetd(double* dst, double value, int count)
-{
-	for (int i = 0; i < count; i++)
-	{
-		(*dst) = value;
-		dst++;
-	}
-}
-*/
-
 static void memsetf(float* dst, float value, int count)
 {
 	for (int i = 0; i < count; i++)
@@ -220,9 +208,9 @@ VERTICAL_LINE:
 								// When backslash appears the moves change a bit because the underscore doesn't match the backslash in the next right field.
 								if (char45 == '\\')
 								{
-									target->Pixels[linex + (target->Height - liney) * target->Width].Char = char45;
-									target->Pixels[linex + (target->Height - liney) * target->Width].Color = colormap[i];
-									zBuffer[linex + (target->Height - liney) * target->Width] = cz;
+									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Char = char45;
+									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Color = colormap[i];
+									zBuffer[linex + (target->Height - liney - 1) * target->Width] = cz;
 								}
 								else
 								{
