@@ -56,7 +56,7 @@ inline ConsoleColor SnapToConsoleColor(float r, float g, float b)
 	float thisdist;
 
 	// Check the distance to each color.
-	for (int i = 0; i < sizeof(colors) / sizeof(colors[0]); i++)
+	for (int i = 0; i < (int)(sizeof(colors) / sizeof(colors[0])); i++)
 	{
 		thisdist = sqrtf(SQR(colors[i][0] - r) + SQR(colors[i][1] - g) + SQR(colors[i][2] - b));
 		if (thisdist < nearestdist)
