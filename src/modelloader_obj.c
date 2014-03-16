@@ -36,7 +36,7 @@
 // r: The red portion. Ranges from 0 to 1.
 // g: The green portion. Ranges from 0 to 1.
 // b: The blue portion. Ranges from 0 to 1.
-inline ConsoleColor SnapToConsoleColor(float r, float g, float b)
+ConsoleColor SnapToConsoleColor(float r, float g, float b)
 {
 	const float colors[][3] = {{0, 0, 0}, // Black
 							   {1, 1, 1}, // White

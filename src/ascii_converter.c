@@ -28,7 +28,6 @@
 #define ABS(x) (x < 0 ? -x : x)
 #define MIN(x,y) (x < y ? x : y)
 #define MAX(x,y) (x > y ? x : y)
-#define PI 3.1415926535897932384626433832795f
 
 static void memsetf(float* dst, float value, int count)
 {
@@ -47,8 +46,16 @@ bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, TE3D_Surface* target,
 						float clipnear, float clipfar, ConsoleColor* colormap)
 {
 	// If z-Buffer is NULL, create own one.
+	bool zBufferCreated;
 	if (!zBuffer)
+	{
 		zBuffer = (float*)malloc(target->Width * target->Height * sizeof(float));
+		zBufferCreated = true;
+	}
+	else
+	{
+		zBufferCreated = false;
+	}
 
 	// Clear z-buffer.
 	memsetf(zBuffer, INFINITY, target->Width * target->Height);
@@ -89,8 +96,13 @@ bool TE3D_ASCII_Convert(TE3D_Vector4f* vectors, int count, TE3D_Surface* target,
 		case TE3D_VECTORFORMAT_LINES:
 			// Line connections.
 			// If indices is NULL the function must exit.
-			if (!indices)
+			{
+				// Release z-Buffer if created.
+				if (zBufferCreated)
+					free(zBuffer);
+
 				return false;
+			}
 				
 			// Iterate over each line index.
 			for (int i = 0; i < count; i++)
@@ -208,9 +220,12 @@ VERTICAL_LINE:
 								// When backslash appears the moves change a bit because the underscore doesn't match the backslash in the next right field.
 								if (char45 == '\\')
 								{
-									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Char = char45;
-									target->Pixels[linex + (target->Height - liney - 1) * target->Width].Color = colormap[i];
-									zBuffer[linex + (target->Height - liney - 1) * target->Width] = cz;
+									if (liney + 1 < target->Height)
+									{
+										target->Pixels[linex + (target->Height - liney) * target->Width].Char = char45;
+										target->Pixels[linex + (target->Height - liney) * target->Width].Color = colormap[i];
+										zBuffer[linex + (target->Height - liney) * target->Width] = cz;
+									}
 								}
 								else
 								{
@@ -240,7 +255,88 @@ VERTICAL_LINE:
 			// Triangle connections.
 			// If indices is again NULL the function must also exit.
 			if (!indices)
+			{
+				// Release z-Buffer if created.
+				if (zBufferCreated)
+					free(zBuffer);
+
 				return false;
+			}
+
+			// To determine whether a point lays inside a triangle, we check if
+			// s > 0, t > 0, s + t <= 1 with the planar function f(s,t) = s*(a1,a2) + t*(b1,b2) + (off1,off2)
+
+			// Iterate over each triangle.
+			for (int i = 0; i < count; i++)
+			{
+				// Round coordinates.
+				int off1 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i1].x);;
+				int off2 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i1].y);;
+				int a1 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i2].x);
+				int a2 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i2].y);
+				int b1 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i3].x);
+				int b2 = (int)roundf(vectors[((TE3D_VectorIndex3*)indices)[i].i3].y);
+
+				// Get rectangular bounds of the triangle.
+				int rectBoundXL = MAX(0, MIN(off1, MIN(a1, b1)));
+				int rectBoundXR = MIN(target->Width - 1, MAX(off1, MAX(a1, b1)));
+				int rectBoundYT = MAX(0, MIN(off2, MIN(a2, b2)));
+				int rectBoundYB = MIN(target->Height - 1, MAX(off2, MAX(a2, b2)));
+
+				// Get the gradients for the current triangle.
+				a1 = a1 - off1;
+				a2 = a2 - off2;
+				b1 = b1 - off1;
+				b2 = b2 - off2;
+
+				// Get the z-values.
+				float offz = vectors[((TE3D_VectorIndex3*)indices)[i].i1].z;
+				float za = vectors[((TE3D_VectorIndex3*)indices)[i].i2].z - offz;
+				float zb = vectors[((TE3D_VectorIndex3*)indices)[i].i3].z - offz;
+
+				// Scanline the rectangular area of the triangle with the above condition.
+				for (int x = rectBoundXL; x <= rectBoundXR; x++)
+				{
+					// We need the decomposition of the current iterated vector of the triangle span vectors, to check the condition.
+					// s = (b2 * off1 - b1 * off2 - b2 * x + b1 * y) / (a2 * b1 - a1 * b2)
+					// t = (-a2 * off1 + a1 * off2 + a2 * x - a1 * y) / (a2 * b1 - a1 * b2)
+					
+					// Precompute a part of the numerator and the divisor fraction.
+					float denominator = (a2 * b1 - a1 * b2);
+					float divisor;
+					
+					if (denominator != 0)
+						divisor = 1 / denominator;
+					else
+						divisor = 0;
+
+					int preS = b2 * off1 - b1 * off2 - b2 * x;
+					int preT = -a2 * off1 + a1 * off2 + a2 * x;
+					
+					for (int y = rectBoundYT; y <= rectBoundYB; y++)
+					{
+						// Get vector decomposition.
+						float s = (preS + b1 * y) * divisor;
+						float t = (preT - a1 * y) * divisor;
+
+						// Get the z-value.
+						float cz = offz + za * s + zb * t;
+
+
+						if (s >= 0.0f && t >= 0.0f && s + t <= 1.0f &&
+							cz >= clipnear && cz <= clipfar)
+						{
+							if (zBuffer[x + (target->Height - y - 1) * target->Width] >= cz)
+							{
+								// Fill point, lays inside triangle.
+								target->Pixels[x + (target->Height - y - 1) * target->Width].Char = '#';
+								target->Pixels[x + (target->Height - y - 1) * target->Width].Color = colormap[i];
+								zBuffer[x + (target->Height - y - 1) * target->Width] = cz;
+							}
+						}				
+					}
+				}
+			}
 
 			break;
 	}
