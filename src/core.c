@@ -67,10 +67,11 @@ TE3D_Pipeline TE3D_InitializePipeline(int width, int height)
 
 	pipe.VectorOutputCapacity = STANDARD_VECTOR_OUTPUTBUFFER_SIZE;
 	pipe.VectorOutput = (TE3D_Vector4f*)malloc(STANDARD_VECTOR_OUTPUTBUFFER_SIZE);
-	pipe.VectorIndexOutput = malloc(sizeof(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE));
+	pipe.VectorIndexOutput = malloc(STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE);
 	pipe.VectorOutputCount = 0;
 	pipe.VectorIndexOutputCapacity = STANDARD_VECTOR_INDEX_OUTPUTBUFFER_SIZE;
 	pipe.VectorFormat = TE3D_VECTORFORMAT_TRIANGLES;
+	pipe.VectorIndexOutputCount = 0;
 
 	pipe.Colormap = (ConsoleColor*)malloc(STANDARD_COLORMAP_SIZE_VI3);
 
@@ -192,7 +193,7 @@ void TE3D_Pipeline_Transform(TE3D_Pipeline* pipe)
 void TE3D_Pipeline_RenderASCII(TE3D_Pipeline* pipe)
 {
 	if (pipe->VectorFormat == TE3D_VECTORFORMAT_POINTS)
-		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->ClipNear, pipe->ClipFar, pipe->Colormap);
+		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorOutputCount, &pipe->CharOutput, pipe->VectorFormat, NULL, pipe->zBuffer, pipe->ClipNear, pipe->ClipFar, pipe->Colormap);
 	else
 		TE3D_ASCII_Convert(pipe->VectorOutput, pipe->VectorIndexOutputCount, &pipe->CharOutput, pipe->VectorFormat, pipe->VectorIndexOutput, pipe->zBuffer, pipe->ClipNear, pipe->ClipFar, pipe->Colormap);
 }
@@ -346,8 +347,7 @@ void TE3D_Pipeline_SetTransformation(TE3D_Pipeline* pipe, TE3D_Matrix4x4f matrix
 }
 
 // Adds a model to the pipeline.
-void TE3D_Pipeline_AddModel(TE3D_Pipeline* pipe,
-							const TE3D_Model4f* model)
+void TE3D_Pipeline_AddModel(TE3D_Pipeline* pipe, const TE3D_Model4f* model)
 {
 	List_Add(&pipe->Models, &model);
 }
