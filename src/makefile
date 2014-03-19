@@ -29,7 +29,10 @@ OBJ = $(patsubst %.c,$(OBJECTDIR)/%.o,$(SRC))
 #DEPS := $(OBJ:.o=.d)
 
 # Configure outputs depending on build target.
-ifeq ($(MAKECMDGOALS),debug)
+ifeq ($(MAKECMDGOALS,all)
+	OBJECTDIR = release
+	RELEASEDIR = release
+else ifeq ($(MAKECMDGOALS),debug)
 	OBJECTDIR = debug
 	RELEASEDIR = debug
 else ifeq ($(MAKECMDGOALS),installdebug)
