@@ -1,9 +1,9 @@
-TE3D
-A software-based 3D terminal engine.
+###### TE3D
+#### A software-based 3D terminal engine.
 
 
 
-### What you can do and what you can't do ###
+### What you can do and what you can't do
 
 You can...
 -	present 3D-graphics.
@@ -17,21 +17,26 @@ You can't...
 
 
 
-### Installation guide ###
+### Installation guide
 
-LINUX
-	1.	Download this project archive and extract it.
+# LINUX
+1.	Download this project archive and extract it or just clone this repository locally on your computer.
+2.	Open the terminal and switch into the extracted folder.
+3.	Run:
+	sudo make install
+4.	You did it!
 
-	2.	Open the terminal and switch into the extracted folder.
+# WINDOWS
+1.	Install the Windows-SDK. You can get it from http://msdn.microsoft.com/en-us/windows/bb980924.aspx
+2.	Download this project archive and extract it or just clone this repository locally on your computer.
+3.	Run the "developer command prompt" from the Windows SDK. If you need administrator-priviliges to write into the project directory, start it as an administrator.
+4.	Run:
+	nmake install
+5.	Copy the contents from the "install"-directory where you like and reference it to your projects.
+6.	You did it!
 
-	3.	Run:
-		sudo make install
 
-	4.	You did it!
-
-
-
-### How-to-use guide ###
+### How-to-use guide
 
 Just include <TE3D.h> in your C-files.
 For a detailed list of available functions and examples, see the documentation.
@@ -43,4 +48,6 @@ methods for structs (like classes), the functions naming convention is (most tim
 prefix 'TE3D' + '_' + the belonging struct name + '_' + the 'function-name'
 
 For example:
+```C
 void TE3D_Matrix4x4f_mul(...)
+```
