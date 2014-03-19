@@ -1,0 +1,3 @@
+[submodule "build-helper/codechecker"]
+	path = build-helper/codechecker
+	url = https://bitbucket.org/sils1297/codechecker.git
