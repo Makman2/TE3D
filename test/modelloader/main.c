@@ -1,6 +1,7 @@
 #include <TE3D.h>
 
 #include <stdio.h>
+#include <time.h>
 
 #define OUTPUT_WIDTH 150
 #define OUTPUT_HEIGHT 50
@@ -16,7 +17,7 @@ int main()
 	// Load the model.
 	int newvectors, newindices;
 	List inputmodels;
-	inputmodels = LoadWavefrontFromFile("church.obj", TE3D_VECTORFORMAT_POINTS, &newvectors, &newindices);
+	inputmodels = LoadWavefrontFromFile("melon.obj", TE3D_VECTORFORMAT_POINTS, &newvectors, &newindices);
 		
 	for (int i = 0; i < inputmodels.count; i++)
 	{
@@ -29,7 +30,11 @@ int main()
 	TE3D_Pipeline_ResizeVectorIndexOutputBuffer(&pipe, newindices);
 
 	
-	for (int i = 0; i < 50; i++)
+  struct timespec sleeptime;
+  sleeptime.tv_sec = 0;
+  sleeptime.tv_nsec = 50000000L;
+
+	for (int i = 0; i < 200; i++)
 	{
 		// Set the stretch matrix. This improves the vision of the rendered scene, because the letters in the terminal are taller than wide.
 		pipe.Transformation = TE3D_Transformation4x4f_Scale(1, 0.5f, 1);
@@ -48,6 +53,8 @@ int main()
 	
 		// Render.
 		TE3D_Pipeline_Render(&pipe);
+
+		nanosleep(&sleeptime, NULL);
 	}
 
 	// Release inputmodels from the Wavefront file.

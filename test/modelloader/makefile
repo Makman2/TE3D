@@ -8,7 +8,7 @@ SRC = $(wildcard *.c)
 
 LFLAGS = -lm -lte3d
 CC = gcc
-CFLAGS = -std=c99 -pedantic -Wall -Wextra -g -D LINUX -o $(output) $(SRC) $(LFLAGS)
+CFLAGS = -pedantic -Wall -Wextra -g -D LINUX -o $(output) $(SRC) $(LFLAGS)
 
 debug:
 	@printf "Compiling (debug)... "
